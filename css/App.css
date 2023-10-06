@@ -1,0 +1,25 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.container__header, .container__footer {
+  margin-top: 40px;
+  min-width: 350px;
+  max-width: 640px;
+}
+@media screen and (min-width: 640px) {
+  .container__header, .container__footer {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 860px) {
+  .container__header, .container__footer {
+    max-width: 860px;
+  }
+}
+.container__body {
+  width: 100%;
+}/*# sourceMappingURL=App.css.map */

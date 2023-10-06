@@ -1,0 +1,11 @@
+.icon-menu {
+    font-size: 30px;
+    color: #1A1A1A;
+    transition: color 0.3s ease, transform 0.3s ease;
+    transform-origin: center;
+    cursor: pointer;
+
+    &:hover {
+        color: #FD7E14;
+    }
+}

@@ -1,0 +1,16 @@
+.progress {
+
+    &__container {
+        width: 100%;
+        height: 10px;
+        background-color: #FFC392;
+        border-radius: 4px;
+    }
+
+    &__line {
+        width: 91.67%;
+        height: 10px;
+        background-color: #FD7E14;
+        border-radius: 4px;
+    }
+}
