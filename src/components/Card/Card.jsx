@@ -44,6 +44,12 @@ export const Card = ({ czWord, word }) => {
     }
   }
 
+  const speak = () => {
+    let costWord = word;
+    let utterance = new SpeechSynthesisUtterance(costWord);
+    window.speechSynthesis.speak(utterance);
+  }
+
   return (
     <main className="card">
 
@@ -58,7 +64,7 @@ export const Card = ({ czWord, word }) => {
       <div className="card__body">
         <FaStar className={`icon-star ${isMarker ? 'mark' : ''}`} onClick={handleStarToggle} title="mark" />
 
-        <h2 className="question">{czWord} <FaVolumeUp className="icon-volume" title="sound" /></h2>
+        <h2 className="question" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="sound" /></h2>
 
         <p className="language" onClick={(showFirstLetter)}>English <FaLightbulb title="hint" /></p>
 

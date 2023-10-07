@@ -1,4 +1,4 @@
-// import React, { useState } from "react";
+import React from "react";
 import './Button.scss';
 
 export const Button = ({ text, string, length, myWord, word }) => {
