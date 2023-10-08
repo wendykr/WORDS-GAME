@@ -1,10 +1,13 @@
 import React from "react";
 import './Button.scss';
 
-export const Button = ({ text, string, length, myWord, word }) => {
+export const Button = ({ text, length, inputValue, word }) => {
 
   const handleClick = () => {
-    if (myWord.toLowerCase() === word.toLowerCase()) {
+    console.log('click');
+    console.log(inputValue);
+    console.log(word);
+    if (inputValue.toLowerCase() === word.toLowerCase()) {
       alert('TRUE');
     } else {
       alert('FALSE');
@@ -12,9 +15,9 @@ export const Button = ({ text, string, length, myWord, word }) => {
   }
 
   return (
-    <button className={`custom-button ${(length === 0 || string === '') ? 'disabled' : ''}`}
+    <button className={`button ${(length === 0 || inputValue === '') ? 'disabled' : ''}`}
             onClick={handleClick}
-            disabled={(length === 0 || string === '') ? true : false}
+            disabled={(length === 0 || inputValue === '') ? true : false}
     > {text} </button>
   );
 };

@@ -1,42 +1,36 @@
 import React, { useState, useRef } from "react";
-import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { Button } from "../Button/Button";
 import './Card.scss';
 
-import { FaLightbulb } from "react-icons/fa";
+import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 
 export const Card = ({ czWord, word }) => {
-
-  const [isMarker, setIsMarker] = useState(false);
-
-  const handleStarToggle = () => {
-    setIsMarker(prevState => !prevState);
-  };
-
-  const [myWord, isMyWord] = useState('');
-  const [wordLength, isWordLength] = useState('');
-  const [inputValue, isInputValue] = useState('');
+  const [isMarked, setIsMarked] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const inputRef = useRef(null);
 
+  const handleStarToggle = () => {
+    console.log('click');
+    setIsMarked(prevState => !prevState);
+  };
+
+
   const showFirstLetter = () => {
-    const inputValue = word.charAt(0);
-    isInputValue(inputValue);
+    const currentValue = word.charAt(0);
+    setInputValue(currentValue);
     inputRef.current.focus();
-    isWordLength(inputValue.length);
   }
 
   const changeWord = (event) => {
     const myWord = event.target.value;
-    isMyWord(myWord);
-    isWordLength(myWord.length);
-    isInputValue(myWord);
+    setInputValue(myWord);
   }
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter' && myWord.length !== 0) {
-      if (myWord.toLowerCase() === word.toLowerCase()) {
+    if (event.key === 'Enter' && inputValue.length !== 0) {
+      if (inputValue.toLowerCase() === word.toLowerCase()) {
         alert('TRUE');
       } else {
         alert('FALSE');
@@ -45,28 +39,20 @@ export const Card = ({ czWord, word }) => {
   }
 
   const speak = () => {
-    let costWord = word;
-    let utterance = new SpeechSynthesisUtterance(costWord);
+    let utterance = new SpeechSynthesisUtterance(word);
     window.speechSynthesis.speak(utterance);
   }
 
   return (
     <main className="card">
 
-      <div className="card__header">
-        <div className="card__header--progress">
-          <ProgressBar />
-        </div>
+      <div className="card__head">
+        <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
       </div>
-
-      {/* <div className="kontrolni-vypis">{myWord}</div> */}
-
       <div className="card__body">
-        <FaStar className={`icon-star ${isMarker ? 'mark' : ''}`} onClick={handleStarToggle} title="mark" />
+        <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
 
-        <h2 className="question" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="sound" /></h2>
-
-        <p className="language" onClick={(showFirstLetter)}>English <FaLightbulb title="hint" /></p>
+        <p className="hint" onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
 
         <input className="answer"
               onChange={(changeWord)}
@@ -78,9 +64,9 @@ export const Card = ({ czWord, word }) => {
         <div className="result">Result</div>
       </div>
 
-      <div className="card__footer">
-        <Button text="Check" string={inputValue} length={wordLength.length} word={word} myWord={myWord} />
-        <div className="card__footer--link">Don't know?</div>
+      <div className="card__foot">
+        <Button text="Check" length={inputValue.length} inputValue={inputValue} word={word}/>
+        <div className="card__foot--link">Don&apos;t know?</div>
       </div>
 
     </main>

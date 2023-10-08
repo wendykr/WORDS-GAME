@@ -5,6 +5,6 @@ import { IoSettingsSharp } from "react-icons/io5";
 
 export const Setting = () => {
     return (
-        <IoSettingsSharp className="icon-setting" title="setting" />
+        <IoSettingsSharp className="icon-setting" title="Setting icon" />
     );
 };

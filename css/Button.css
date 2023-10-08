@@ -1,9 +1,9 @@
-.custom-button {
+.button {
   display: block;
   width: 100%;
   padding: 10px 16px;
-  background-color: #FD7E14;
-  color: white;
+  background-color: #fd7e14;
+  color: #ffffff;
   font-weight: bold;
   text-transform: uppercase;
   border: none;
@@ -12,15 +12,15 @@
   cursor: pointer;
 }
 @media screen and (min-width: 640px) {
-  .custom-button {
+  .button {
     font-size: 20px;
     padding: 14px 24px;
   }
 }
-.custom-button:hover {
-  background-color: #FF9944;
+.button:hover {
+  background-color: #ff9944;
 }
-.custom-button.disabled {
+.button.disabled {
   background-color: #d4d4d4;
   color: #4a5568;
   cursor: auto;

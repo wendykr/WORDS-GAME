@@ -5,21 +5,25 @@
   justify-content: space-between;
   align-items: center;
 }
-.container__header, .container__footer {
+.container__head, .container__foot {
   margin-top: 40px;
   min-width: 350px;
   max-width: 640px;
 }
 @media screen and (min-width: 640px) {
-  .container__header, .container__footer {
+  .container__head, .container__foot {
     width: 100%;
   }
 }
 @media screen and (min-width: 860px) {
-  .container__header, .container__footer {
+  .container__head, .container__foot {
     max-width: 860px;
   }
 }
 .container__body {
   width: 100%;
+}
+.container__body--bar {
+  margin: 30px auto;
+  width: 80%;
 }/*# sourceMappingURL=App.css.map */

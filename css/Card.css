@@ -3,7 +3,7 @@
   padding: 40px;
   min-width: 350px;
   max-width: 640px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,31 +18,32 @@
     width: 860px;
   }
 }
-.card__header {
-  margin-bottom: 80px;
+.card__head {
+  margin-bottom: 20px;
+  margin-left: auto;
 }
 .card__body {
   display: flex;
   flex-direction: column;
 }
-.card__footer {
+.card__foot {
   margin-top: 8px;
   display: flex;
   flex-direction: column;
 }
-.card__footer--link {
+.card__foot--link {
   margin-top: 12px;
   margin-left: auto;
-  color: #1A1A1A;
+  color: #1a1a1a;
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
 }
-.card__footer--link:hover {
+.card__foot--link:hover {
   text-decoration: underline;
 }
 
-.question {
+.guess-word {
   padding: 56px 0;
   display: inline-block;
   font-size: 36px;
@@ -52,7 +53,7 @@
   cursor: pointer;
 }
 @media screen and (min-width: 640px) {
-  .question {
+  .guess-word {
     font-size: 50px;
   }
 }
@@ -68,6 +69,9 @@
   border-radius: 4px;
   outline: none;
 }
+.answer.hidden {
+  display: none;
+}
 @media screen and (min-width: 640px) {
   .answer {
     height: 50px;
@@ -82,27 +86,58 @@
   border: 2px solid #c0c0c0;
 }
 .answer.true {
-  border: 2px solid green;
+  border: 2px solid #008000;
 }
 .answer.false {
-  border: 2px solid red;
+  border: 2px solid #FF0000;
 }
 
-.language {
+.result {
+  margin-top: 8px;
+  padding: 8px;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  background-color: #ffffff;
+  border: 2px solid #c0c0c0;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  display: none;
+}
+.result.show {
+  display: block;
+}
+.result.correctly {
+  color: #008000;
+  border: 2px solid #008000;
+}
+.result.poorly {
+  color: #ff0000;
+  border: 2px solid #ff0000;
+}
+@media screen and (min-width: 640px) {
+  .result {
+    height: 50px;
+    font-size: 24px;
+  }
+}
+
+.hint {
   margin-top: 24px;
   margin-bottom: 0;
   margin-left: 0;
   margin-right: auto;
-  color: #1A1A1A;
+  color: #1a1a1a;
   text-decoration: none;
   transition: color 0.3s ease;
   cursor: pointer;
 }
-.language:hover {
+.hint:hover {
   color: #008000;
 }
 @media screen and (min-width: 640px) {
-  .language {
+  .hint {
     font-size: 20px;
   }
 }
@@ -111,21 +146,22 @@
   margin-left: auto;
   font-size: 30px;
   transition: color 0.3s ease;
-  fill: #AAAAAA;
+  fill: #aaaaaa;
   cursor: pointer;
 }
-.icon-star.mark {
-  fill: #ffcc00;
+.icon-star--marked {
+  fill: #FFCC00;
 }
 
 .icon-volume {
   font-size: 30px;
-  fill: #5481B7;
+  fill: #5481b7;
 }
 .icon-volume:hover {
   fill: #13529e;
 }
 
-.icon-bulb {
-  font-size: 20px;
+.icon-hint {
+  font-size: 24px;
+  vertical-align: bottom;
 }/*# sourceMappingURL=Card.css.map */

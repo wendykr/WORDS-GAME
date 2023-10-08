@@ -3,7 +3,7 @@
     padding: 40px;
     min-width: 350px;
     max-width: 640px;
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -16,8 +16,9 @@
         width: 860px;
     }
 
-    &__header {
-        margin-bottom: 80px;
+    &__head {
+        margin-bottom: 20px;
+        margin-left: auto;
     }
 
     &__body {
@@ -25,7 +26,7 @@
         flex-direction: column;
     }
 
-    &__footer {
+    &__foot {
         margin-top: 8px;
         display: flex;
         flex-direction: column;
@@ -33,7 +34,7 @@
         &--link {
             margin-top: 12px;
             margin-left: auto;
-            color: #1A1A1A;
+            color: #1a1a1a;
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
@@ -45,7 +46,7 @@
     }
 }
 
-.question {
+.guess-word {
     padding: 56px 0;
     display: inline-block;
     font-size: 36px;
@@ -89,11 +90,11 @@
     }
 
     &.true {
-        border: 2px solid green;
+        border: 2px solid #008000;
     }
 
     &.false {
-        border: 2px solid red;
+        border: 2px solid #FF0000;
     }
 }
 
@@ -103,7 +104,7 @@
     width: 100%;
     height: 40px;
     font-size: 16px;
-    background-color: white;
+    background-color: #ffffff;
     border: 2px solid #c0c0c0;
     border-radius: 2px;
     display: flex;
@@ -130,12 +131,12 @@
     }
 }
 
-.language {
+.hint {
     margin-top: 24px;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: auto;
-    color: #1A1A1A;
+    color: #1a1a1a;
     text-decoration: none;
     transition: color 0.3s ease;
     cursor: pointer;
@@ -153,23 +154,24 @@
     margin-left: auto;
     font-size: 30px;
     transition: color 0.3s ease;
-    fill: #AAAAAA;
+    fill: #aaaaaa;
     cursor: pointer;
 
-    &.mark {
-        fill: #ffcc00;
+    &--marked {
+        fill: #FFCC00;
     }
 }
 
 .icon-volume {
     font-size: 30px;
-    fill: #5481B7;
+    fill: #5481b7;
 
     &:hover {
         fill: #13529e;
     }
 }
 
-.icon-bulb {
-    font-size: 20px;
+.icon-hint {
+    font-size: 24px;
+    vertical-align: bottom;
 }

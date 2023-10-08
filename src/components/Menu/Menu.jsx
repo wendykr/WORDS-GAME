@@ -5,6 +5,6 @@ import { LuAlignJustify } from "react-icons/lu";
 
 export const Menu = () => {
     return (
-        <LuAlignJustify className="icon-menu" title="menu" />
+        <LuAlignJustify className="icon-menu" title="Menu icon" />
     );
 };
