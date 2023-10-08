@@ -8,6 +8,7 @@ import { wordData } from "./constants/words";
 function App() {
 
   const randomIndex = Math.floor(Math.random() * wordData.length) + 1;
+  console.log(randomIndex);
 
   return (
     <div className="container">

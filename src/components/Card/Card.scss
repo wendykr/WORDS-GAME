@@ -60,7 +60,7 @@
     }
 }
 
-.answer {
+.your-answer {
     margin-top: 8px;
     padding: 8px;
     width: 100%;
@@ -98,7 +98,7 @@
     }
 }
 
-.result {
+.answer {
     margin-top: 8px;
     padding: 8px;
     width: 100%;
@@ -106,21 +106,16 @@
     font-size: 16px;
     background-color: #ffffff;
     border: 2px solid #c0c0c0;
-    border-radius: 2px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
-    display: none;
 
-    &.show {
-        display: block;
-    }
-
-    &.correctly {
+    &--correct{
         color: #008000;
         border: 2px solid #008000;
     }
 
-    &.poorly {
+    &--incorrect {
         color: #ff0000;
         border: 2px solid #ff0000;
     }
@@ -142,7 +137,7 @@
     cursor: pointer;
     
     &:hover {
-        color: #008000;
+        color: #fd7e14;
     }
 
     @media screen and (min-width: 640px) {
