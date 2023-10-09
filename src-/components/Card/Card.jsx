@@ -11,8 +11,9 @@ export const Card = ({ czWord, word }) => {
   const [inputValue, setInputValue] = useState('');
   const [answerDisplayed, setAnswerDisplayed] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [incorrectAnswer, setInCorrectAnswer] = useState('');
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
-  const refInput = useRef(null);
+  const inputRef = useRef(null);
 
   const handleStarToggle = () => {
     setIsMarked(prevState => !prevState);
@@ -21,10 +22,11 @@ export const Card = ({ czWord, word }) => {
   const showFirstLetter = () => {
     const currentValue = word[0];
     setInputValue(currentValue);
-    refInput.current.focus();
+    inputRef.current.focus();
   }
 
   const answerReveal = () => {
+    setInCorrectAnswer(word);
     setInputValue(word);
     setAnswerDisplayed(true);
   }
@@ -38,19 +40,11 @@ export const Card = ({ czWord, word }) => {
     if (event.key === 'Enter' && inputValue.length !== 0) {
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
         setShowResult(true);
+        setInCorrectAnswer(word);
       } else {
         setShowCorrectAnswer(true);
         setInputValue(inputValue);
       }
-    }
-  }
-
-  const handleClick = () => {
-    if (inputValue.toLowerCase() !== word.toLowerCase()) {
-      setShowResult(true);
-    } else {
-      setShowCorrectAnswer(true);
-      setInputValue(inputValue);
     }
   }
 
@@ -60,24 +54,16 @@ export const Card = ({ czWord, word }) => {
   }
 
   useEffect(() => {
-    const yourAnswerElm = document.querySelector('.your-answer');
-    const hintElm = document.querySelector('.hint');
-    const cardFootLinkElm = document.querySelector('.card__foot--link');
+    const answerCorrectElm = document.querySelector('.your-answer');
     if (showResult) {
-      yourAnswerElm.classList.add('hidden');
-      hintElm.classList.add('hidden');
-      cardFootLinkElm.classList.add('hidden');
+      answerCorrectElm.classList.add('hidden');
     }
   }, [showResult]);
 
   useEffect(() => {
-    const yourAnswerElm = document.querySelector('.your-answer');
-    const hintElm = document.querySelector('.hint');
-    const cardFootLinkElm = document.querySelector('.card__foot--link');
+    const answerCorrectElm = document.querySelector('.your-answer');
     if (showCorrectAnswer) {
-      yourAnswerElm.classList.add('hidden');
-      hintElm.classList.add('hidden');
-      cardFootLinkElm.classList.add('hidden');
+      answerCorrectElm.classList.add('hidden');
     }
   }, [showCorrectAnswer]);
 
@@ -90,9 +76,7 @@ export const Card = ({ czWord, word }) => {
       <div className="card__body">
         <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
 
-        {(!answerDisplayed) && (
-          <p className="hint" onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
-        )}
+        <p className="hint" onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
 
         {(!answerDisplayed) && (
           <input className="your-answer"
@@ -100,38 +84,27 @@ export const Card = ({ czWord, word }) => {
                 onKeyDown={(handleKeyDown)}
                 value={inputValue}
                 type="text"
-                ref={refInput}>
+                ref={inputRef}>
           </input>
         )}
 
         {showResult && (
-          <div className="answer">
-              <p className="answer__label">Your answer</p>
-              <div className="answer__content answer--incorrect">{inputValue}</div>
-          </div>
+          <div className="answer answer--incorrect">{inputValue}</div>
         )}
 
         {showCorrectAnswer && (
-          <div className="answer">
-            <p className="answer__label">Correct answer</p>
-            <div className="answer__content answer--correct">{inputValue}</div>
-          </div>
+          <div className="answer answer--correct">{inputValue}</div>
         )}
 
         {(answerDisplayed || showResult) && (
-          <div className="answer">
-            <p className="answer__label">Correct answer</p>
-            <div className="answer__content answer--correct">{word}</div>
-          </div>
+          <div className="answer answer--correct">{incorrectAnswer}</div>
         )}
       </div>
 
       <div className="card__foot">
-        <Button onClick={handleClick} text={(answerDisplayed || showResult || showCorrectAnswer) ? "Next" : "Check"} length={inputValue.length} inputValue={inputValue} />
+        <Button text={(answerDisplayed || showResult || showCorrectAnswer) ? "Next" : "Check"} length={inputValue.length} inputValue={inputValue} word={word}/>
 
-        {(!answerDisplayed) && (
-          <div className="card__foot--link" onClick={answerReveal}>Don&apos;t know?</div>
-        )}
+        <div className="card__foot--link" onClick={answerReveal}>Don&apos;t know?</div>
       </div>
 
     </main>

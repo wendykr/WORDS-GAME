@@ -1,0 +1,28 @@
+.button {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    background-color: #fd7e14;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+
+    @media screen and (min-width: 640px) {
+        font-size: 20px;
+        padding: 14px 24px;
+    }
+
+    &:hover {
+        background-color: #ff9944;
+    }
+
+    &.disabled {
+        background-color: #d4d4d4;
+        color: #4a5568;
+        cursor: auto;
+    }
+}

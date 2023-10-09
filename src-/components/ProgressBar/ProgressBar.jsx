@@ -1,11 +1,11 @@
 import React from "react";
 import './ProgressBar.scss';
 
-export const ProgressBar = ({ line }) => {
+export const ProgressBar = () => {
     return (
       <div className="progress">
         <div className="progress__container">
-          <div className="progress__line" style={{ width: `${line}%` }}></div>
+          <div className="progress__line"></div>
         </div>
       </div>
     );

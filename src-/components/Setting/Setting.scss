@@ -1,11 +1,10 @@
 .icon-setting {
     font-size: 30px;
     fill: #1a1a1a;
-    transition: fill 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease;
     cursor: pointer;
 
     &:hover {
-        fill: #fd7e14;
         transform: rotate(180deg);
     }
 }
