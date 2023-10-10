@@ -16,9 +16,9 @@ function App() {
         <Header />
       </div>
 
-      <div className="constainer__body">
+      <div className="container__body">
         <div className="container__body--bar">
-          <ProgressBar />
+          <ProgressBar line="91" />
         </div>
 
         {
