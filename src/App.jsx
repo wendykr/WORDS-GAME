@@ -31,6 +31,7 @@ function App() {
             )
           )
         }
+        {/* <Modes /> */}
       </div>
 
       <div className="container__foot">
