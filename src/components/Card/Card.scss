@@ -17,8 +17,7 @@
     }
 
     &__head {
-        margin-bottom: 20px;
-        margin-left: auto;
+        margin-bottom: 80px;
     }
 
     &__body {
@@ -170,9 +169,13 @@
 .icon-star {
     margin-left: auto;
     font-size: 30px;
-    transition: color 0.3s ease;
     fill: #aaaaaa;
+    transition: fill 0.3s ease;
     cursor: pointer;
+
+    &:hover {
+        fill: #ffcc00;
+    }
 
     &--marked {
         fill: #ffcc00;

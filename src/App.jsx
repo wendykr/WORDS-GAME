@@ -1,14 +1,22 @@
-import "./App.scss";
-import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
-import { ProgressBar } from "./components/ProgressBar/ProgressBar";
-import { Card } from "./components/Card/Card";
-import { wordData } from "./constants/words";
+import { useState, useEffect } from 'react';
+import './App.scss';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+// import { Modes } from './components/Modes/Modes';
+import { Card } from './components/Card/Card';
+import { wordData } from './constants/words';
 
 function App() {
+  // const [randomWords, setRandomWords] = useState([]);
+  const [randomIndex, setRandomIndex] = useState(1);
 
-  const randomIndex = Math.floor(Math.random() * wordData.length) + 1;
-  console.log(randomIndex);
+  useEffect(() => {
+
+    const randomIndex = Math.floor(Math.random() * wordData.length) + 1;
+    setRandomIndex(randomIndex);
+    console.log(randomIndex);
+
+  }, []);
 
   return (
     <div className="container">
@@ -17,10 +25,6 @@ function App() {
       </div>
 
       <div className="container__body">
-        <div className="container__body--bar">
-          <ProgressBar line="91" />
-        </div>
-
         {
           wordData.map(({ id, czWord, word }, index ) => (
             (index === randomIndex) && <Card czWord={czWord} word={word} key={id} />

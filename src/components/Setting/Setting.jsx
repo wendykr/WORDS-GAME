@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import './Setting.scss';
 
 import { IoSettingsSharp } from "react-icons/io5";

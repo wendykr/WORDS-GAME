@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Button } from "../Button/Button";
+import React, { useState, useEffect, useRef } from 'react';
+import { ProgressBar } from '../ProgressBar/ProgressBar';
+import { Button } from '../Button/Button';
 import './Card.scss';
 
 import { MdHelpCenter } from "react-icons/md";
@@ -85,9 +86,11 @@ export const Card = ({ czWord, word }) => {
     <main className="card">
 
       <div className="card__head">
-        <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+        <ProgressBar line="91" />
       </div>
       <div className="card__body">
+        <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+
         <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
 
         {(!answerDisplayed) && (
