@@ -1,9 +1,10 @@
 .icon-setting {
   font-size: 30px;
   fill: #1a1a1a;
-  transition: transform 0.3s ease;
+  transition: fill 0.3s ease, transform 0.3s ease;
   cursor: pointer;
 }
 .icon-setting:hover {
+  fill: #fd7e14;
   transform: rotate(180deg);
 }/*# sourceMappingURL=Setting.css.map */

@@ -1,0 +1,107 @@
+.navigation {
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.navigation__list {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+@media screen and (min-width: 640px) {
+  .navigation__list {
+    display: flex;
+    gap: 40px;
+    flex-direction: row;
+    overflow: auto;
+    position: static;
+  }
+}
+@media screen and (min-width: 860px) {
+  .navigation__list {
+    gap: 80px;
+  }
+}
+.navigation__list--link + .navigation__list--link {
+  border-top: 1px solid #fff6ef;
+}
+
+.show-navigation {
+  display: block;
+  position: absolute;
+  top: 70px;
+  right: 0;
+}
+@media screen and (min-width: 640px) {
+  .show-navigation {
+    display: flex;
+    position: relative;
+    top: 0;
+  }
+}
+
+.activeLink {
+  background-color: #fff6ef;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fd7e14;
+  display: block;
+}
+@media screen and (min-width: 640px) {
+  .activeLink {
+    padding: 0;
+    background-color: transparent;
+  }
+}
+
+.nonActiveLink {
+  background-color: white;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #1a1a1a;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  display: block;
+}
+@media screen and (min-width: 640px) {
+  .nonActiveLink {
+    padding: 0;
+    background-color: transparent;
+  }
+}
+.nonActiveLink:hover {
+  color: #fd7e14;
+  background-color: #fff6ef;
+}
+@media screen and (min-width: 640px) {
+  .nonActiveLink:hover {
+    padding: 0;
+    background-color: transparent;
+  }
+}
+
+.icon-menu {
+  font-size: 30px;
+  color: #1a1a1a;
+  transition: color 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+  cursor: pointer;
+}
+@media screen and (min-width: 640px) {
+  .icon-menu {
+    display: none;
+  }
+}
+.icon-menu:hover {
+  color: #fd7e14;
+}/*# sourceMappingURL=Navigation.css.map */

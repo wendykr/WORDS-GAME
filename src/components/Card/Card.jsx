@@ -84,7 +84,6 @@ export const Card = ({ czWord, word }) => {
 
   return (
     <main className="card">
-
       <div className="card__head">
         <ProgressBar line="91" />
       </div>
@@ -136,7 +135,6 @@ export const Card = ({ czWord, word }) => {
           <div className="card__foot--link" onClick={answerReveal}>Don&apos;t know?</div>
         )}
       </div>
-
     </main>
-  );
+    );
 };
