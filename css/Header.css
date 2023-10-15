@@ -1,6 +1,8 @@
 .header {
+  margin: 0 auto;
   padding: 20px 40px;
+  max-width: 1400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}/*# sourceMappingURL=Header.css.map */}/*# sourceMappingURL=Header.css.map */
+}/*# sourceMappingURL=Header.css.map */

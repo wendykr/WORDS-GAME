@@ -1,5 +1,7 @@
 .footer {
+  margin: 0 auto;
   padding: 20px 40px;
+  max-width: 1400px;
   text-align: center;
   font-size: 14px;
   line-height: 1.5;
@@ -9,5 +11,5 @@
   text-decoration: none;
 }
 .footer__link:hover {
-  text-decoration: underline;
-}/*# sourceMappingURL=Footer.css.map */appingURL=Footer.css.map */
+  color: #fd7e14;
+}/*# sourceMappingURL=Footer.css.map */

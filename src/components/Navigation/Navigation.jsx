@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
@@ -8,20 +8,13 @@ import { RxCross2 } from 'react-icons/rx';
 export const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleClick = () => {
+    const handleCloseMenu = () => {
         setIsOpen(!isOpen);
     }
 
-    useEffect(() => {
-        const navigationListElm = document.querySelector('.navigation__list');
-        if (isOpen) {
-            navigationListElm.classList.add('show-navigation');
-        }
-    }, [isOpen]);
-
     return (
         <nav className="navigation">
-            <div className={`navigation__toggler ${isOpen ? 'menu--xmark' : 'menu--bars'}`} onClick={handleClick}>
+            <div className={`navigation__toggler ${isOpen ? 'menu--xmark' : 'menu--bars'}`} onClick={handleCloseMenu}>
                 {isOpen ? (
                     <RxCross2 className="icon-menu" title="Menu icon" />
                 ) : (
@@ -29,10 +22,10 @@ export const Navigation = () => {
                 )}
             </div>
             <div className={`navigation__list ${isOpen ? 'show-navigation' : ''}`}>
-                <NavLink to="/" className={ ({isActive}) => isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} > Home </NavLink>
-                <NavLink to="/flashcards" className={ ({isActive}) => isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} > Flashcards </NavLink>
-                <NavLink to="/quiz" className={ ({isActive}) => isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} > Quiz </NavLink>
-                <NavLink to="/match" className={ ({isActive}) => isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} > Match </NavLink>
+                <NavLink to="/" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Home </NavLink>
+                <NavLink to="/flashcards" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Flashcards </NavLink>
+                <NavLink to="/quiz" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Quiz </NavLink>
+                <NavLink to="/match" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Match </NavLink>
             </div>
         </nav>
     );

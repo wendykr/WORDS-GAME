@@ -7,7 +7,7 @@ import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 
-export const Card = ({ czWord, word }) => {
+export const Card = ({ czWord, word, className }) => {
   const [isMarked, setIsMarked] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [answerDisplayed, setAnswerDisplayed] = useState(false);
@@ -83,7 +83,7 @@ export const Card = ({ czWord, word }) => {
   }, [showCorrectAnswer]);
 
   return (
-    <main className="card">
+    <main className={`card ${className}`}>
       <div className="card__head">
         <ProgressBar line="91" />
       </div>
@@ -97,7 +97,7 @@ export const Card = ({ czWord, word }) => {
         )}
 
         {(!answerDisplayed) && (
-          <input className="your-answer"
+          <input className={`your-answer ${showResult ? "hidden" : ""}`}
                 onChange={(changeWord)}
                 onKeyDown={(handleKeyDown)}
                 value={inputValue}

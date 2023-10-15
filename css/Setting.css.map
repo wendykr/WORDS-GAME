@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src-base/components/Setting/Setting.scss","Setting.css"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,+CAAA;EACA,eAAA;ACCJ;ADCI;EACI,aAAA;EACA,yBAAA;ACCR","file":"Setting.css"}
+{"version":3,"sources":["../src/components/Setting/Setting.scss","Setting.css"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,+CAAA;EACA,eAAA;ACCJ;ADCI;EACI,aAAA;EACA,yBAAA;ACCR","file":"Setting.css"}

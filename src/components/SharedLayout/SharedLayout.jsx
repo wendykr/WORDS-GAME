@@ -7,11 +7,11 @@ export const SharedLayout = () => {
 
   const location = useLocation();
 
-  const hideHeader = location.pathname === '/';
+  const isHeaderHidden = location.pathname === '/';
 
   return (
     <>
-        {!hideHeader && <Header />}
+        {!isHeaderHidden && <Header />}
         <Outlet />
         <Footer />
     </>
