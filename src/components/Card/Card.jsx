@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Button } from '../Button/Button';
 import './Card.scss';
@@ -60,28 +60,6 @@ export const Card = ({ czWord, word, className }) => {
     window.speechSynthesis.speak(utterance);
   }
 
-  useEffect(() => {
-    const yourAnswerElm = document.querySelector('.your-answer');
-    const hintElm = document.querySelector('.hint');
-    const cardFootLinkElm = document.querySelector('.card__foot--link');
-    if (showResult) {
-      yourAnswerElm.classList.add('hidden');
-      hintElm.classList.add('hidden');
-      cardFootLinkElm.classList.add('hidden');
-    }
-  }, [showResult]);
-
-  useEffect(() => {
-    const yourAnswerElm = document.querySelector('.your-answer');
-    const hintElm = document.querySelector('.hint');
-    const cardFootLinkElm = document.querySelector('.card__foot--link');
-    if (showCorrectAnswer) {
-      yourAnswerElm.classList.add('hidden');
-      hintElm.classList.add('hidden');
-      cardFootLinkElm.classList.add('hidden');
-    }
-  }, [showCorrectAnswer]);
-
   return (
     <main className={`card ${className}`}>
       <div className="card__head">
@@ -93,11 +71,11 @@ export const Card = ({ czWord, word, className }) => {
         <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
 
         {(!answerDisplayed) && (
-          <p className="hint" onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
+          <p className={`hint ${(showResult|| showCorrectAnswer) ? "hidden" : ""}`} onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
         )}
 
         {(!answerDisplayed) && (
-          <input className={`your-answer ${showResult ? "hidden" : ""}`}
+          <input className={`your-answer ${(showResult|| showCorrectAnswer) ? "hidden" : ""}`}
                 onChange={(changeWord)}
                 onKeyDown={(handleKeyDown)}
                 value={inputValue}
@@ -132,7 +110,7 @@ export const Card = ({ czWord, word, className }) => {
         <Button onClick={handleClick} text={(answerDisplayed || showResult || showCorrectAnswer) ? "Next" : "Check"} length={inputValue.length} inputValue={inputValue} />
 
         {(!answerDisplayed) && (
-          <div className="card__foot--link" onClick={answerReveal}>Don&apos;t know?</div>
+          <div className={`card__foot--link ${(showResult|| showCorrectAnswer) ? "hidden" : ""}`} onClick={answerReveal}>Don&apos;t know?</div>
         )}
       </div>
     </main>

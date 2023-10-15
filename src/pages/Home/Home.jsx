@@ -7,18 +7,21 @@ import images03 from '../../components/Mode/images/match.svg';
 
 const modesData = [
     {
+        id: 1,
         title: "Flashcards",
         description: "Check your answer on the other side of the card.",
         img: images01,
         url: "flashcards"
     },
     {
+        id: 2,
         title: "Quiz",
         description: "Write the correct answer to the question.",
         img: images02,
         url: "quiz"
     },
     {
+        id: 3,
         title: "Match",
         description: "Combine correct answer above the question.",
         img: images03,
