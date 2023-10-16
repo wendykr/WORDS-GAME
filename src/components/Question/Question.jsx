@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Button } from '../Button/Button';
-import './Card.scss';
+import './Question.scss';
 
 import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 
-export const Card = ({ czWord, word, className }) => {
+export const Question = ({ czWord, word, className }) => {
   const [isMarked, setIsMarked] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [answerDisplayed, setAnswerDisplayed] = useState(false); // ukázat výsledek, nenapíšeme žádnou odpověď
@@ -61,11 +61,11 @@ export const Card = ({ czWord, word, className }) => {
   }
 
   return (
-    <main className={`card ${className}`}>
-      <div className="card__head">
+    <main className={`question ${className}`}>
+      <div className="question__head">
         <ProgressBar line="91" />
       </div>
-      <div className="card__body">
+      <div className="question__body">
         <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
 
         <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
@@ -102,10 +102,10 @@ export const Card = ({ czWord, word, className }) => {
         )}
       </div>
 
-      <div className="card__foot">
+      <div className="question__foot">
         <Button onClick={handleClick} text={(showResult || showCorrectAnswer || answerDisplayed) ? "Next" : "Check"} length={inputValue.length} inputValue={inputValue} />
 
-        <div className={`card__foot--link ${(showResult || showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`} onClick={answerReveal}>Don&apos;t know?</div>
+        <div className={`question__foot--link ${(showResult || showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`} onClick={answerReveal}>Don&apos;t know?</div>
       </div>
     </main>
     );

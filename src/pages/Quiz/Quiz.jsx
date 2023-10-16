@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './Quiz.scss';
 import { wordData } from '../../constants/words';
-import { Card } from '../../components/Card/Card';
+import { Question } from '../../components/Question/Question';
 
 export const Quiz = () => {
 
@@ -51,7 +51,7 @@ export const Quiz = () => {
 
     console.log("randomWords", randomWords);
 
-    // Zde kontrolujeme, zda je randomWord definováno
+    // zde kontrolujeme, zda je randomWord definováno
     const randomWord = randomWords.length > 0 ? randomWords[Math.floor(Math.random() * randomWords.length)] : null;
     console.log(randomWord);
     
@@ -59,7 +59,7 @@ export const Quiz = () => {
         <main className="quiz">
             <div className="quiz__body">
                 {randomWord && (
-                    <Card className="card" czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} />
+                    <Question className="question" czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} />
                 )}
             </div>
         </main>
