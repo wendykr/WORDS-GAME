@@ -23,17 +23,17 @@ export const Question = ({ czWord, word, className }) => {
     const currentValue = word[0];
     setInputValue(currentValue);
     refInput.current.focus();
-  }
+  };
 
   const answerReveal = () => {
     setInputValue(word);
     setAnswerDisplayed(true);
-  }
+  };
 
   const changeWord = (event) => {
     const myWord = event.target.value;
     setInputValue(myWord);
-  }
+  };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && inputValue.length !== 0) {
@@ -44,7 +44,7 @@ export const Question = ({ czWord, word, className }) => {
         setInputValue(inputValue);
       }
     }
-  }
+  };
 
   const handleClick = () => {
     if (inputValue.toLowerCase() !== word.toLowerCase()) {
@@ -53,12 +53,12 @@ export const Question = ({ czWord, word, className }) => {
       setShowCorrectAnswer(true);
       setInputValue(inputValue);
     }
-  }
+  };
 
   const speak = () => {
     let utterance = new SpeechSynthesisUtterance(word);
     window.speechSynthesis.speak(utterance);
-  }
+  };
 
   return (
     <main className={`question ${className}`}>
@@ -109,4 +109,4 @@ export const Question = ({ czWord, word, className }) => {
       </div>
     </main>
     );
-};
+}

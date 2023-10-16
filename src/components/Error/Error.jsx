@@ -10,4 +10,4 @@ export const Error = () => {
             <Link to="/">Back to Home</Link>
         </main>
     );
-};
+}

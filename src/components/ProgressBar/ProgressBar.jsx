@@ -9,4 +9,4 @@ export const ProgressBar = ({ line }) => {
       </div>
     </div>
   );
-};
+}

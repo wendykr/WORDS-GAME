@@ -12,4 +12,4 @@ export const Mode = ({ title, description, img, url }) => {
             </Link>
         </div>
     );
-};
+}

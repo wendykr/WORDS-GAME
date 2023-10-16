@@ -1,0 +1,10 @@
+.icon-left, .icon-right {
+    font-size: 40px;
+    color: #fd7e14;
+    transition: color 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+        color: #ff9944;
+    }
+}

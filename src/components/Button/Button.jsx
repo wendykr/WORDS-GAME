@@ -9,4 +9,4 @@ export const Button = ({ text, length, inputValue, onClick }) => {
             disabled={(length === 0 || inputValue === '') ? true : false}
     > {text} </button>
   );
-};
+}
