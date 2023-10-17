@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Setting.scss';
 
 import { IoSettingsSharp } from "react-icons/io5";
+import { RxCross2 } from 'react-icons/rx';
 
 export const Setting = () => {
     const [isShow, setIsShow] = useState(false);
@@ -17,7 +18,36 @@ export const Setting = () => {
                 <IoSettingsSharp className="icon-setting" onClick={showSetup} title="Setting icon" />
             </div>
             <div className={`setting__body ${isShow ? 'show' : ''}`}>
-                <form className="setting__form" action="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut hic, voluptas tempora obcaecati totam in illo laudantium, optio blanditiis vitae perferendis soluta quae laborum inventore vero magnam nesciunt, harum alias.</form>
+                <div className="setting__body--container">
+                    <h3 className="setting__body--title">Setting options</h3>
+                    <RxCross2 className="icon-close" title="Close icon" />
+                </div>
+                <form className="form">
+                    <div className="form__row">
+                        <div className="form__row--label">Shuffle terms</div>
+                        <div className="form__row--option">TOGGLE SWITCH</div>
+                    </div>
+                    <div className="form__row">
+                        <div className="form__row--label">Study words from the category</div>
+                        <div className="form__row--option">TOGGLE SWITCH</div>
+                    </div>
+                    <div className="form__row">
+                        <div className="form__row--label">Study starred terms only</div>
+                        <div className="form__row--option">SELECT OPTION</div>
+                    </div>
+                    <div className="form__row">
+                        <div className="form__row--label">Number of questions</div>
+                        <div className="form__row--option">TOGGLE SWITCH</div>
+                    </div>
+                    <div className="form__row">
+                        <div className="form__row--label">Question format</div>
+                        <div className="form__row--option">TOGGLE SWITCH</div>
+                    </div>
+                    <div className="form__row">
+                        <div className="form__row--label">Audio</div>
+                        <div className="form__row--option">TOGGLE SWITCH</div>
+                    </div>
+                </form>
             </div>
             
         </main>

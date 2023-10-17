@@ -24,19 +24,47 @@
     }
 
     &__body {
-        margin: 20px 0;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        height: 400px;
-        background-color: #ffffff;
-        border: 1px solid #d2d6dc;
-        border-radius: 4px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
-        @media screen and (min-width: 640px) {
-            margin: 20px 40px;
+        &--container {
+            margin: 20px 0;
+            width: auto;
+            height: 400px;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            position: relative;
+
+            @media screen and (min-width: 640px) {
+                margin: 20px 40px;
+            }
+
+            &.is-turned {
+                transform: rotateX(180deg);
+            }
         }
+
+        &--front, &--back {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #d2d6dc;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: absolute;
+            backface-visibility: hidden;
+        }
+
+        &--front {
+            background-color: #ffffff;
+        }
+
+        &--back {
+            background-color: #e6e6e6;
+            transform: rotateX(180deg);
+        }
+
     }
 
     &__foot {
