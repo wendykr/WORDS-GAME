@@ -8,7 +8,6 @@ export const Setting = () => {
     const [isShow, setIsShow] = useState(false);
 
     const showSetup = () => {
-        console.log('click');
         setIsShow(prevState => !prevState);
     };
 
@@ -20,7 +19,7 @@ export const Setting = () => {
             <div className={`setting__body ${isShow ? 'show' : ''}`}>
                 <div className="setting__body--container">
                     <h3 className="setting__body--title">Setting options</h3>
-                    <RxCross2 className="icon-close" title="Close icon" />
+                    <RxCross2 className="icon-close" onClick={showSetup} title="Close icon" />
                 </div>
                 <form className="form">
                     <div className="form__row">

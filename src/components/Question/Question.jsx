@@ -5,15 +5,19 @@ import './Question.scss';
 
 import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-import { FaVolumeUp } from "react-icons/fa";
+// import { FaVolumeUp } from "react-icons/fa";
 
-export const Question = ({ czWord, word }) => {
+export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord, line }) => {
   const [isMarked, setIsMarked] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [answerDisplayed, setAnswerDisplayed] = useState(false); // ukázat výsledek, nenapíšeme žádnou odpověď
   const [showResult, setShowResult] = useState(false); // ukázat výsledek, napíšeme špatnou odpověď
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false); // ukázat výsledek, napíšeme správnou odpověď
   const refInput = useRef(null);
+
+  const stateResult = showResult;
+  const stateCorrect = showCorrectAnswer && !answerDisplayed;
+  const stateDontKnow = answerDisplayed || showResult;
 
   const handleStarToggle = () => {
     setIsMarked(prevState => !prevState);
@@ -28,6 +32,7 @@ export const Question = ({ czWord, word }) => {
   const answerReveal = () => {
     setInputValue(word);
     setAnswerDisplayed(true);
+    speak();
   };
 
   const changeWord = (event) => {
@@ -37,11 +42,28 @@ export const Question = ({ czWord, word }) => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && inputValue.length !== 0) {
+      console.log('Enter');
+
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
         setShowResult(true);
+        speak();
+
+        if (stateResult || stateDontKnow) {
+          generateNewRandomWord();
+        }
+
       } else {
         setShowCorrectAnswer(true);
         setInputValue(inputValue);
+        speak();
+        
+        if (stateResult || stateDontKnow) {
+          generateNewRandomWord();
+        }
+
+        if (stateCorrect) {
+          removeRandomWord(); // odstranit slovo, pokud je zobrazeno nové slovo
+        }
       }
     }
   };
@@ -49,9 +71,22 @@ export const Question = ({ czWord, word }) => {
   const handleClick = () => {
     if (inputValue.toLowerCase() !== word.toLowerCase()) {
       setShowResult(true);
+
+      if (stateResult || stateDontKnow) {
+        generateNewRandomWord();
+      }
+
     } else {
       setShowCorrectAnswer(true);
       setInputValue(inputValue);
+      
+      if (stateResult || stateDontKnow) {
+        generateNewRandomWord();
+      }
+
+      if (stateCorrect) {
+        removeRandomWord(); // odstranit slovo, pokud je zobrazeno nové slovo
+      }
     }
   };
 
@@ -73,16 +108,17 @@ export const Question = ({ czWord, word }) => {
   return (
     <div className="question">
       <div className="question__head">
-        <ProgressBar line="91" />
+        <ProgressBar line={line} />
       </div>
       <div className="question__body">
         <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
 
-        <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
+        {/* <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2> */}
+        <h2 className="guess-word">{czWord}</h2>
 
-          <p className={`hint ${(showResult|| showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`} onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
+          <p className={`hint ${(showResult|| stateCorrect || stateDontKnow) ? "hidden" : ""}`} onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
 
-          <input className={`your-answer ${(showResult|| showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`}
+          <input className={`your-answer ${(showResult|| stateCorrect || stateDontKnow) ? "hidden" : ""}`}
                 onChange={(changeWord)}
                 onKeyDown={(handleKeyDown)}
                 value={inputValue}
@@ -97,21 +133,21 @@ export const Question = ({ czWord, word }) => {
             </div>
           )} */}
 
-        {showResult && (
+        {stateResult && (
           <div className="answer">
               <p className="answer__label">Your answer</p>
               <div className="answer__content answer--incorrect">{inputValue}</div>
           </div>
         )}
 
-        {(showCorrectAnswer && !answerDisplayed) && (
+        {stateCorrect && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
             <div className="answer__content answer--correct">{inputValue}</div>
           </div>
         )}
 
-        {(answerDisplayed || showResult) && (
+        {stateDontKnow && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
             <div className="answer__content answer--correct">{word}</div>
@@ -120,7 +156,18 @@ export const Question = ({ czWord, word }) => {
       </div>
 
       <div className="question__foot">
-        <Button onClick={handleClick} text={(showResult || showCorrectAnswer || answerDisplayed) ? "Next" : "Check"} length={inputValue.length} inputValue={inputValue} />
+      <Button onClick={() => { 
+        if (showResult || showCorrectAnswer || answerDisplayed) {
+          handleClick();
+        } else {
+          handleClick();
+          speak(); 
+        }
+        }} 
+        text={(showResult || showCorrectAnswer || answerDisplayed) ? "Next" : "Check"} 
+        length={inputValue.length} 
+        inputValue={inputValue} 
+      />
 
         <div className={`question__foot--link ${(showResult || showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`} onClick={answerReveal}>Don&apos;t know?</div>
       </div>
