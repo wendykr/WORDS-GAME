@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.scss';
+import './HomePage.scss';
 import { Mode } from '../../components/Mode/Mode';
 import images01 from '../../components/Mode/images/flashcards.svg';
 import images02 from '../../components/Mode/images/quiz.svg';
@@ -29,7 +29,7 @@ const modesData = [
     }
 ];
 
-export const Home = () => {
+export const HomePage = () => {
     return (
         <main className="home">
             <h1 className="home__head">Practice methods</h1>

@@ -13,7 +13,7 @@ export const Setting = () => {
     };
 
     return (
-        <main className="setting">
+        <div className="setting">
             <div className="setting__head">
                 <IoSettingsSharp className="icon-setting" onClick={showSetup} title="Setting icon" />
             </div>
@@ -50,6 +50,6 @@ export const Setting = () => {
                 </form>
             </div>
             
-        </main>
+        </div>
     );
 }

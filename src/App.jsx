@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from  'react-router-dom';
 import './App.scss';
-import { Home } from './pages/Home/Home';
-import { Flashcards } from './pages/Flashcards/Flashcards';
-import { Quiz } from './pages/Quiz/Quiz';
-import { Error } from './components/Error/Error';
+import { HomePage } from './pages/HomePage/HomePage';
+import { FlashcardPage } from './pages/FlashcardPage/FlashcardPage';
+import { QuizPage } from './pages/QuizPage/QuizPage';
+import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 import { SharedLayout} from './components/SharedLayout/SharedLayout';
 
 function App() {
@@ -12,11 +12,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={ <SharedLayout /> }>
-          <Route index element={ <Home /> } />
-          <Route path="/flashcards" element={ <Flashcards /> } />
-          <Route path="/quiz" element={ <Quiz /> } />
-          <Route path="/match" element={ <Error /> } />
-          <Route path="*" element={ <Error /> } />
+          <Route index element={ <HomePage /> } />
+          <Route path="/flashcards" element={ <FlashcardPage /> } />
+          <Route path="/quiz" element={ <QuizPage /> } />
+          <Route path="/match" element={ <ErrorPage /> } />
+          <Route path="*" element={ <ErrorPage /> } />
         </Route>
       </Routes>
     </BrowserRouter>

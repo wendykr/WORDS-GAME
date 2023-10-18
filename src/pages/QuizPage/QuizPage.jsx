@@ -1,16 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import './Quiz.scss';
+import './QuizPage.scss';
 import { wordData } from '../../constants/words';
 import { Question } from '../../components/Question/Question';
 
-export const Quiz = () => {
+export const QuizPage = () => {
 
     const [allWords, setAllWords] = useState(wordData); // všechna slova
 
     const [randomWords, setRandomWords] = useState([]); // náhodná slova
-
-    const [randomIndex, setRandomIndex] = useState(); // náhodný index
 
     // definuje se nová funkce pro vygenerování náhodného čísla
     const generateRandomNumber = () => {
@@ -21,15 +19,6 @@ export const Quiz = () => {
     }
 
     useEffect(() => {
-
-        //! 1. Napsat kód co ti vygeneruje náhodné číslo podle počtu čísel
-
-        //! 2. Vygeneruj náhodné čísla do pole
-
-        //! 3. 
-
-        // 1. zavolá funkci, která vygeneruje jedno náhodné číslo od 1 do 50 podle počtu čísel
-        setRandomIndex(generateRandomNumber());
 
         // inicializace prázdného pole
         let randomIndx = [];
@@ -49,6 +38,7 @@ export const Quiz = () => {
 
     }, []);
 
+
     console.log("randomWords", randomWords);
 
     // zde kontrolujeme, zda je randomWord definováno
@@ -59,7 +49,8 @@ export const Quiz = () => {
         <main className="quiz">
             <div className="quiz__body">
                 {randomWord && (
-                    <Question className="question" czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} />
+                    //<Question className={isSmall ? "small" : ""} czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} />
+                    <Question czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} />
                 )}
             </div>
         </main>

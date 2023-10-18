@@ -7,7 +7,7 @@ import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 
-export const Question = ({ czWord, word, className }) => {
+export const Question = ({ czWord, word }) => {
   const [isMarked, setIsMarked] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [answerDisplayed, setAnswerDisplayed] = useState(false); // ukázat výsledek, nenapíšeme žádnou odpověď
@@ -60,8 +60,18 @@ export const Question = ({ czWord, word, className }) => {
     window.speechSynthesis.speak(utterance);
   };
 
+  // const stateResult = showResult;
+  // const stateCorrect = showCorrectAnswer && !answerDisplayed;
+  // const stateDontKnow = answerDisplayed || showResult;
+
+  // const resultSentence = stateResult ? "Your answer" : (stateCorrect || stateDontKnow) ? "Correct Answer" : "" ;
+  // const resultStatus = stateResult ? "answer--incorrect" : (stateCorrect || stateDontKnow) ? "answer--correct" : "" ;
+  // const resultValue = (stateResult || stateCorrect) ? inputValue :  stateDontKnow ? word : "" ;
+
+//! const finalResponse = [].length < 0 ? "Exit" : ""
+
   return (
-    <main className={`question ${className}`}>
+    <div className="question">
       <div className="question__head">
         <ProgressBar line="91" />
       </div>
@@ -79,6 +89,13 @@ export const Question = ({ czWord, word, className }) => {
                 type="text"
                 ref={refInput}>
           </input>
+
+          {/* {(stateResult || stateCorrect || stateDontKnow) && (
+            <div className="answer">
+              <p className="answer__label">{resultSentence}</p>
+              <div className={`answer__content ${resultStatus}`} >{resultValue}</div>
+            </div>
+          )} */}
 
         {showResult && (
           <div className="answer">
@@ -107,6 +124,21 @@ export const Question = ({ czWord, word, className }) => {
 
         <div className={`question__foot--link ${(showResult || showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`} onClick={answerReveal}>Don&apos;t know?</div>
       </div>
-    </main>
+    </div>
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,7 +11,7 @@ import { FaVolumeUp } from "react-icons/fa";
 export const Card = () => {
   const [isDisplay, setIsDisplay] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
-  const [isTurnet, setIsTurnet] = useState(false);
+  const [isTurned, setIsTurned] = useState(false);
 
   const selectedWord = wordData[0]; 
   console.log(selectedWord);
@@ -25,7 +25,7 @@ export const Card = () => {
   };
 
   const handleClick = () => {
-    setIsTurnet(prevState => !prevState);
+    setIsTurned(prevState => !prevState);
     setIsDisplay(false);
     console.log('click');
   };
@@ -36,13 +36,13 @@ export const Card = () => {
   };
 
   return (
-    <main className="card">
+    <div className="card">
       <div className="card__head">
         <ProgressBar line="91" />
       </div>
 
       <div className="card__body">
-        <div className={`card__body--container ${isTurnet ? 'is-turned' : ''}`} >
+        <div className={`card__body--container ${isTurned ? 'is-turned' : ''}`} >
           <div className="card__body--front">
             <div className="container--icons">
               <span className="icons--right">
@@ -77,6 +77,6 @@ export const Card = () => {
       <div className="card__foot">
         <NavigationArrows />
       </div>
-    </main>
+    </div>
   );
 };
