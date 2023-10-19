@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from  'react-router-dom';
-import './App.scss';
 import { HomePage } from './pages/HomePage/HomePage';
 import { FlashcardPage } from './pages/FlashcardPage/FlashcardPage';
 import { QuizPage } from './pages/QuizPage/QuizPage';

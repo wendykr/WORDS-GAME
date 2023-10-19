@@ -56,7 +56,12 @@ export const QuizPage = () => {
     }
 
     const generateNewRandomWord = () => {
-        setRandomWords(prevRandomWords => [...prevRandomWords]);
+        const updatedRandomWords = (prevRandomWords) => {
+            // vrácení nového pole, které je kopií `prevRandomWords`
+            return [...prevRandomWords];
+        }
+        // aktualizace stavu `randomWords` pomocí funkce `setRandomWords`
+        setRandomWords(updatedRandomWords);
     }
     
     return (

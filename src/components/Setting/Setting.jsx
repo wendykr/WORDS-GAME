@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './Setting.scss';
+import { ToggleButton } from '../ToggleButton/ToggleButton';
+import { SelectList } from '../SelectList/SelectList';
 
 import { IoSettingsSharp } from "react-icons/io5";
-import { RxCross2 } from 'react-icons/rx';
+import { RxCross2 } from "react-icons/rx";
 
 export const Setting = () => {
     const [isShow, setIsShow] = useState(false);
@@ -24,15 +26,21 @@ export const Setting = () => {
                 <form className="form">
                     <div className="form__row">
                         <div className="form__row--label">Shuffle terms</div>
-                        <div className="form__row--option">TOGGLE SWITCH</div>
+                        <div className="form__row--option">
+                            <ToggleButton id="toggleShuffle" firstValue="YES" secondValue="NO"/>
+                        </div>
                     </div>
                     <div className="form__row">
                         <div className="form__row--label">Study words from the category</div>
-                        <div className="form__row--option">TOGGLE SWITCH</div>
+                        <div className="form__row--option">
+                            <SelectList/>
+                        </div>
                     </div>
                     <div className="form__row">
                         <div className="form__row--label">Study starred terms only</div>
-                        <div className="form__row--option">SELECT OPTION</div>
+                        <div className="form__row--option">
+                            <ToggleButton id="toggleStarred" firstValue="YES" secondValue="NO"/>
+                        </div>
                     </div>
                     <div className="form__row">
                         <div className="form__row--label">Number of questions</div>
@@ -40,11 +48,15 @@ export const Setting = () => {
                     </div>
                     <div className="form__row">
                         <div className="form__row--label">Question format</div>
-                        <div className="form__row--option">TOGGLE SWITCH</div>
+                        <div className="form__row--option">
+                            <ToggleButton id="toggleQuestion" firstValue="CZECH" secondValue="ENGLISH"/>
+                        </div>
                     </div>
                     <div className="form__row">
                         <div className="form__row--label">Audio</div>
-                        <div className="form__row--option">TOGGLE SWITCH</div>
+                        <div className="form__row--option">
+                            <ToggleButton id="toggleAudio" firstValue="YES" secondValue="NO"/>
+                        </div>
                     </div>
                 </form>
             </div>
