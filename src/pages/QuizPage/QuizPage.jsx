@@ -49,10 +49,14 @@ export const QuizPage = () => {
             const filteredWords = prevRandomWords.filter(word => {
                 return word !== randomWord;
             });
-            setLine(prevValue => prevValue + (100 / (randomWords.length + 1)));
+            // setLine(prevValue => prevValue + (100 / (randomWords.length + 1)));
             console.log('randomWords.length ' + randomWords.length);
             return filteredWords;
         });
+    }
+
+    const updateLine = () => {
+        setLine(prevValue => prevValue + (100 / (randomWords.length)));
     }
 
     const generateNewRandomWord = () => {
@@ -63,13 +67,13 @@ export const QuizPage = () => {
         // aktualizace stavu `randomWords` pomocí funkce `setRandomWords`
         setRandomWords(updatedRandomWords);
     }
-    
+
     return (
         <main className="quiz">
             <div className="quiz__body">
                 {randomWord && (
                     //<Question className={isSmall ? "small" : ""} czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} />
-                    <Question czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} removeRandomWord={removeRandomWord} generateNewRandomWord={generateNewRandomWord} line={line} />
+                    <Question czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} removeRandomWord={removeRandomWord} generateNewRandomWord={generateNewRandomWord} updateLine={updateLine} line={line} />
                 )}
             </div>
         </main>

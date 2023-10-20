@@ -25,7 +25,20 @@ export const Card = () => {
   };
 
   const handleClick = () => {
-    setIsTurned(prevState => !prevState);
+
+    setIsTurned(prevState => {
+      const newTurnedState = !prevState;
+      setIsTurned(newTurnedState);
+
+      if (newTurnedState) {
+        setTimeout(() => {
+          speak();
+        }, 1000);
+      }
+
+      return newTurnedState;
+    });
+    
     setIsDisplay(false);
     console.log('click');
   };
@@ -49,7 +62,7 @@ export const Card = () => {
                 <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} /> <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>{`${selectedWord.word[0]}_`}</span>
               </span>
               <span className="icons--left">
-                <FaVolumeUp className="icon-volume" onClick={speak} title="Sound icon" />
+                {/* <FaVolumeUp className="icon-volume" onClick={speak} title="Sound icon" /> */}
                 <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
               </span>
             </div>

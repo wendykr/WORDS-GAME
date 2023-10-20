@@ -7,4 +7,9 @@
     &:hover {
         color: #ff9944;
     }
+
+    &.disabled {
+        color: #a1a1a1;
+        cursor: auto;
+    }
 }

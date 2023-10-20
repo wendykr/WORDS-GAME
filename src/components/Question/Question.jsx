@@ -7,7 +7,7 @@ import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 // import { FaVolumeUp } from "react-icons/fa";
 
-export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord, line }) => {
+export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord, updateLine, line }) => {
   const [isMarked, setIsMarked] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [answerDisplayed, setAnswerDisplayed] = useState(false); // ukázat výsledek, nenapíšeme žádnou odpověď
@@ -48,22 +48,10 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
         setShowResult(true);
         speak();
 
-        if (stateResult || stateDontKnow) {
-          generateNewRandomWord();
-        }
-
       } else {
         setShowCorrectAnswer(true);
         setInputValue(inputValue);
         speak();
-        
-        if (stateResult || stateDontKnow) {
-          generateNewRandomWord();
-        }
-
-        if (stateCorrect) {
-          removeRandomWord(); // odstranit slovo, pokud je zobrazeno nové slovo
-        }
       }
     }
   };
@@ -157,11 +145,11 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
 
       <div className="question__foot">
       <Button onClick={() => { 
-        if (showResult || showCorrectAnswer || answerDisplayed) {
+        if (stateResult || stateCorrect || stateDontKnow) {
           handleClick();
         } else {
           handleClick();
-          speak(); 
+          speak();
         }
         }} 
         text={(showResult || showCorrectAnswer || answerDisplayed) ? "Next" : "Check"} 
