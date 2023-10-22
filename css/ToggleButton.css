@@ -1,0 +1,42 @@
+.toggle__container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: -moz-fit-content;
+  width: fit-content;
+  border: 3px solid #fd7e14;
+  border-radius: 20px;
+  background: #fd7e14;
+  font-weight: bold;
+  color: #fd7e14;
+  cursor: pointer;
+}
+.toggle__container::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  border-radius: 20px;
+  background: #ffffff;
+  transition: all 0.3s;
+}
+.toggle__checkbox {
+  display: none;
+}
+.toggle__label {
+  padding: 6px;
+  text-align: center;
+  z-index: 1;
+}
+.toggle__label.active {
+  color: #ffffff;
+  transition: color 0.3s;
+}
+.toggle__label.inactive {
+  color: #fd7e14;
+  transition: color 0.3s;
+}
+.toggle__checkbox:checked + .toggle__container::before {
+  left: 50%;
+}/*# sourceMappingURL=ToggleButton.css.map */

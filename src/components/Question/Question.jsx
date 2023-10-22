@@ -56,18 +56,48 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
     }
   };
 
-  const handleClick = () => {
-    if (inputValue.toLowerCase() !== word.toLowerCase()) {
-      setShowResult(true);
+  // const handleClick = (event) => {
+  //   const buttonText = event.target.innerText;
+  //   console.log(buttonText);
 
-      if (stateResult || stateDontKnow) {
-        generateNewRandomWord();
-      }
+  //   if (inputValue.toLowerCase() !== word.toLowerCase()) {
+  //     setShowResult(true);
 
-    } else {
-      setShowCorrectAnswer(true);
-      setInputValue(inputValue);
+  //     if (stateResult || stateDontKnow) {
+  //       generateNewRandomWord();
+  //     }
+
+  //   } else {
+  //     setShowCorrectAnswer(true);
+  //     setInputValue(inputValue);
       
+  //     if (stateResult || stateDontKnow) {
+  //       generateNewRandomWord();
+  //     }
+
+  //     if (stateCorrect) {
+  //       removeRandomWord(); // odstranit slovo, pokud je zobrazeno nové slovo
+  //     }
+  //   }
+  // };
+
+  const handleClick = (event) => {
+    const buttonText = event.target.innerText;
+    console.log(buttonText);
+
+    if (buttonText === "CHECK") {
+      speak();
+
+      if (inputValue.toLowerCase() !== word.toLowerCase()) {
+        setShowResult(true);
+      } else {
+        setShowCorrectAnswer(true);
+        setInputValue(inputValue);
+        updateLine();
+      }
+    }
+
+    if (buttonText === "NEXT") {
       if (stateResult || stateDontKnow) {
         generateNewRandomWord();
       }
@@ -144,19 +174,15 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
       </div>
 
       <div className="question__foot">
-      <Button onClick={() => { 
-        if (stateResult || stateCorrect || stateDontKnow) {
-          handleClick();
-        } else {
-          handleClick();
-          speak();
-        }
-        }} 
+
+      <Button onClick={(event) => { 
+        handleClick(event);
+        }}
         text={(showResult || showCorrectAnswer || answerDisplayed) ? "Next" : "Check"} 
         length={inputValue.length} 
         inputValue={inputValue} 
       />
-
+  
         <div className={`question__foot--link ${(showResult || showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`} onClick={answerReveal}>Don&apos;t know?</div>
       </div>
     </div>

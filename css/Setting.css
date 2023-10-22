@@ -1,3 +1,83 @@
+.setting__body {
+  padding: 20px;
+  display: none;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 1;
+}
+@media screen and (min-width: 640px) {
+  .setting__body {
+    padding: 40px;
+    width: 50%;
+    height: auto;
+    border: 1px solid #dcdcdc;
+    box-shadow: 2px 2px 7px #dcdcdc;
+  }
+}
+@media screen and (min-width: 860px) {
+  .setting__body {
+    height: auto;
+  }
+}
+.setting__body--container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.setting__body--title {
+  font-size: 24px;
+}
+.setting__body.show {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+@media screen and (min-width: 640px) {
+  .setting__body.show {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 860px) {
+  .setting__body.show {
+    width: 60%;
+  }
+}
+
+.form {
+  margin-top: 20px;
+}
+.form__row {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (min-width: 450px) {
+  .form__row {
+    flex-direction: row;
+  }
+}
+.form__row--label {
+  font-weight: bold;
+}
+.form__row--option {
+  margin-top: 10px;
+}
+@media screen and (min-width: 450px) {
+  .form__row--option {
+    margin-top: 0;
+  }
+}
+.form__row + .form__row {
+  margin-top: 20px;
+}
+
 .icon-setting {
   font-size: 30px;
   fill: #1a1a1a;
@@ -7,4 +87,15 @@
 .icon-setting:hover {
   fill: #fd7e14;
   transform: rotate(180deg);
+}
+
+.icon-close {
+  font-size: 30px;
+  color: #1a1a1a;
+  transition: color 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+  cursor: pointer;
+}
+.icon-close:hover {
+  color: #fd7e14;
 }/*# sourceMappingURL=Setting.css.map */

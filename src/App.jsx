@@ -18,8 +18,7 @@ function App() {
           <Route path="*" element={ <ErrorPage /> } />
         </Route>
       </Routes>
-    </BrowserRouter>
-  );
+    </BrowserRouter>);
 }
 
 export default App;
