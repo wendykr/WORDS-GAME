@@ -1,13 +1,19 @@
 import React, { useState, useRef } from 'react';
+import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Button } from '../Button/Button';
 import './Question.scss';
+import { useRandomWord } from '../../context/RandomWordContext';
 
 import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 // import { FaVolumeUp } from "react-icons/fa";
 
-export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord, updateLine, line }) => {
+export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord }) => {
+
+  const { updateLine, line } = useRandomWord();
+  const { speak, voices } = useSpeechSynthesis();
+
   const [isMarked, setIsMarked] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [answerDisplayed, setAnswerDisplayed] = useState(false); // ukázat výsledek, nenapíšeme žádnou odpověď
@@ -18,6 +24,11 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
   const stateResult = showResult;
   const stateCorrect = showCorrectAnswer && !answerDisplayed;
   const stateDontKnow = answerDisplayed || showResult;
+
+  const speakWord = () => {
+    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+    speak({ text: word, rate: 0.8, voice: selectedVoice });
+  }
 
   const handleStarToggle = () => {
     setIsMarked(prevState => !prevState);
@@ -32,7 +43,7 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
   const answerReveal = () => {
     setInputValue(word);
     setAnswerDisplayed(true);
-    speak();
+    speakWord();
   };
 
   const changeWord = (event) => {
@@ -46,12 +57,12 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
 
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
         setShowResult(true);
-        speak();
+        speakWord();
 
       } else {
         setShowCorrectAnswer(true);
         setInputValue(inputValue);
-        speak();
+        speakWord();
       }
     }
   };
@@ -86,7 +97,7 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
     console.log(buttonText);
 
     if (buttonText === "CHECK") {
-      speak();
+      speakWord();
 
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
         setShowResult(true);
@@ -106,11 +117,6 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
         removeRandomWord(); // odstranit slovo, pokud je zobrazeno nové slovo
       }
     }
-  };
-
-  const speak = () => {
-    let utterance = new SpeechSynthesisUtterance(word);
-    window.speechSynthesis.speak(utterance);
   };
 
   // const stateResult = showResult;

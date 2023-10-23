@@ -11,7 +11,7 @@ export const QuizPage = () => {
 
     const [allWords, setAllWords] = useState(wordData); // všechna slova
     const [randomWords, setRandomWords] = useState([]); // náhodná slova
-    const [line, setLine] = useState(0); // progressBar line
+    // const [line, setLine] = useState(0); // progressBar line
 
     // definuje se nová funkce pro vygenerování náhodného čísla
     const generateRandomNumber = () => {
@@ -50,17 +50,17 @@ export const QuizPage = () => {
     //     })
     // }
 
-    const updateLine = () => {
-        setLine(prevValue => {
-            console.log('prevValue ' + prevValue);
-            const increment = 100 / setupCountWord;
-            console.log('increment ' + increment);
-            const newValue = prevValue + increment;
-            console.log('newValue ' + newValue);
-            return newValue;
-            // setLine(prevValue => prevValue + (100 / (randomWords.length)));
-        });
-    }
+    // const updateLine = () => {
+    //     setLine(prevValue => {
+    //         console.log('prevValue ' + prevValue);
+    //         const increment = 100 / setupCountWord;
+    //         console.log('increment ' + increment);
+    //         const newValue = prevValue + increment;
+    //         console.log('newValue ' + newValue);
+    //         return newValue;
+    //         // setLine(prevValue => prevValue + (100 / (randomWords.length)));
+    //     });
+    // }
 
     console.log("randomWords", randomWords);
 
@@ -99,8 +99,11 @@ export const QuizPage = () => {
     return (
         <main className="quiz">
             <div className="quiz__body">
-                {randomWord && (
-                    <Question czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} removeRandomWord={removeRandomWord} generateNewRandomWord={generateNewRandomWord} updateLine={updateLine} line={line} />
+                {randomWord ? (
+                    <Question czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} removeRandomWord={removeRandomWord} generateNewRandomWord={generateNewRandomWord}/>
+                    // <Question czWord={randomWord.czWord} word={randomWord.word} key={randomWord.id} removeRandomWord={removeRandomWord} generateNewRandomWord={generateNewRandomWord} updateLine={updateLine} line={line} />
+                ) : (
+                    <div>DONE</div>
                 )}
             </div>
         </main>

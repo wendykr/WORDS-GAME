@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Setting.scss';
 import { ToggleButton } from '../ToggleButton/ToggleButton';
 import { SelectList } from '../SelectList/SelectList';
+import { InputField } from '../InputField/InputField';
 
 import { IoSettingsSharp } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
@@ -44,7 +45,9 @@ export const Setting = () => {
                     </div>
                     <div className="form__row">
                         <div className="form__row--label">Number of questions</div>
-                        <div className="form__row--option">TOGGLE SWITCH</div>
+                        <div className="form__row--option">
+                        <InputField/>
+                    </div>
                     </div>
                     <div className="form__row">
                         <div className="form__row--label">Question format</div>
