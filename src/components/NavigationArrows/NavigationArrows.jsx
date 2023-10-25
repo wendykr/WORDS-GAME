@@ -4,11 +4,12 @@ import './NavigationArrows.scss';
 import { BsFillArrowLeftSquareFill } from "react-icons/bs";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 
-export const NavigationArrows = () => {
+export const NavigationArrows = ({ handleClickPrev, handleClickNext, length }) => {
+
   return (
     <>
-        <BsFillArrowLeftSquareFill className="icon-left" title="Arrow prev icon" />
-        <BsFillArrowRightSquareFill className="icon-right" title="Arrow next icon" />
+        <BsFillArrowLeftSquareFill className={`icon-prev ${(length === 0) ? 'disabled' : ''}`} title="Arrow prev icon" onClick={handleClickPrev} />
+        <BsFillArrowRightSquareFill className={`icon-next ${(length === 9) ? 'disabled' : ''}`} title="Arrow next icon" onClick={handleClickNext} />
     </>
   );
 };

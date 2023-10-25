@@ -2,7 +2,9 @@ import React, { useState, useRef } from "react";
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { Button } from "../Button/Button";
+import { useRandomWord } from '../../context/RandomWordContext';
 import "./Question.scss";
+import { Setting } from "../../components/Setting/Setting";
 
 import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
@@ -14,10 +16,12 @@ export const Question = ({
   removeRandomWord,
   //updateWordsArray,
   generateCurrentNewWord,
-  progressbar,
-  updateProgressbar,
+  //progressbar,
+  //updateProgressbar,
   randomWords,
 }) => {
+
+  const { updateProgressbar, progressbar } = useRandomWord();
   const { speak, voices } = useSpeechSynthesis();
 
   const [isMarked, setIsMarked] = useState(false);
@@ -114,8 +118,16 @@ export const Question = ({
 
   const isFinished = resultState === "correct" && randomWords.length === 1;
 
+  const [isShowSetting, setIsShowSetting] = useState(false);
+
+  const showSetting = () => {
+    console.log('click');
+    setIsShowSetting(true);
+  }
+
   return (
     <div className="question">
+      {isShowSetting && <Setting /> }
       <div className="question__head">
         <ProgressBar line={progressbar} />
       </div>
@@ -171,7 +183,7 @@ export const Question = ({
 
       <div className="question__foot">
         {isFinished ? (
-          <Button text="Done" />
+          <Button text="Done" onClick={showSetting} />
         ) : (
           <Button
             onClick={(event) => {

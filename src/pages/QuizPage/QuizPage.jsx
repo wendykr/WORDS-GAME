@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./QuizPage.scss";
 import { wordData } from "../../constants/words";
 import { Question } from "../../components/Question/Question";
+import { useRandomWord } from '../../context/RandomWordContext';
 
 // definuje se nová funkce pro vygenerování náhodného čísla
 const generateRandomNumber = (limit) => {
@@ -13,33 +14,33 @@ const generateRandomNumber = (limit) => {
 };
 
 export const QuizPage = () => {
-  const setupCountWord = 2;
+  // const setupCountWord = 3;
 
   const [allWords, setAllWords] = useState(wordData); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
-  const [progressbar, setProgressbar] = useState(0); // progressBar line
+  // const [progressbar, setProgressbar] = useState(0); // progressBar line
 
   const [currentWord, setCurrentWord] = useState();
 
-  const updateProgressbar = () => {
-    setProgressbar((prevValue) => {
-      // console.log("prevValue " + prevValue);
-      const increment = 100 / setupCountWord;
-      // console.log("increment " + increment);
-      const newValue = prevValue + increment;
-      // console.log("newValue " + newValue);
-      return newValue;
-    });
-  };
+  const { setupCountWord } = useRandomWord();
+
+  // const updateProgressbar = () => {
+  //   setProgressbar((prevValue) => {
+  //     // console.log("prevValue " + prevValue);
+  //     const increment = 100 / setupCountWord;
+  //     // console.log("increment " + increment);
+  //     const newValue = prevValue + increment;
+  //     // console.log("newValue " + newValue);
+  //     return newValue;
+  //   });
+  // };
 
   console.log("randomWords", randomWords);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
-      //const filteredWords = prevRandomWords.filter(word =>  word !== randomWord);
       const filteredWords = prevRandomWords.filter((word) => {
         console.log(word.word, currentWord.word);
-
         return word.id !== currentWord.id;
       });
       console.log("filteredWords", filteredWords);
@@ -56,8 +57,21 @@ export const QuizPage = () => {
   //   setRandomWords(updatedRandomWords);
   // };
 
-  const generateCurrentNewWord = (wordsArray) => {
-    setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
+  // const generateCurrentNewWord = (wordsArray) => {
+  //   setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
+  // };
+
+  // generování nového slova z pole wordsArray
+  const generateCurrentNewWord = (randomWords) => {
+    // generuje se náhodný index na základě délky pole
+    console.log("randomWords.length: ", randomWords.length);
+    const randomIndex = generateRandomNumber(randomWords.length);
+    // vybere slovo z pole na základě náhodného indexu
+    const newWord = randomWords[randomIndex];
+    // vypíše nové slovo do konzole pro účely ladění
+    console.log("Nové slovo:", newWord);
+    // nastaví nové slovo jako aktuální slovo k zobrazení
+    setCurrentWord(newWord);
   };
 
   useEffect(() => {
@@ -83,25 +97,21 @@ export const QuizPage = () => {
     //setCurrentWord(randomWords[generateRandomNumber(randomWords.length)]);
   }, []);
 
-  const isFinished = randomWords.length === 0;
+  console.log("Aktuální slovo v QuizPage:", currentWord);
 
   return (
     <main className="quiz">
       <div className="quiz__body">
-        {(isFinished === "") === 0 ? (
-          <h1>Hezky</h1>
-        ) : (
-          <Question
-            czWord={currentWord?.czWord}
-            word={currentWord?.word}
-            removeRandomWord={removeRandomWord}
-            // updateWordsArray={updateWordsArray}
-            progressbar={progressbar}
-            updateProgressbar={updateProgressbar}
-            generateCurrentNewWord={generateCurrentNewWord}
-            randomWords={randomWords}
-          />
-        )}
+        <Question
+          czWord={currentWord?.czWord}
+          word={currentWord?.word}
+          removeRandomWord={removeRandomWord}
+          // updateWordsArray={updateWordsArray}
+          // progressbar={progressbar}
+          // updateProgressbar={updateProgressbar}
+          generateCurrentNewWord={generateCurrentNewWord}
+          randomWords={randomWords}
+        />
       </div>
     </main>
   );

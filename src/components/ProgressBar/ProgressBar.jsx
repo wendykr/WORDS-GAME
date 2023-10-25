@@ -7,7 +7,7 @@ export const ProgressBar = ({ line }) => {
     <div className="progress">
       <div className="progress__container">
         <div className="progress__line" style={{ width: `${line}%` }}></div>
-        {line}
+        {/*line*/}
       </div>
     </div>
   );
