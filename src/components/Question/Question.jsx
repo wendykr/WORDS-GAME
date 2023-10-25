@@ -1,29 +1,30 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import { useSpeechSynthesis } from 'react-speech-kit';
-import { ProgressBar } from '../ProgressBar/ProgressBar';
-import { Button } from '../Button/Button';
-import './Question.scss';
-import { useRandomWord } from '../../context/RandomWordContext';
+import { ProgressBar } from "../ProgressBar/ProgressBar";
+import { Button } from "../Button/Button";
+import "./Question.scss";
 
 import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 // import { FaVolumeUp } from "react-icons/fa";
 
-export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord }) => {
-
-  const { updateLine, line } = useRandomWord();
+export const Question = ({
+  czWord,
+  word,
+  removeRandomWord,
+  //updateWordsArray,
+  generateCurrentNewWord,
+  progressbar,
+  updateProgressbar,
+  randomWords,
+}) => {
   const { speak, voices } = useSpeechSynthesis();
 
   const [isMarked, setIsMarked] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [answerDisplayed, setAnswerDisplayed] = useState(false); // ukázat výsledek, nenapíšeme žádnou odpověď
-  const [showResult, setShowResult] = useState(false); // ukázat výsledek, napíšeme špatnou odpověď
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false); // ukázat výsledek, napíšeme správnou odpověď
-  const refInput = useRef(null);
+  const [inputValue, setInputValue] = useState("");
+  const [resultState, setResultState] = useState("");
 
-  const stateResult = showResult;
-  const stateCorrect = showCorrectAnswer && !answerDisplayed;
-  const stateDontKnow = answerDisplayed || showResult;
+  const refInput = useRef(null);
 
   const speakWord = () => {
     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
@@ -31,7 +32,7 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
   }
 
   const handleStarToggle = () => {
-    setIsMarked(prevState => !prevState);
+    setIsMarked((prevState) => !prevState);
   };
 
   const showFirstLetter = () => {
@@ -42,7 +43,7 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
 
   const answerReveal = () => {
     setInputValue(word);
-    setAnswerDisplayed(true);
+    setResultState("dont-know");
     speakWord();
   };
 
@@ -52,126 +53,115 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter' && inputValue.length !== 0) {
-      console.log('Enter');
+    if (event.key === "Enter" && inputValue.length !== 0) {
+      console.log("Enter");
 
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
-        setShowResult(true);
-        speakWord();
-
+        setResultState("incorrect");
+        console.log("incorrect");
       } else {
-        setShowCorrectAnswer(true);
         setInputValue(inputValue);
-        speakWord();
+        setResultState("correct");
+        console.log("correct");
       }
     }
   };
 
-  // const handleClick = (event) => {
-  //   const buttonText = event.target.innerText;
-  //   console.log(buttonText);
-
-  //   if (inputValue.toLowerCase() !== word.toLowerCase()) {
-  //     setShowResult(true);
-
-  //     if (stateResult || stateDontKnow) {
-  //       generateNewRandomWord();
-  //     }
-
-  //   } else {
-  //     setShowCorrectAnswer(true);
-  //     setInputValue(inputValue);
-      
-  //     if (stateResult || stateDontKnow) {
-  //       generateNewRandomWord();
-  //     }
-
-  //     if (stateCorrect) {
-  //       removeRandomWord(); // odstranit slovo, pokud je zobrazeno nové slovo
-  //     }
-  //   }
-  // };
-
-  const handleClick = (event) => {
-    const buttonText = event.target.innerText;
-    console.log(buttonText);
-
-    if (buttonText === "CHECK") {
+  const handleCheckResult = () => {
+    if (resultState === "") {
       speakWord();
 
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
-        setShowResult(true);
+        setResultState("incorrect");
+        console.log("incorrect");
       } else {
-        setShowCorrectAnswer(true);
+        updateProgressbar();
         setInputValue(inputValue);
-        updateLine();
-      }
-    }
 
-    if (buttonText === "NEXT") {
-      if (stateResult || stateDontKnow) {
-        generateNewRandomWord();
-      }
+        //const isLastWord = randomWords === 1;
 
-      if (stateCorrect) {
-        removeRandomWord(); // odstranit slovo, pokud je zobrazeno nové slovo
+        //console.log("Co je ted za stav", randomWords === 1);
+
+        //isLastWord ? setResultState("finished") : setResultState("correct");
+        setResultState("correct");
+
+        //console.log("resultState", resultState);
       }
     }
   };
 
-  // const stateResult = showResult;
-  // const stateCorrect = showCorrectAnswer && !answerDisplayed;
-  // const stateDontKnow = answerDisplayed || showResult;
+  const handleClick = () => {
+    console.log("resultState", resultState);
 
-  // const resultSentence = stateResult ? "Your answer" : (stateCorrect || stateDontKnow) ? "Correct Answer" : "" ;
-  // const resultStatus = stateResult ? "answer--incorrect" : (stateCorrect || stateDontKnow) ? "answer--correct" : "" ;
-  // const resultValue = (stateResult || stateCorrect) ? inputValue :  stateDontKnow ? word : "" ;
+    if (resultState === "correct") {
+      removeRandomWord();
+      generateCurrentNewWord(randomWords);
+    } else if (resultState === "dont-know" || resultState === "incorrect") {
+      //updateWordsArray();
+      generateCurrentNewWord(randomWords);
+    }
 
-//! const finalResponse = [].length < 0 ? "Exit" : ""
+    setInputValue("");
+    setResultState("");
+  };
+
+  const buttonText =
+    resultState !== ""
+      ? resultState === "finished"
+        ? "Exit"
+        : "Next"
+      : "Check";
+
+  const isFinished = resultState === "correct" && randomWords.length === 1;
 
   return (
     <div className="question">
       <div className="question__head">
-        <ProgressBar line={line} />
+        <ProgressBar line={progressbar} />
       </div>
       <div className="question__body">
-        <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+        <FaStar
+          className={`icon-star ${isMarked ? "icon-star--marked" : ""}`}
+          onClick={handleStarToggle}
+          title="Mark icon"
+        />
 
         {/* <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2> */}
         <h2 className="guess-word">{czWord}</h2>
 
-          <p className={`hint ${(showResult|| stateCorrect || stateDontKnow) ? "hidden" : ""}`} onClick={showFirstLetter}>Hint <MdHelpCenter className="icon-hint" title="Hint icon" /></p>
+        <p
+          className={`hint ${resultState !== "" ? "hidden" : ""}`}
+          onClick={showFirstLetter}
+        >
+          Hint <MdHelpCenter className="icon-hint" title="Hint icon" />
+        </p>
 
-          <input className={`your-answer ${(showResult|| stateCorrect || stateDontKnow) ? "hidden" : ""}`}
-                onChange={(changeWord)}
-                onKeyDown={(handleKeyDown)}
-                value={inputValue}
-                type="text"
-                ref={refInput}>
-          </input>
+        <input
+          className={`your-answer ${resultState !== "" ? "hidden" : ""}`}
+          onChange={changeWord}
+          onKeyDown={handleKeyDown}
+          value={inputValue}
+          type="text"
+          ref={refInput}
+        ></input>
 
-          {/* {(stateResult || stateCorrect || stateDontKnow) && (
-            <div className="answer">
-              <p className="answer__label">{resultSentence}</p>
-              <div className={`answer__content ${resultStatus}`} >{resultValue}</div>
-            </div>
-          )} */}
-
-        {stateResult && (
+        {resultState === "incorrect" && (
           <div className="answer">
-              <p className="answer__label">Your answer</p>
-              <div className="answer__content answer--incorrect">{inputValue}</div>
+            <p className="answer__label">Your answer</p>
+            <div className="answer__content answer--incorrect">
+              {inputValue}
+            </div>
           </div>
         )}
 
-        {stateCorrect && (
+        {(resultState === "correct" || resultState === "finished") && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
             <div className="answer__content answer--correct">{inputValue}</div>
           </div>
         )}
 
-        {stateDontKnow && (
+        {(resultState === "dont-know" || resultState === "incorrect") && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
             <div className="answer__content answer--correct">{word}</div>
@@ -180,32 +170,30 @@ export const Question = ({ czWord, word, removeRandomWord, generateNewRandomWord
       </div>
 
       <div className="question__foot">
+        {isFinished ? (
+          <Button text="Done" />
+        ) : (
+          <Button
+            onClick={(event) => {
+              resultState !== ""
+                ? handleClick(event)
+                : handleCheckResult(event);
+            }}
+            text={buttonText}
+            length={inputValue.length}
+            inputValue={inputValue}
+          />
+        )}
 
-      <Button onClick={(event) => { 
-        handleClick(event);
-        }}
-        text={(showResult || showCorrectAnswer || answerDisplayed) ? "Next" : "Check"} 
-        length={inputValue.length} 
-        inputValue={inputValue} 
-      />
-  
-        <div className={`question__foot--link ${(showResult || showCorrectAnswer || answerDisplayed) ? "hidden" : ""}`} onClick={answerReveal}>Don&apos;t know?</div>
+        <div
+          className={`question__foot--link ${
+            resultState !== "" ? "hidden" : ""
+          }`}
+          onClick={answerReveal}
+        >
+          Don&apos;t know?
+        </div>
       </div>
     </div>
-    );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  );
+};

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
 import './Card.scss';
@@ -9,9 +10,16 @@ import { FaStar } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 
 export const Card = () => {
+  const { speak, voices } = useSpeechSynthesis();
+
   const [isDisplay, setIsDisplay] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
   const [isTurned, setIsTurned] = useState(false);
+
+  const speakWord = () => {
+    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+    speak({ text: selectedWord.word, rate: 0.8, voice: selectedVoice });
+  }
 
   const selectedWord = wordData[0]; 
   console.log(selectedWord);
@@ -32,7 +40,7 @@ export const Card = () => {
 
       if (newTurnedState) {
         setTimeout(() => {
-          speak();
+          speakWord();
         }, 1000);
       }
 
@@ -41,11 +49,6 @@ export const Card = () => {
     
     setIsDisplay(false);
     console.log('click');
-  };
-
-  const speak = () => {
-    let utterance = new SpeechSynthesisUtterance(selectedWord.word);
-    window.speechSynthesis.speak(utterance);
   };
 
   return (
@@ -76,7 +79,7 @@ export const Card = () => {
                 <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} /> <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>{`${selectedWord.czWord[0]}_`}</span>
               </span>
               <span className="icons--left">
-                <FaVolumeUp className="icon-volume" onClick={speak} title="Sound icon" />
+                <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" />
                 <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
               </span>
             </div>

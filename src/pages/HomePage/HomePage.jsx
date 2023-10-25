@@ -22,10 +22,10 @@ const modesData = [
     },
     {
         id: 3,
-        title: "Match",
-        description: "Combine correct answer above the question.",
+        title: "Pexeso",
+        description: "Find the pairs that belong together.",
         img: images03,
-        url: "match"
+        url: "pexeso"
     }
 ];
 
