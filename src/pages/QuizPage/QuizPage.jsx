@@ -35,7 +35,8 @@ export const QuizPage = () => {
   //   });
   // };
 
-  console.log("randomWords", randomWords);
+  console.log('%c randomWords ', 'background: gray; color: white;');
+  console.log(randomWords);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
@@ -43,7 +44,8 @@ export const QuizPage = () => {
         console.log(word.word, currentWord.word);
         return word.id !== currentWord.id;
       });
-      console.log("filteredWords", filteredWords);
+      console.log('%c filteredWords ', 'background: blue; color: white;');
+      console.log(filteredWords);
       return filteredWords;
     });
   };
@@ -57,22 +59,22 @@ export const QuizPage = () => {
   //   setRandomWords(updatedRandomWords);
   // };
 
-  // const generateCurrentNewWord = (wordsArray) => {
-  //   setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
-  // };
-
-  // generování nového slova z pole wordsArray
-  const generateCurrentNewWord = (randomWords) => {
-    // generuje se náhodný index na základě délky pole
-    console.log("randomWords.length: ", randomWords.length);
-    const randomIndex = generateRandomNumber(randomWords.length);
-    // vybere slovo z pole na základě náhodného indexu
-    const newWord = randomWords[randomIndex];
-    // vypíše nové slovo do konzole pro účely ladění
-    console.log("Nové slovo:", newWord);
-    // nastaví nové slovo jako aktuální slovo k zobrazení
-    setCurrentWord(newWord);
+  const generateCurrentNewWord = (wordsArray) => {
+    setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
   };
+
+  // // generování nového slova z pole wordsArray
+  // const generateCurrentNewWord = (wordsArray) => {
+  //   // generuje se náhodný index na základě délky pole
+  //   console.log("wordsArray.length: ", wordsArray.length);
+  //   const randomIndex = generateRandomNumber(wordsArray.length);
+  //   // vybere slovo z pole na základě náhodného indexu
+  //   const newWord = wordsArray[randomIndex];
+  //   // vypíše nové slovo do konzole pro účely ladění
+  //   console.log("Nové slovo:", newWord);
+  //   // nastaví nové slovo jako aktuální slovo k zobrazení
+  //   setCurrentWord(newWord);
+  // };
 
   useEffect(() => {
     // inicializace prázdného pole

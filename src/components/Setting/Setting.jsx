@@ -26,9 +26,9 @@ export const Setting = () => {
                 </div>
                 <form className="form">
                     <div className="form__row">
-                        <div className="form__row--label">Shuffle terms</div>
+                        <div className="form__row--label">Question format</div>
                         <div className="form__row--option">
-                            <ToggleButton id="toggleShuffle" firstValue="YES" secondValue="NO"/>
+                            <ToggleButton id="toggleQuestion" firstValue="CZECH" secondValue="ENGLISH"/>
                         </div>
                     </div>
                     <div className="form__row">
@@ -38,21 +38,15 @@ export const Setting = () => {
                         </div>
                     </div>
                     <div className="form__row">
-                        <div className="form__row--label">Study starred terms only</div>
+                        <div className="form__row--label">Number of questions</div>
                         <div className="form__row--option">
-                            <ToggleButton id="toggleStarred" firstValue="YES" secondValue="NO"/>
+                            <InputField/>
                         </div>
                     </div>
                     <div className="form__row">
-                        <div className="form__row--label">Number of questions</div>
+                        <div className="form__row--label">Study starred terms only</div>
                         <div className="form__row--option">
-                        <InputField/>
-                    </div>
-                    </div>
-                    <div className="form__row">
-                        <div className="form__row--label">Question format</div>
-                        <div className="form__row--option">
-                            <ToggleButton id="toggleQuestion" firstValue="CZECH" secondValue="ENGLISH"/>
+                            <ToggleButton id="toggleStarred" firstValue="YES" secondValue="NO"/>
                         </div>
                     </div>
                     <div className="form__row">

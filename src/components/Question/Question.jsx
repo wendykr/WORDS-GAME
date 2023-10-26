@@ -28,6 +28,9 @@ export const Question = ({
   const [inputValue, setInputValue] = useState("");
   const [resultState, setResultState] = useState("");
 
+  console.log("inputValue", inputValue);
+  console.log("resultState", resultState);
+
   const refInput = useRef(null);
 
   const speakWord = () => {
@@ -72,29 +75,26 @@ export const Question = ({
   };
 
   const handleCheckResult = () => {
+    console.log('%c handleCheckResult ', 'background:orange;color:white;');
+
     if (resultState === "") {
       speakWord();
 
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
         setResultState("incorrect");
-        console.log("incorrect");
+        console.log('%c incorrect ', 'background:red;color:white;');
       } else {
+        console.log('%c updateProgressbar ', 'background:white;color:green;font-weight:bold;');
         updateProgressbar();
         setInputValue(inputValue);
-
-        //const isLastWord = randomWords === 1;
-
-        //console.log("Co je ted za stav", randomWords === 1);
-
-        //isLastWord ? setResultState("finished") : setResultState("correct");
         setResultState("correct");
-
-        //console.log("resultState", resultState);
+        console.log('%c correct ', 'background:green;color:white;');
       }
     }
   };
 
   const handleClick = () => {
+    console.log('%c handleClick ', 'background:purple;color:white;');
     console.log("resultState", resultState);
 
     if (resultState === "correct") {
@@ -106,7 +106,9 @@ export const Question = ({
     }
 
     setInputValue("");
+    console.log("inputValue", inputValue);
     setResultState("");
+    console.log("resultState", resultState);
   };
 
   const buttonText =
@@ -121,7 +123,7 @@ export const Question = ({
   const [isShowSetting, setIsShowSetting] = useState(false);
 
   const showSetting = () => {
-    console.log('click');
+    console.log('%c clickDone ', 'background:brown;color:white;');
     setIsShowSetting(true);
   }
 
