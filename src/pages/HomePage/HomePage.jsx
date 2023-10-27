@@ -3,7 +3,7 @@ import './HomePage.scss';
 import { Mode } from '../../components/Mode/Mode';
 import images01 from '../../components/Mode/images/flashcards.svg';
 import images02 from '../../components/Mode/images/quiz.svg';
-import images03 from '../../components/Mode/images/match.svg';
+import images03 from '../../components/Mode/images/pexeso.svg';
 
 const modesData = [
     {

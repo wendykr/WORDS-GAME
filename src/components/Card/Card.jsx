@@ -29,7 +29,7 @@ export const Card = () => {
   const speakWord = () => {
     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
     speak({ text: wordData[currentWordIndex].word, rate: 0.8, voice: selectedVoice });
-  }
+  };
 
   useEffect(() => {
     if (isTurned) {
@@ -49,6 +49,7 @@ export const Card = () => {
 
   const handleClick = () => {
     setIsTurned(prevState => !prevState);
+    setIsDisplay(false);
   };
 
   const [progressbar, setProgressbar] = useState(0);
@@ -63,7 +64,9 @@ export const Card = () => {
       console.log(length);
     }
     if (currentWordIndex > 0) {
-      setIsTurned(false);
+      if (isTurned) {
+        setIsTurned(false);
+      }
       setCurrentWordIndex(prevIndex => prevIndex - 1);
     }
   }
@@ -82,7 +85,26 @@ export const Card = () => {
       }
       setCurrentWordIndex(prevIndex => prevIndex + 1);
     }
+    
   }
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      console.log(event.key);
+
+      if(event.key === 'ArrowRight') {
+        console.log('NEXT');
+        handleClickNext();
+      }
+
+      if(event.key === 'ArrowLeft') {
+        console.log('PREV');
+        handleClickPrev();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <div className="card">

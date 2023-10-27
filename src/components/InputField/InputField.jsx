@@ -9,6 +9,6 @@ export const InputField = () => {
     };
 
     return (
-        <input type="number" id="number" className="input" onChange={(entryInput)} />
+        <input type="number" id="number" className="input" onChange={entryInput} />
     );
 }

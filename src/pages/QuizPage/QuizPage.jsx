@@ -1,7 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./QuizPage.scss";
-import { wordData } from "../../constants/words";
 import { Question } from "../../components/Question/Question";
 import { useRandomWord } from '../../context/RandomWordContext';
 
@@ -14,26 +13,16 @@ const generateRandomNumber = (limit) => {
 };
 
 export const QuizPage = () => {
-  // const setupCountWord = 3;
 
-  const [allWords, setAllWords] = useState(wordData); // všechna slova
-  const [randomWords, setRandomWords] = useState([]); // náhodná slova
-  // const [progressbar, setProgressbar] = useState(0); // progressBar line
-
-  const [currentWord, setCurrentWord] = useState();
-
-  const { setupCountWord } = useRandomWord();
-
-  // const updateProgressbar = () => {
-  //   setProgressbar((prevValue) => {
-  //     // console.log("prevValue " + prevValue);
-  //     const increment = 100 / setupCountWord;
-  //     // console.log("increment " + increment);
-  //     const newValue = prevValue + increment;
-  //     // console.log("newValue " + newValue);
-  //     return newValue;
-  //   });
-  // };
+  const {
+    setupCountWord,
+    allWords,
+    setAllWords,
+    randomWords,
+    setRandomWords,
+    currentWord,
+    setCurrentWord
+  } = useRandomWord();
 
   console.log('%c randomWords ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -95,8 +84,6 @@ export const QuizPage = () => {
 
     console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
-
-    //setCurrentWord(randomWords[generateRandomNumber(randomWords.length)]);
   }, []);
 
   console.log("Aktuální slovo v QuizPage:", currentWord);
@@ -109,8 +96,6 @@ export const QuizPage = () => {
           word={currentWord?.word}
           removeRandomWord={removeRandomWord}
           // updateWordsArray={updateWordsArray}
-          // progressbar={progressbar}
-          // updateProgressbar={updateProgressbar}
           generateCurrentNewWord={generateCurrentNewWord}
           randomWords={randomWords}
         />

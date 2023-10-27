@@ -16,8 +16,6 @@ export const Question = ({
   removeRandomWord,
   //updateWordsArray,
   generateCurrentNewWord,
-  //progressbar,
-  //updateProgressbar,
   randomWords,
 }) => {
 
@@ -36,7 +34,7 @@ export const Question = ({
   const speakWord = () => {
     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
     speak({ text: word, rate: 0.8, voice: selectedVoice });
-  }
+  };
 
   const handleStarToggle = () => {
     setIsMarked((prevState) => !prevState);
