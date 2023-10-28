@@ -1,6 +1,6 @@
 .mode {
 
-    &__item {
+  &__item {
     margin: 40px auto;
     padding: 20px;
     width: 270px;
@@ -18,42 +18,42 @@
     transform: scale(1);
     transition: border 0.3s ease, transform 0.3s ease;
 
-        @media screen and (min-width: 640px) {
-            margin: 40px;
-            width: 400px;
-            height: 350px;
-        }
-
-        &:hover {
-            border: 1px solid #ff9944;
-            box-shadow: 2px 2px 7px rgba(255, 153, 68, 0.3);
-            transform: scale(1.02);
-        }
+    @media screen and (min-width: 640px) {
+      margin: 40px;
+      width: 400px;
+      height: 350px;
     }
 
-    &__title {
-        font-size: 22px;
-        color: #fd7e14;
-
-        @media screen and (min-width: 640px) {
-            font-size: 26px;
-        }
+    &:hover {
+      border: 1px solid #ff9944;
+      box-shadow: 2px 2px 7px rgba(255, 153, 68, 0.3);
+      transform: scale(1.02);
     }
+  }
 
-    &__image {
-        width: auto;
-        height: 80px;
+  &__title {
+    font-size: 22px;
+    color: #fd7e14;
 
-        @media screen and (min-width: 640px) {
-            height: 100px;
-        }
+    @media screen and (min-width: 640px) {
+      font-size: 26px;
     }
+  }
 
-    &__desciption {
-        font-size: 14px;
+  &__image {
+    width: auto;
+    height: 80px;
 
-        @media screen and (min-width: 640px) {
-            font-size: 16px;
-        }
+    @media screen and (min-width: 640px) {
+      height: 100px;
     }
+  }
+
+  &__desciption {
+    font-size: 14px;
+
+    @media screen and (min-width: 640px) {
+      font-size: 16px;
+    }
+  }
 }

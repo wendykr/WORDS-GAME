@@ -1,172 +1,172 @@
 .card {
-    margin: 0 auto;
-    padding: 40px;
-    min-width: 270px;
-    max-width: 640px;
-    background-color: #f2f2f2;
-    display: flex;
-    flex-direction: column;
+  margin: 0 auto;
+  padding: 40px;
+  min-width: 270px;
+  max-width: 640px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 640px) {
+    width: 640px;
+  }
+
+  @media screen and (min-width: 860px) {
+    width: 860px;
+  }
+
+  &__head {
+    margin-bottom: 40px;
 
     @media screen and (min-width: 640px) {
-        width: 640px;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__body {
+
+    &--container {
+      margin: 20px 0;
+      width: auto;
+      height: 400px;
+      transition: transform 1s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      position: relative;
+
+      @media screen and (min-width: 640px) {
+        margin: 20px 40px;
+      }
+
+      &.is-turned {
+        transform: rotateX(180deg);
+      }
     }
 
-    @media screen and (min-width: 860px) {
-        width: 860px;
+    &--front, &--back {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #d2d6dc;
+      border-radius: 4px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      position: absolute;
+      backface-visibility: hidden;
     }
 
-    &__head {
-        margin-bottom: 40px;
-
-        @media screen and (min-width: 640px) {
-            margin-bottom: 40px;
-        }
+    &--front {
+      background-color: #ffffff;
     }
 
-    &__body {
-
-        &--container {
-            margin: 20px 0;
-            width: auto;
-            height: 400px;
-            transition: transform 1s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-            position: relative;
-
-            @media screen and (min-width: 640px) {
-                margin: 20px 40px;
-            }
-
-            &.is-turned {
-                transform: rotateX(180deg);
-            }
-        }
-
-        &--front, &--back {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            border: 1px solid #d2d6dc;
-            border-radius: 4px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            position: absolute;
-            backface-visibility: hidden;
-        }
-
-        &--front {
-            background-color: #ffffff;
-        }
-
-        &--back {
-            background-color: #e6e6e6;
-            transform: rotateX(180deg);
-        }
-
+    &--back {
+      background-color: #e6e6e6;
+      transform: rotateX(180deg);
     }
 
-    &__foot {
-        margin-top: 4px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 100px;
-    }
+  }
+
+  &__foot {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+  }
 }
 
 .icons--right, .icons--left {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .icons--left {
-    gap: 8px;
+  gap: 8px;
 }
 
 .icons--left {
-    gap: 16px;
+  gap: 16px;
 }
 
 .hint-firts-word {
-    margin-left: 4px;
-    font-size: 20px;
-    color: #008000;
-    display: none;
+  margin-left: 4px;
+  font-size: 20px;
+  color: #008000;
+  display: none;
 
-    &.show {
-        display: block;
-    }
+  &.show {
+    display: block;
+  }
 }
 
 .container--icons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .container--words {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    flex-grow: 1;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .front-word {
-    margin: 0;
-    display: inline-block;
-    font-size: 36px;
-    font-family: 'Mukta', sans-serif;
-    font-weight: bold;
-    text-align: center;
+  margin: 0;
+  display: inline-block;
+  font-size: 36px;
+  font-family: 'Mukta', sans-serif;
+  font-weight: bold;
+  text-align: center;
 
-    @media screen and (min-width: 640px) {
-        font-size: 50px;
-    }
+  @media screen and (min-width: 640px) {
+    font-size: 50px;
+  }
 }
 
 .hint-icon {
-    margin-right: auto;
-    font-size: 30px;
-    color: #1a1a1a;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    cursor: pointer;
-    
-    &:hover {
-        color: #fd7e14;
-    }
+  margin-right: auto;
+  font-size: 30px;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: #fd7e14;
+  }
 }
 
 .icon-star {
-    margin-left: auto;
-    font-size: 30px;
-    fill: #aaaaaa;
-    transition: fill 0.3s ease;
-    cursor: pointer;
+  margin-left: auto;
+  font-size: 30px;
+  fill: #aaaaaa;
+  transition: fill 0.3s ease;
+  cursor: pointer;
 
-    &:hover {
-        fill: #ffcc00;
-    }
+  &:hover {
+    fill: #ffcc00;
+  }
 
-    &--marked {
-        fill: #ffcc00;
-    }
+  &--marked {
+    fill: #ffcc00;
+  }
 }
 
 .icon-volume {
-    font-size: 30px;
-    fill: #5481b7;
-    cursor: pointer;
+  font-size: 30px;
+  fill: #5481b7;
+  cursor: pointer;
 
-    &:hover {
-        fill: #13529e;
-    }
+  &:hover {
+    fill: #13529e;
+  }
 }

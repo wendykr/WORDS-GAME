@@ -63,6 +63,7 @@ export const Card = () => {
       setLength(prevValue => prevValue - 1);
       console.log(length);
     }
+
     if (currentWordIndex > 0) {
       if (isTurned) {
         setIsTurned(false);
@@ -79,25 +80,25 @@ export const Card = () => {
       setLength(prevValue => prevValue + 1);
       console.log(length);
     }
+
     if (currentWordIndex < 9) {
       if (isTurned) {
         setIsTurned(false);
       }
       setCurrentWordIndex(prevIndex => prevIndex + 1);
     }
-    
   }
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       console.log(event.key);
 
-      if(event.key === 'ArrowRight') {
+      if (event.key === 'ArrowRight') {
         console.log('NEXT');
         handleClickNext();
       }
 
-      if(event.key === 'ArrowLeft') {
+      if (event.key === 'ArrowLeft') {
         console.log('PREV');
         handleClickPrev();
       }
@@ -140,7 +141,7 @@ export const Card = () => {
             <div className="container--words" onClick={handleClick} >
               <h2 className="front-word">{wordData[currentWordIndex].word}</h2>
             </div>
-          </div>
+            </div>
         </div>
       </div>
 
@@ -152,4 +153,4 @@ export const Card = () => {
       </div>
     </div>
   );
-};
+}

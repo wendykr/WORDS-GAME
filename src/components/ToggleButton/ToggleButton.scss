@@ -1,50 +1,50 @@
 .toggle {
 
-    &__container {
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        width: fit-content;
-        border: 2px solid #fd7e14;
-        border-radius: 2px;
-        background: #fd7e14;
-        font-weight: bold;
-        color: #fd7e14;
-        cursor: pointer;
+  &__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: fit-content;
+    border: 2px solid #fd7e14;
+    border-radius: 2px;
+    background: #fd7e14;
+    font-weight: bold;
+    color: #fd7e14;
+    cursor: pointer;
 
-        &::before {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            left: 0%;
-            border-radius: 2px;
-            background: #ffffff;
-            transition: all 0.3s;
-        }
+    &::before {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      left: 0%;
+      border-radius: 2px;
+      background: #ffffff;
+      transition: all 0.3s;
+    }
+  }
+
+  &__checkbox {
+    display: none;
+  }
+
+  &__label {
+    padding: 6px;
+    text-align: center;
+    z-index: 1;
+
+    &.active {
+      color: #ffffff;
+      transition: color 0.3s;
     }
 
-    &__checkbox {
-        display: none;
+    &.inactive {
+      color: #fd7e14;
+      transition: color 0.3s;
     }
+  }
 
-    &__label {
-        padding: 6px;
-        text-align: center;
-        z-index: 1;
-
-        &.active {
-            color: #ffffff;
-            transition: color 0.3s;
-        }
-        
-        &.inactive {
-            color: #fd7e14;
-            transition: color 0.3s;
-        }
-    }
-
-    &__checkbox:checked + &__container::before {
-        left: 50%;
-    }
+  &__checkbox:checked + &__container::before {
+    left: 50%;
+  }
 }

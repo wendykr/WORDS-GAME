@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/components/NavigationArrows/NavigationArrows.scss","NavigationArrows.css"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,cAAA;EACA,2BAAA;EACA,eAAA;ACCJ;ADCI;EACI,cAAA;ACCR;ADEI;EACI,cAAA;EACA,YAAA;ACAR","file":"NavigationArrows.css"}
+{"version":3,"sources":["../src/components/NavigationArrows/NavigationArrows.scss","NavigationArrows.css"],"names":[],"mappings":"AAAA;EACE,eAAA;EACA,cAAA;EACA,2BAAA;EACA,eAAA;ACCF;ADCE;EACE,cAAA;ACCJ;ADEE;EACE,cAAA;EACA,YAAA;ACAJ","file":"NavigationArrows.css"}

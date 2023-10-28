@@ -5,9 +5,8 @@
   font-size: 16px;
   border: 2px solid #fd7e14;
   border-radius: 2px;
-
-  &:focus-visible {
-    outline: none;
-    border: 2px solid #fd7e14;
-  }
 }
+.input:focus-visible {
+  outline: none;
+  border: 2px solid #fd7e14;
+}/*# sourceMappingURL=InputField.css.map */

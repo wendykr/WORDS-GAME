@@ -4,10 +4,10 @@ import { Setting } from '../Setting/Setting';
 import './Header.scss';
 
 export const Header = () => {
-    return (
-        <header className="header">
-            <Navigation />
-            <Setting />
-        </header>
-    );
+  return (
+    <header className="header">
+      <Navigation />
+      <Setting />
+    </header>
+  );
 }

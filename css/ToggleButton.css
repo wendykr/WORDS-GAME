@@ -4,8 +4,8 @@
   grid-template-columns: repeat(2, 1fr);
   width: -moz-fit-content;
   width: fit-content;
-  border: 3px solid #fd7e14;
-  border-radius: 20px;
+  border: 2px solid #fd7e14;
+  border-radius: 2px;
   background: #fd7e14;
   font-weight: bold;
   color: #fd7e14;
@@ -17,7 +17,7 @@
   width: 50%;
   height: 100%;
   left: 0%;
-  border-radius: 20px;
+  border-radius: 2px;
   background: #ffffff;
   transition: all 0.3s;
 }

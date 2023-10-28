@@ -84,7 +84,11 @@ export const QuizPage = () => {
 
     console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
-  }, []);
+  }, [setupCountWord]);
+
+  useEffect(() => {
+    generateCurrentNewWord(randomWords);
+  }, [randomWords]);
 
   console.log("Aktuální slovo v QuizPage:", currentWord);
 
@@ -102,4 +106,4 @@ export const QuizPage = () => {
       </div>
     </main>
   );
-};
+}
