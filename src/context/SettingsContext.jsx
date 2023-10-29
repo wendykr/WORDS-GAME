@@ -1,23 +1,14 @@
 import React, {useState, useContext, createContext} from 'react';
-// import { wordData } from "../constants/words";
 
 export const SettingsContext = createContext();
 
 export const SettingsProvider = ({children}) => {
 
-  // const setupCountWord = 3;
-
-  //! Progressbar nový context => progressbar + setProgressBar => Progressbar
-  //! Words nový context => allWords, randomWords, currentWords => WordsContext, WordsSetupContext
-  //! Settings => isShown, isFavorite, isCzech/English, isAudio, atd.... => SettingsContext
-
   const [isShow, setIsShow] = useState(false);
   const [isCzech, setIsCzech] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isAudio, setIsAudio] = useState(true);
-
-  //const [numberValue, setNumberValue] = useState(0);
-  const [categoryValue, setCategoryValue] = useState('');
+  const [categoryValue, setCategoryValue] = useState('all');
 
   return (
     <SettingsContext.Provider value={{
@@ -29,8 +20,6 @@ export const SettingsProvider = ({children}) => {
       setIsFavorite,
       isAudio,
       setIsAudio,
-      //numberValue,
-      //setNumberValue,
       categoryValue,
       setCategoryValue,
     }}>

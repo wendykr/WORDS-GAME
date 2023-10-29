@@ -16,9 +16,12 @@ export const Question = ({
     word,
     removeRandomWord,
     randomWords,
+    generateCurrentNewWord,
   }) => {
 
-  const { updateProgressbar, progressbar, setRandomWords } = useWordsSetup();
+  const { updateProgressbar, progressbar, 
+    //setRandomWords 
+  } = useWordsSetup();
   const { isShow, setIsShow } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
 
@@ -133,7 +136,8 @@ export const Question = ({
     if (resultState === "correct") {
       removeRandomWord();
     } else if (resultState === "dont-know" || resultState === "incorrect") {
-      setRandomWords(randomWords);
+      console.log(randomWords);
+      generateCurrentNewWord(randomWords);
     }
 
     setInputValue("");

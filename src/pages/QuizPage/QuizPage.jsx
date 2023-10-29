@@ -20,8 +20,6 @@ export const QuizPage = () => {
     setCurrentWord
   } = useWordsSetup();
 
-  //const {setupCountWord} = useSettingContext()
-
   console.log('%c randomWords ', 'background: gray; color: white;');
   console.log(randomWords);
 
@@ -72,6 +70,7 @@ export const QuizPage = () => {
           word={currentWord?.word}
           removeRandomWord={removeRandomWord}
           randomWords={randomWords}
+          generateCurrentNewWord={generateCurrentNewWord}
         />
       </div>
     </main>

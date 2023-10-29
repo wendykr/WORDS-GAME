@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Setting.scss';
-// import { ToggleButton } from '../ToggleButton/ToggleButton';
 import { RadioButton } from '../RadioButton/RadioButton';
 import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
@@ -11,18 +10,15 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
 export const Setting = () => {
-  const { isShow, setIsShow } = useSettings();
+  const {
+    isShow, setIsShow,
+    isCzech, setIsCzech,
+    isFavorite, setIsFavorite,
+    isAudio, setIsAudio,
+    categoryValue, setCategoryValue
+  } = useSettings();
 
-  const { categoryValue, setCategoryValue } = useSettings('all');
   const { setupCountWord, setSetupCountWord } = useWordsSetup();
-
-  const [isCzech, setIsCzech] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isAudio, setIsAudio] = useState(true);
-  // const [temporaryAudio, setTemporaryAudio] = useState();
-  // const [favorite, setFavorite] = useState();
-
-  // console.log(temporaryFavorite);
 
   // const [formData, setFormData] = useState({
   //   question: true,
@@ -36,28 +32,23 @@ export const Setting = () => {
     setIsShow(prevState => !prevState);
   };
 
-  const handleChange = (setupCountWord) => {
-    setSetupCountWord(setupCountWord);
-  }
+  // const handleChange = (setupCountWord) => {
+  //   setSetupCountWord(setupCountWord);
+  // }
 
-  const selectList = (categoryValue) => {
-    setCategoryValue(categoryValue);
-  }
+  // const selectList = (categoryValue) => {
+  //   setCategoryValue(categoryValue);
+  // }
 
-  const handleToggle = (
-    isCzech,
-    isFavorite,
-    isAudio
-    ) => {
+  // const handleToggle = (
+  //   isCzech,
+  //   isFavorite,
+  //   isAudio
+  //   ) => {
     
-    setIsCzech(isCzech);
-    setIsFavorite(isFavorite);
-    setIsAudio(isAudio);
-    // setFavorite(setTemoraryFavorite);
-  }
-
-  // const toggle = () => {
-  //   console.log('toggle');
+  //   setIsCzech(isCzech);
+  //   setIsFavorite(isFavorite);
+  //   setIsAudio(isAudio);
   // }
 
   const handleSubmit = (event) => {
@@ -74,12 +65,6 @@ export const Setting = () => {
     console.log('isCzech: ' + isCzech);
     console.log('isFavorite: ' + isFavorite);
     console.log('isAudio: ' + isAudio);
-
-    //setFavorite();
-    // setFavorite(setTemporaryFavorite);
-    //setAudio()
-
-    console.log('SAVE');
   }
 
   return (
@@ -98,20 +83,25 @@ export const Setting = () => {
               <div className="form__row--option">
                 <RadioButton
                   setTemporaryFunction={setIsCzech}
-                  name="language" firstValue="CZECH" secondValue="ENGLISH" onChange={handleToggle}
+                  name="language" firstValue="CZECH" secondValue="ENGLISH"
+                  //onChange={handleToggle}
                   checkedValue={isCzech} />
               </div>
             </div>
             <div className="form__row">
               <div className="form__row--label">Words from the category</div>
               <div className="form__row--option">
-                <SelectList setCategoryValue={setCategoryValue} onChange={selectList} />
+                <SelectList setCategoryValue={setCategoryValue}
+                //onChange={selectList}
+                />
               </div>
             </div>
             <div className="form__row">
               <div className="form__row--label">Number of words</div>
               <div className="form__row--option">
-                  <InputField setNumberValue={setSetupCountWord} onChange={handleChange} setupCountWord={setupCountWord} />
+                  <InputField setNumberValue={setSetupCountWord}
+                  //onChange={handleChange}
+                  setupCountWord={setupCountWord} />
               </div>
             </div>
             <div className="form__row">
@@ -119,7 +109,8 @@ export const Setting = () => {
               <div className="form__row--option">
                 <RadioButton
                   setTemporaryFunction={setIsFavorite}
-                  name="favorite" firstValue="YES" secondValue="NO" onChange={handleToggle}
+                  name="favorite" firstValue="YES" secondValue="NO"
+                  //onChange={handleToggle}
                   checkedValue={isFavorite} />
               </div>
             </div>
@@ -128,24 +119,11 @@ export const Setting = () => {
               <div className="form__row--option">
                 <RadioButton
                   setTemporaryFunction={setIsAudio}
-                  name="audio" firstValue="YES" secondValue="NO" onChange={handleToggle}
+                  name="audio" firstValue="YES" secondValue="NO"
+                  //onChange={handleToggle}
                   checkedValue={isAudio} />
               </div>
             </div>
-            {/* <div className="form__row">
-              <div className="form__row--label">Study starred terms only</div>
-              <div className="form__row--option">
-                <ToggleButton
-                // setTemporaryFunction={setTemporaryFavorite}
-                  id="toggleStarred" firstValue="YES" secondValue="NO" onChange={toggle}/>
-              </div>
-            </div> */}
-            {/* <div className="form__row">
-              <div className="form__row--label">Audio</div>
-              <div className="form__row--option">
-                <RadioButton name="toggleAudio" firstValue="YES" secondValue="NO" onChange={toggle}/>
-              </div>
-            </div> */}
             <div className="form__row form__row--button">
               <button className="form__button" onClick={handleSubmit} type="submit">SAVE</button>
             </div>
