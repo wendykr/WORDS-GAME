@@ -1,34 +1,33 @@
 import React, {useState, useContext, createContext} from 'react';
 import { wordData } from "../constants/words";
 
-export const RandomWordContext = createContext();
+export const WordsSetupContext = createContext();
 
-export const RandomWordProvider = ({children}) => {
+export const WordsSetupProvider = ({children}) => {
 
-  const setupCountWord = 3;
+  const [setupCountWord, setSetupCountWord] = useState(5); // aktuální slovo
+  // const setupCountWord = 3;
 
   const [allWords, setAllWords] = useState(wordData); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
-  const [currentWord, setCurrentWord] = useState();
+  const [currentWord, setCurrentWord] = useState(); // aktuální slovo
 
   const [progressbar, setProgressbar] = useState(0); // progressBar line
 
   const updateProgressbar = () => {
     setProgressbar((prevValue) => {
-      // console.log("prevValue " + prevValue);
       const increment = 100 / setupCountWord;
-      // console.log("increment " + increment);
       const newValue = prevValue + increment;
-      // console.log("newValue " + newValue);
       return newValue;
     });
   };
 
   return (
-    <RandomWordContext.Provider value={{
+    <WordsSetupContext.Provider value={{
       updateProgressbar,
       progressbar,
       setupCountWord,
+      setSetupCountWord,
       allWords,
       setAllWords,
       randomWords,
@@ -37,8 +36,8 @@ export const RandomWordProvider = ({children}) => {
       setCurrentWord
     }}>
       {children}
-    </RandomWordContext.Provider>
+    </WordsSetupContext.Provider>
   );
 }
 
-export const useRandomWord = () => useContext(RandomWordContext);
+export const useWordsSetup = () => useContext(WordsSetupContext);

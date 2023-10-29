@@ -5,12 +5,14 @@ import { FlashcardPage } from "./pages/FlashcardPage/FlashcardPage";
 import { QuizPage } from "./pages/QuizPage/QuizPage";
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage";
 import { SharedLayout } from "./components/SharedLayout/SharedLayout";
-import { RandomWordProvider } from './context/RandomWordContext';
+import { WordsSetupProvider } from './context/WordsSetupContext';
+import { SettingsProvider } from './context/SettingsContext';
 
 function App() {
 
   return (
-    <RandomWordProvider>
+    <WordsSetupProvider>
+    <SettingsProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
@@ -22,7 +24,8 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    </RandomWordProvider>
+    </SettingsProvider>
+    </WordsSetupProvider>
   );
 }
 

@@ -1,33 +1,31 @@
 import React, { useState, useRef } from "react";
 import { useSpeechSynthesis } from 'react-speech-kit';
+import { Setting } from "../../components/Setting/Setting";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { Button } from "../Button/Button";
-import { useRandomWord } from '../../context/RandomWordContext';
+import { useWordsSetup } from '../../context/WordsSetupContext';
+import { useSettings } from '../../context/SettingsContext';
 import "./Question.scss";
-import { Setting } from "../../components/Setting/Setting";
 
 import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-// import { FaVolumeUp } from "react-icons/fa";
+// import { FaVolumeUp } from "react-icons/fa";s
 
 export const Question = ({
-  czWord,
-  word,
-  removeRandomWord,
-  //updateWordsArray,
-  generateCurrentNewWord,
-  randomWords,
-}) => {
+    czWord,
+    word,
+    removeRandomWord,
+    randomWords,
+  }) => {
 
-  const { updateProgressbar, progressbar } = useRandomWord();
+  const { updateProgressbar, progressbar, setRandomWords } = useWordsSetup();
+  const { isShow, setIsShow } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
 
   const [isMarked, setIsMarked] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [resultState, setResultState] = useState("");
-
-  console.log("inputValue", inputValue);
-  console.log("resultState", resultState);
+  // const [isHiddenInput, setIsHiddenInput] = useState(false);
 
   const refInput = useRef(null);
 
@@ -57,25 +55,62 @@ export const Question = ({
     setInputValue(myWord);
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" && inputValue.length !== 0) {
-      console.log("Enter");
+  const handleCheckKeyDown = (event) => {
+    // console.log('%c handleCheckKeyDown ', 'background:orange;color:white;');
 
-      if (inputValue.toLowerCase() !== word.toLowerCase()) {
-        setResultState("incorrect");
-        console.log("incorrect");
-      } else {
-        setInputValue(inputValue);
-        setResultState("correct");
-        console.log("correct");
+    if (resultState === "") {
+
+      if (event.key === "Enter" && inputValue.length !== 0) {
+        // console.log("Enter");
+        speakWord();
+
+        if (inputValue.toLowerCase() !== word.toLowerCase()) {
+          setResultState("incorrect");
+          // console.log("incorrect");
+        } else {
+          setInputValue(inputValue);
+          setResultState("correct");
+          // console.log("correct");
+        }
       }
     }
   };
+
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     console.log('%c handleKeyDown ', 'background:silver;color:white;');
+
+  //     if (event.key === "Enter") {
+  //       if (resultState === "correct") {
+  //         console.log('- removeRandomWord -');
+  //         removeRandomWord();
+  //         generateCurrentNewWord(randomWords);
+  //       } else if (resultState === "dont-know" || resultState === "incorrect") {
+  //         console.log('- generateCurrentNewWord -');
+  //         generateCurrentNewWord(randomWords);
+  //       }
+
+  //       setInputValue("");
+  //       console.log("inputValue", inputValue);
+  //       setResultState("");
+  //       console.log("resultState", resultState);
+  //     }
+  //   };
+
+  //   window.addEventListener('keydown', handleKeyDown);
+  //   console.log('%c Já jsem useEffect keydownNext ', 'background:red;color:white;');
+
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   };
+
+  // }, [isHiddenInput]);
 
   const handleCheckResult = () => {
     console.log('%c handleCheckResult ', 'background:orange;color:white;');
 
     if (resultState === "") {
+      // setIsHiddenInput(true);
       speakWord();
 
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
@@ -97,10 +132,8 @@ export const Question = ({
 
     if (resultState === "correct") {
       removeRandomWord();
-      generateCurrentNewWord(randomWords);
     } else if (resultState === "dont-know" || resultState === "incorrect") {
-      //updateWordsArray();
-      generateCurrentNewWord(randomWords);
+      setRandomWords(randomWords);
     }
 
     setInputValue("");
@@ -118,16 +151,15 @@ export const Question = ({
 
   const isFinished = resultState === "correct" && randomWords.length === 1;
 
-  const [isShowSetting, setIsShowSetting] = useState(false);
-
   const showSetting = () => {
-    console.log('%c clickDone ', 'background:brown;color:white;');
-    setIsShowSetting(true);
+    setIsShow(true);
   }
 
   return (
     <div className="question">
-      {isShowSetting && <Setting /> }
+      <div className="question__hidden">
+        {isShow && <Setting /> }
+      </div>
       <div className="question__head">
         <ProgressBar line={progressbar} />
       </div>
@@ -151,7 +183,7 @@ export const Question = ({
         <input
           className={`your-answer ${resultState !== "" ? "hidden" : ""}`}
           onChange={changeWord}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleCheckKeyDown}
           value={inputValue}
           type="text"
           ref={refInput}

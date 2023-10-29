@@ -2,13 +2,14 @@ import React from 'react';
 import './SelectList.scss';
 import { wordData } from '../../constants/words';
 
-export const SelectList = () => {
+export const SelectList = ({ setCategoryValue }) => {
 
   const uniqueCategories = [...new Set(wordData.map(oneOption => oneOption.category))].sort();
 
   const selectValue = (event) => {
     const selectedCategory = event.target.value;
-    console.log('Selected Category: ' + selectedCategory);
+    // console.log('Selected Category: ' + selectedCategory);
+    setCategoryValue(selectedCategory);
   };
 
   const options = uniqueCategories.map((category, index) => (
@@ -19,7 +20,7 @@ export const SelectList = () => {
 
   return (
     <select id="selectList" className="selectList" name="category" onChange={selectValue}>
-      <option value="all">- Choose -</option>
+      <option value="all">- All -</option>
       {options}
     </select>
   );

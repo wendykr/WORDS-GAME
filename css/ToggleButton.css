@@ -36,6 +36,7 @@
 .toggle__label.inactive {
   color: #fd7e14;
   transition: color 0.3s;
+  cursor: auto;
 }
 .toggle__checkbox:checked + .toggle__container::before {
   left: 50%;

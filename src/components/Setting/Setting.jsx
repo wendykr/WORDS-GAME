@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import './Setting.scss';
-import { ToggleButton } from '../ToggleButton/ToggleButton';
+// import { ToggleButton } from '../ToggleButton/ToggleButton';
+import { RadioButton } from '../RadioButton/RadioButton';
 import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
+import { useSettings } from '../../context/SettingsContext';
+import { useWordsSetup } from '../../context/WordsSetupContext';
 
 import { IoSettingsSharp } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
 export const Setting = () => {
-  const [isShow, setIsShow] = useState(false);
-  const [numberValue, setNumberValue] = useState('');
-  const [selectListValue, setSelectListValue] = useState('');
+  const { isShow, setIsShow } = useSettings();
+
+  const { categoryValue, setCategoryValue } = useSettings('all');
+  const { setupCountWord, setSetupCountWord } = useWordsSetup();
+
+  const [isCzech, setIsCzech] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isAudio, setIsAudio] = useState(true);
+  // const [temporaryAudio, setTemporaryAudio] = useState();
+  // const [favorite, setFavorite] = useState();
+
+  // console.log(temporaryFavorite);
 
   // const [formData, setFormData] = useState({
   //   question: true,
@@ -24,24 +36,49 @@ export const Setting = () => {
     setIsShow(prevState => !prevState);
   };
 
-  const handleChange = (numberValue) => {
-    setNumberValue(numberValue);
+  const handleChange = (setupCountWord) => {
+    setSetupCountWord(setupCountWord);
   }
 
-  const selectList = (selectListValue) => {
-    setSelectListValue(selectListValue);
+  const selectList = (categoryValue) => {
+    setCategoryValue(categoryValue);
   }
 
-  const toggle = () => {
-    console.log('toggle');
+  const handleToggle = (
+    isCzech,
+    isFavorite,
+    isAudio
+    ) => {
+    
+    setIsCzech(isCzech);
+    setIsFavorite(isFavorite);
+    setIsAudio(isAudio);
+    // setFavorite(setTemoraryFavorite);
   }
+
+  // const toggle = () => {
+  //   console.log('toggle');
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("category: ", selectListValue);
-    console.log("number: ", numberValue);
-    console.log('click submit');
     setIsShow(prevState => !prevState);
+    setCategoryValue(categoryValue);
+    setSetupCountWord(setupCountWord);
+    setIsCzech(isCzech);
+    setIsFavorite(isFavorite);
+    setIsAudio(isAudio);
+
+    console.log('Category: ' + categoryValue);
+    console.log('Count: ' + setupCountWord);
+    console.log('isCzech: ' + isCzech);
+    console.log('isFavorite: ' + isFavorite);
+    console.log('isAudio: ' + isAudio);
+
+    //setFavorite();
+    // setFavorite(setTemporaryFavorite);
+    //setAudio()
+
     console.log('SAVE');
   }
 
@@ -59,35 +96,58 @@ export const Setting = () => {
             <div className="form__row">
               <div className="form__row--label">Question format</div>
               <div className="form__row--option">
-                <ToggleButton id="toggleQuestion" firstValue="CZECH" secondValue="ENGLISH" onChange={toggle}/>
+                <RadioButton
+                  setTemporaryFunction={setIsCzech}
+                  name="language" firstValue="CZECH" secondValue="ENGLISH" onChange={handleToggle}
+                  checkedValue={isCzech} />
               </div>
             </div>
             <div className="form__row">
-              <div className="form__row--label">Study words from the category</div>
+              <div className="form__row--label">Words from the category</div>
               <div className="form__row--option">
-                <SelectList onChange={selectList}/>
+                <SelectList setCategoryValue={setCategoryValue} onChange={selectList} />
               </div>
             </div>
             <div className="form__row">
-              <div className="form__row--label">Number of questions</div>
+              <div className="form__row--label">Number of words</div>
               <div className="form__row--option">
-                  <InputField onChange={handleChange}/>
+                  <InputField setNumberValue={setSetupCountWord} onChange={handleChange} setupCountWord={setupCountWord} />
               </div>
             </div>
             <div className="form__row">
-              <div className="form__row--label">Study starred terms only</div>
+              <div className="form__row--label">Favorite terms only</div>
               <div className="form__row--option">
-                <ToggleButton id="toggleStarred" firstValue="YES" secondValue="NO" onChange={toggle}/>
+                <RadioButton
+                  setTemporaryFunction={setIsFavorite}
+                  name="favorite" firstValue="YES" secondValue="NO" onChange={handleToggle}
+                  checkedValue={isFavorite} />
               </div>
             </div>
             <div className="form__row">
               <div className="form__row--label">Audio</div>
               <div className="form__row--option">
-                <ToggleButton id="toggleAudio" firstValue="YES" secondValue="NO" onChange={toggle}/>
+                <RadioButton
+                  setTemporaryFunction={setIsAudio}
+                  name="audio" firstValue="YES" secondValue="NO" onChange={handleToggle}
+                  checkedValue={isAudio} />
               </div>
             </div>
+            {/* <div className="form__row">
+              <div className="form__row--label">Study starred terms only</div>
+              <div className="form__row--option">
+                <ToggleButton
+                // setTemporaryFunction={setTemporaryFavorite}
+                  id="toggleStarred" firstValue="YES" secondValue="NO" onChange={toggle}/>
+              </div>
+            </div> */}
+            {/* <div className="form__row">
+              <div className="form__row--label">Audio</div>
+              <div className="form__row--option">
+                <RadioButton name="toggleAudio" firstValue="YES" secondValue="NO" onChange={toggle}/>
+              </div>
+            </div> */}
             <div className="form__row form__row--button">
-              <button className="form__button" type="submit">SAVE</button>
+              <button className="form__button" onClick={handleSubmit} type="submit">SAVE</button>
             </div>
           </form>
       </div>

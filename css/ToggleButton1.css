@@ -1,0 +1,50 @@
+.btn {
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid #fd7e14;
+  display: inline-block;
+  padding: 6px;
+  position: relative;
+  text-align: center;
+  transition: background 600ms ease, color 600ms ease;
+}
+
+input[type=radio].toggle {
+  display: none;
+}
+input[type=radio].toggle + label {
+  color: #fd7e14;
+  cursor: pointer;
+  min-width: 85px;
+}
+input[type=radio].toggle + label:hover {
+  background: none;
+  color: #fd7e14;
+}
+input[type=radio].toggle + label:after {
+  background: #fd7e14;
+  content: "";
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: left 300ms;
+  width: 100%;
+  z-index: -1;
+}
+input[type=radio].toggle.toggle-left + label {
+  border-right: 0;
+}
+input[type=radio].toggle.toggle-left + label:after {
+  left: 100%;
+}
+input[type=radio].toggle.toggle-right + label:after {
+  left: -100%;
+}
+input[type=radio].toggle:checked + label {
+  cursor: default;
+  color: #ffffff;
+  transition: color 300ms;
+}
+input[type=radio].toggle:checked + label:after {
+  left: 0;
+}/*# sourceMappingURL=ToggleButton1.css.map */

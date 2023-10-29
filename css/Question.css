@@ -18,6 +18,9 @@
     width: 860px;
   }
 }
+.question__hidden {
+  display: none;
+}
 .question__head {
   margin-bottom: 40px;
 }
