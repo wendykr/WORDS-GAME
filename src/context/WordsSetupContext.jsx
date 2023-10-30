@@ -6,8 +6,11 @@ export const WordsSetupContext = createContext();
 export const WordsSetupProvider = ({children}) => {
 
   const [setupCountWord, setSetupCountWord] = useState(5); // aktuální slovo
-  // const setupCountWord = 3;
 
+  let filterCategory = wordData.filter(word => word.category === "Animals");
+  console.log(filterCategory);
+
+  // const [allWords, setAllWords] = useState(filterCategory); // všechna slova
   const [allWords, setAllWords] = useState(wordData); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
   const [currentWord, setCurrentWord] = useState(); // aktuální slovo

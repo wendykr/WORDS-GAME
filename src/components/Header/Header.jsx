@@ -6,8 +6,10 @@ import './Header.scss';
 export const Header = () => {
   return (
     <header className="header">
-      <Navigation />
-      <Setting />
+      <div className="header__main">
+        <Navigation />
+        <Setting />
+      </div>
     </header>
   );
 }

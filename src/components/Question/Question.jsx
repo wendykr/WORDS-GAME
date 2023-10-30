@@ -20,7 +20,6 @@ export const Question = ({
   }) => {
 
   const { updateProgressbar, progressbar, 
-    //setRandomWords 
   } = useWordsSetup();
   const { isShow, setIsShow } = useSettings();
   const { speak, voices } = useSpeechSynthesis();

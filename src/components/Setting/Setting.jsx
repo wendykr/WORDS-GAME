@@ -68,7 +68,7 @@ export const Setting = () => {
   }
 
   return (
-    <div className="setting" onSubmit={handleSubmit}>
+    <div className="setting">
       <div className="setting__head">
         <IoSettingsSharp className="icon-setting" onClick={showSetup} title="Setting icon" />
       </div>

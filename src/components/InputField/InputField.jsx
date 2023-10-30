@@ -7,12 +7,18 @@ export const InputField = ({ setNumberValue, setupCountWord }) => {
 
   const entryInput = (event) => {
     const inputValue = event.target.value;
+
+    if (inputValue < 1) {
+      alert('Number of words must be greater than 1');
+    } else {
+      setNumberValue(inputValue);
+    }
     //setSetupCountWord(inputValue)
     // console.log(inputValue);
-    setNumberValue(inputValue);
+    
   };
 
   return (
-    <input type="number" id="number" className="input" min="1" onChange={entryInput} value={setupCountWord} />
+    <input type="number" id="number" className="input" onChange={entryInput} value={setupCountWord} />
   );
 }
