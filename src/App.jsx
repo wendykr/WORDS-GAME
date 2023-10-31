@@ -11,8 +11,8 @@ import { SettingsProvider } from './context/SettingsContext';
 function App() {
 
   return (
-    <WordsSetupProvider>
     <SettingsProvider>
+    <WordsSetupProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
@@ -24,8 +24,8 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    </SettingsProvider>
     </WordsSetupProvider>
+    </SettingsProvider>
   );
 }
 

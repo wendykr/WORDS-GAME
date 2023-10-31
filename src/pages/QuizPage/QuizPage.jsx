@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import "./QuizPage.scss";
 import { Question } from "../../components/Question/Question";
 import { useWordsSetup } from '../../context/WordsSetupContext';
+import { useSettings } from "../../context/SettingsContext";
 
 const generateRandomNumber = (limit) => {
   const randomIndex = Math.floor(Math.random() * limit);
@@ -11,8 +12,9 @@ const generateRandomNumber = (limit) => {
 
 export const QuizPage = () => {
 
+  const { setupCountWord } = useSettings();
+
   const {
-    setupCountWord,
     allWords,
     randomWords,
     setRandomWords,

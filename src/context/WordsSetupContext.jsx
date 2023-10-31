@@ -1,16 +1,19 @@
 import React, {useState, useContext, createContext} from 'react';
 import { wordData } from "../constants/words";
+import { useSettings } from './SettingsContext';
 
 export const WordsSetupContext = createContext();
 
 export const WordsSetupProvider = ({children}) => {
 
-  const [setupCountWord, setSetupCountWord] = useState(5); // aktuální slovo
+  const { setupCountWord, 
+    //categoryValue
+  } = useSettings();
 
-  let filterCategory = wordData.filter(word => word.category === "Animals");
-  console.log(filterCategory);
+  // let filterCategory = wordData.filter(word => word.category === categoryValue);
+  // console.log(filterCategory);
 
-  // const [allWords, setAllWords] = useState(filterCategory); // všechna slova
+  // const [allWords, setAllWords] = useState(categoryValue); // všechna slova
   const [allWords, setAllWords] = useState(wordData); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
   const [currentWord, setCurrentWord] = useState(); // aktuální slovo
@@ -25,12 +28,12 @@ export const WordsSetupProvider = ({children}) => {
     });
   };
 
+  console.log(123)
+
   return (
     <WordsSetupContext.Provider value={{
       updateProgressbar,
       progressbar,
-      setupCountWord,
-      setSetupCountWord,
       allWords,
       setAllWords,
       randomWords,
