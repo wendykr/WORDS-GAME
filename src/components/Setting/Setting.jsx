@@ -61,7 +61,11 @@ export const Setting = () => {
     console.log('%c filterCategory ', 'background: red; color: white;');
     console.log(...filterCategory);
 
-    setAllWords(filterCategory);
+    if (filterCategory.length > 0) {
+      setAllWords(filterCategory);
+    } else {
+      setAllWords(wordData);
+    }
 
     console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
