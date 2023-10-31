@@ -25,9 +25,9 @@ export const wordData = [
   },
   {
     id: 5,
-    word: "Book",
-    czWord: "Kniha",
-    category: "Education",
+    word: "Bridge",
+    czWord: "Most",
+    category: "Buildings",
   },
   {
     id: 6,
@@ -46,6 +46,12 @@ export const wordData = [
     word: "Phone",
     czWord: "Telefon",
     category: "Technology",
+  },
+  {
+    id: 9,
+    word: "Skyline",
+    czWord: "Panorama města",
+    category: "Places",
   },
   {
     id: 10,
@@ -79,9 +85,9 @@ export const wordData = [
   },
   {
     id: 15,
-    word: "Food",
-    czWord: "Jídlo",
-    category: "Cuisine",
+    word: "Elephant",
+    czWord: "Slon",
+    category: "Animals",
   },
   {
     id: 16,
@@ -211,9 +217,9 @@ export const wordData = [
   },
   {
     id: 37,
-    word: "Painting",
-    czWord: "Malba",
-    category: "Art",
+    word: "Bird",
+    czWord: "Pták",
+    category: "Animals",
   },
   {
     id: 38,
@@ -241,9 +247,9 @@ export const wordData = [
   },
   {
     id: 42,
-    word: "Coffee",
-    czWord: "Káva",
-    category: "Beverages",
+    word: "Island",
+    czWord: "Ostrov",
+    category: "Places",
   },
   {
     id: 43,
@@ -259,9 +265,9 @@ export const wordData = [
   },
   {
     id: 45,
-    word: "Clock",
-    czWord: "Hodiny",
-    category: "Technology",
+    word: "Desert",
+    czWord: "Poušť",
+    category: "Nature",
   },
   {
     id: 46,
@@ -274,6 +280,12 @@ export const wordData = [
     word: "Star",
     czWord: "Hvězda",
     category: "Space",
+  },
+  {
+    id: 48,
+    word: "Countryside",
+    czWord: "Venkov",
+    category: "Places",
   },
   {
     id: 49,
@@ -334,6 +346,18 @@ export const wordData = [
     word: "Knife",
     czWord: "Nůž",
     category: "Tableware",
+  },
+  {
+    id: 59,
+    word: "Mountains",
+    czWord: "Hory",
+    category: "Nature",
+  },
+  {
+    id: 60,
+    word: "Valley",
+    czWord: "Údolí",
+    category: "Nature",
   },
   {
     id: 61,
@@ -403,21 +427,21 @@ export const wordData = [
   },
   {
     id: 72,
-    word: "Sunset",
-    czWord: "Západ slunce",
-    category: "Nature",
+    word: "Clarinet",
+    czWord: "Klarinet",
+    category: "Music",
   },
   {
     id: 73,
-    word: "Sunrise",
-    czWord: "Východ slunce",
-    category: "Nature",
+    word: "Saxophone",
+    czWord: "Saxofon",
+    category: "Music",
   },
   {
-    id: 74,
-    word: "Star",
-    czWord: "Hvězda",
-    category: "Space",
+    id: 91,
+    word: "Building",
+    czWord: "Budova",
+    category: "Buildings",
   },
   {
     id: 75,
@@ -499,56 +523,8 @@ export const wordData = [
   },
   {
     id: 88,
-    word: "Desert",
-    czWord: "Poušť",
-    category: "Nature",
-  },
-  {
-    id: 89,
-    word: "Island",
-    czWord: "Ostrov",
-    category: "Places",
-  },
-  {
-    id: 92,
-    word: "Country",
-    czWord: "Země",
-    category: "Places",
-  },
-  {
-    id: 93,
-    word: "Mountains",
-    czWord: "Hory",
-    category: "Nature",
-  },
-  {
-    id: 94,
-    word: "Valley",
-    czWord: "Údolí",
-    category: "Nature",
-  },
-  {
-    id: 95,
-    word: "Countryside",
-    czWord: "Venkov",
-    category: "Places",
-  },
-  {
-    id: 96,
-    word: "Skyline",
-    czWord: "Panorama města",
-    category: "Places",
-  },
-  {
-    id: 97,
-    word: "Building",
-    czWord: "Budova",
-    category: "Buildings",
-  },
-  {
-    id: 98,
-    word: "Bridge",
-    czWord: "Most",
-    category: "Buildings",
+    word: "Hockey",
+    czWord: "Hokej",
+    category: "Sport",
   },
 ];

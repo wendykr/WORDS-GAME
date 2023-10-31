@@ -5,13 +5,11 @@ export const RadioButton = ({
     name,
     firstValue,
     secondValue,
-    //onChange,
     checkedValue,
     setTemporaryFunction
   }) => {
 
   const handleToggle = (event) => {
-    // console.log(name, event.target.value);
     setTemporaryFunction(event.target.value);
   };
 

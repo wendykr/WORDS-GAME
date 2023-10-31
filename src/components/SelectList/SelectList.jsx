@@ -2,14 +2,13 @@ import React from 'react';
 import './SelectList.scss';
 import { wordData } from '../../constants/words';
 
-export const SelectList = ({ setCategoryValue }) => {
+export const SelectList = ({  setTemporaryFunction }) => {
 
   const uniqueCategories = [...new Set(wordData.map(oneOption => oneOption.category))].sort();
 
   const selectValue = (event) => {
     const selectedCategory = event.target.value;
-    // console.log('Selected Category: ' + selectedCategory);
-    setCategoryValue(selectedCategory);
+    setTemporaryFunction(selectedCategory);
   };
 
   const options = uniqueCategories.map((category, index) => (

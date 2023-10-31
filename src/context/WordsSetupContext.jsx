@@ -6,14 +6,8 @@ export const WordsSetupContext = createContext();
 
 export const WordsSetupProvider = ({children}) => {
 
-  const { setupCountWord, 
-    //categoryValue
-  } = useSettings();
+  const { setupCountWord } = useSettings();
 
-  // let filterCategory = wordData.filter(word => word.category === categoryValue);
-  // console.log(filterCategory);
-
-  // const [allWords, setAllWords] = useState(categoryValue); // všechna slova
   const [allWords, setAllWords] = useState(wordData); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
   const [currentWord, setCurrentWord] = useState(); // aktuální slovo
@@ -27,8 +21,6 @@ export const WordsSetupProvider = ({children}) => {
       return newValue;
     });
   };
-
-  console.log(123)
 
   return (
     <WordsSetupContext.Provider value={{

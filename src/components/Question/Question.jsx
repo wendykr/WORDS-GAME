@@ -109,7 +109,7 @@ export const Question = ({
   // }, [isHiddenInput]);
 
   const handleCheckResult = () => {
-    console.log('%c handleCheckResult ', 'background:orange;color:white;');
+    // console.log('%c handleCheckResult ', 'background:orange;color:white;');
 
     if (resultState === "") {
       // setIsHiddenInput(true);
@@ -117,32 +117,32 @@ export const Question = ({
 
       if (inputValue.toLowerCase() !== word.toLowerCase()) {
         setResultState("incorrect");
-        console.log('%c incorrect ', 'background:red;color:white;');
+        // console.log('%c incorrect ', 'background:red;color:white;');
       } else {
-        console.log('%c updateProgressbar ', 'background:white;color:green;font-weight:bold;');
+        // console.log('%c updateProgressbar ', 'background:white;color:green;font-weight:bold;');
         updateProgressbar();
         setInputValue(inputValue);
         setResultState("correct");
-        console.log('%c correct ', 'background:green;color:white;');
+        // console.log('%c correct ', 'background:green;color:white;');
       }
     }
   };
 
   const handleClick = () => {
-    console.log('%c handleClick ', 'background:purple;color:white;');
-    console.log("resultState", resultState);
+    // console.log('%c handleClick ', 'background:purple;color:white;');
+    // console.log("resultState", resultState);
 
     if (resultState === "correct") {
       removeRandomWord();
     } else if (resultState === "dont-know" || resultState === "incorrect") {
-      console.log(randomWords);
+      // console.log(randomWords);
       generateCurrentNewWord(randomWords);
     }
 
     setInputValue("");
-    console.log("inputValue", inputValue);
+    // console.log("inputValue", inputValue);
     setResultState("");
-    console.log("resultState", resultState);
+    // console.log("resultState", resultState);
   };
 
   const buttonText =

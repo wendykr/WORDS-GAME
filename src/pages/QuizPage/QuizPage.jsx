@@ -22,17 +22,17 @@ export const QuizPage = () => {
     setCurrentWord
   } = useWordsSetup();
 
-  console.log('%c randomWords ', 'background: gray; color: white;');
-  console.log(randomWords);
+  // console.log('%c randomWords ', 'background: gray; color: white;');
+  // console.log(randomWords);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
       const filteredWords = prevRandomWords.filter((word) => {
-        console.log(word.word, currentWord.word);
+        // console.log(word.word, currentWord.word);
         return word.id !== currentWord.id;
       });
-      console.log('%c filteredWords ', 'background: blue; color: white;');
-      console.log(filteredWords);
+      // console.log('%c filteredWords ', 'background: blue; color: white;');
+      // console.log(filteredWords);
       return filteredWords;
     });
   };
@@ -54,7 +54,7 @@ export const QuizPage = () => {
 
     setRandomWords(randomIndx);
 
-    console.log("random index", generateRandomNumber(randomIndx.length));
+    // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [setupCountWord]);
 
@@ -62,7 +62,7 @@ export const QuizPage = () => {
     generateCurrentNewWord(randomWords);
   }, [randomWords]);
 
-  console.log("Aktuální slovo v QuizPage:", currentWord);
+  // console.log("Aktuální slovo v QuizPage:", currentWord);
 
   return (
     <main className="quiz">

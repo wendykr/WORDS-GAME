@@ -5,7 +5,7 @@ export const SettingsContext = createContext();
 export const SettingsProvider = ({children}) => {
 
   const [setupCountWord, setSetupCountWord] = useState(5); // počet slov
-  const [categoryValue, setCategoryValue] = useState('all');
+  const [categoryValue, setCategoryValue] = useState();
   const [isShow, setIsShow] = useState(false);
   const [isCzech, setIsCzech] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);

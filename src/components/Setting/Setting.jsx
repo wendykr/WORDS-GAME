@@ -1,34 +1,34 @@
 import React from 'react';
-// import { useState } from 'react';
+import { useState } from 'react';
 import './Setting.scss';
 import { RadioButton } from '../RadioButton/RadioButton';
 import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
 import { useSettings } from '../../context/SettingsContext';
-// import { useWordsSetup } from '../../context/WordsSetupContext';
-// import { wordData } from "../../constants/words";
+import { useWordsSetup } from '../../context/WordsSetupContext';
+import { wordData } from "../../constants/words";
 
 import { IoSettingsSharp } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
 export const Setting = () => {
-  
-  // const [isTemporaryCzech, setIsTemporaryCzech] = useState();
-  // const [isTemporaryCategory, setIsTemporaryCategory] = useState();
-  // const [isTemporaryCount, setIsTemporaryCount] = useState();
-  // const [isTemporaryFavorite, setIsTemporaryFavorite] = useState();
-  // const [isTemporaryAudio, setIsTemporaryAudio] = useState();
 
   const {
     isShow, setIsShow,
     isCzech, setIsCzech,
-    isFavorite, setIsFavorite,
-    isAudio, setIsAudio,
     categoryValue, setCategoryValue,
-    setupCountWord, setSetupCountWord
+    setupCountWord, setSetupCountWord,
+    isFavorite, setIsFavorite,
+    isAudio, setIsAudio
   } = useSettings();
+  
+  const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
+  const [isTemporaryCategory, setIsTemporaryCategory] = useState(categoryValue);
+  const [isTemporaryCount, setIsTemporaryCount] = useState(setupCountWord);
+  const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
+  const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
 
-  // const { setAllWords } = useWordsSetup();
+  const { setAllWords } = useWordsSetup();
 
   // const [formData, setFormData] = useState({
   //   question: true,
@@ -45,29 +45,31 @@ export const Setting = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
-    setCategoryValue(categoryValue);
-    setSetupCountWord(setupCountWord);
-    setIsCzech(isCzech);
-    setIsFavorite(isFavorite);
-    setIsAudio(isAudio);
+    // setCategoryValue(categoryValue);
+    // setSetupCountWord(setupCountWord);
+    // setIsCzech(isCzech);
+    // setIsFavorite(isFavorite);
+    // setIsAudio(isAudio);
 
-    // setCategoryValue(isTemporaryCategory);
-    // setSetupCountWord(isTemporaryCount);
+    setCategoryValue(isTemporaryCategory);
+    setSetupCountWord(isTemporaryCount);
+    setIsCzech(isTemporaryCzech);
+    setIsFavorite(isTemporaryFavorite);
+    setIsAudio(isTemporaryAudio);
 
-    // setIsCzech(isTemporaryCzech);
+    let filterCategory = wordData.filter(word => word.category === isTemporaryCategory);
+    console.log('%c filterCategory ', 'background: red; color: white;');
+    console.log(...filterCategory);
 
-    // setIsFavorite(isTemporaryFavorite);
-    // setIsAudio(isTemporaryAudio);
+    setAllWords(filterCategory);
 
-    // let filterCategory = wordData.filter(word => word.category === isTemporaryCategory);
+    console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
-    // setAllWords(filterCategory);
-
-    console.log('Category: ' + categoryValue);
-    console.log('Count: ' + setupCountWord);
-    console.log('isCzech: ' + isCzech);
-    console.log('isFavorite: ' + isFavorite);
-    console.log('isAudio: ' + isAudio);
+    console.log('Category: ' + isTemporaryCategory);
+    console.log('Count: ' + isTemporaryCount);
+    console.log('isCzech: ' + isTemporaryCzech);
+    console.log('isFavorite: ' + isTemporaryFavorite);
+    console.log('isAudio: ' + isTemporaryAudio);
   }
 
   return (
@@ -85,18 +87,18 @@ export const Setting = () => {
               <div className="form__row--label">Question format</div>
               <div className="form__row--option">
                 <RadioButton
-                  setTemporaryFunction={setIsCzech}
-                  // setTemporaryFunction={setIsTemporaryCzech}
+                  // setTemporaryFunction={setIsCzech}
+                  setTemporaryFunction={setIsTemporaryCzech}
                   name="language" firstValue="CZECH" secondValue="ENGLISH"
-                  checkedValue={isCzech} />
+                  checkedValue={isTemporaryCzech} />
               </div>
             </div>
             <div className="form__row">
               <div className="form__row--label">Words from the category</div>
               <div className="form__row--option">
                 <SelectList
-                  setCategoryValue={setCategoryValue}
-                  // setTemporaryFunction={setIsTemporaryCategory}
+                  // setCategoryValue={setCategoryValue}
+                  setTemporaryFunction={setIsTemporaryCategory}
                 />
               </div>
             </div>
@@ -104,8 +106,8 @@ export const Setting = () => {
               <div className="form__row--label">Number of words</div>
               <div className="form__row--option">
                   <InputField
-                    setNumberValue={setSetupCountWord}
-                    // setTemporaryFunction={setIsTemporaryCount}
+                    // setNumberValue={setSetupCountWord}
+                    setTemporaryFunction={setIsTemporaryCount}
                     setupCountWord={setupCountWord}
                   />
               </div>
@@ -114,8 +116,8 @@ export const Setting = () => {
               <div className="form__row--label">Favorite terms only</div>
               <div className="form__row--option">
                 <RadioButton
-                  setTemporaryFunction={setIsFavorite}
-                  // setTemporaryFunction={setIsTemporaryFavorite}
+                  // setTemporaryFunction={setIsFavorite}
+                  setTemporaryFunction={setIsTemporaryFavorite}
                   name="favorite" firstValue="YES" secondValue="NO"
                   checkedValue={isFavorite} />
               </div>
@@ -124,8 +126,8 @@ export const Setting = () => {
               <div className="form__row--label">Audio</div>
               <div className="form__row--option">
                 <RadioButton
-                  // setTemporaryFunction={setIsTemporaryAudio}
-                  setTemporaryFunction={setIsAudio}
+                  setTemporaryFunction={setIsTemporaryAudio}
+                  // setTemporaryFunction={setIsAudio}
                   name="audio" firstValue="YES" secondValue="NO"
                   checkedValue={isAudio} />
               </div>
