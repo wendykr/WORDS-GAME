@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SelectList.scss';
 import { wordData } from '../../constants/words';
 
-export const SelectList = ({  setTemporaryFunction }) => {
+export const SelectList = ({
+    setTemporaryFunction,
+    categoryValue
+  }) => {
+
+  const [selectedCategory, setSelectedCategory] = useState(categoryValue);
 
   const uniqueCategories = [...new Set(wordData.map(oneOption => oneOption.category))].sort();
 
   const selectValue = (event) => {
     const selectedCategory = event.target.value;
+    setSelectedCategory(selectedCategory);
     setTemporaryFunction(selectedCategory);
   };
 
@@ -18,8 +24,8 @@ export const SelectList = ({  setTemporaryFunction }) => {
   ));
 
   return (
-    <select id="selectList" className="selectList" name="category" onChange={selectValue}>
-      <option value="all">- All -</option>
+    <select id="selectList" className="selectList" name="category" onChange={selectValue} value={selectedCategory} >
+      <option value="">- All -</option>
       {options}
     </select>
   );

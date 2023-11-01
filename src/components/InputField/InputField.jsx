@@ -9,12 +9,12 @@ export const InputField = ({
   const entryInput = (event) => {
     const inputValue = event.target.value;
 
-    if (inputValue < 1) {
-      alert('Number of words must be greater than 1');
+    if (inputValue <= 0) {
+      alert('Number of words must be greater than 0');
+      event.target.value = "";
     } else {
       setTemporaryFunction(inputValue);
     }
-    
   };
 
   return (

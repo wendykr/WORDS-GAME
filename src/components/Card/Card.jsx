@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
-// import { useRandomWord } from '../../context/RandomWordContext';
+// import { useWordsSetup } from '../../context/WordsSetupContext';
+// import { useSettings } from '../../context/SettingsContext';
 import './Card.scss';
 import { wordData } from '../../constants/words';
 
@@ -11,8 +12,20 @@ import { FaStar } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 
 export const Card = () => {
-  // const { updateProgressbar, progressbar } = useRandomWord();
+
+  const [progressbar, setProgressbar] = useState(0);
+  // const { updateProgressbar, progressbar, } = useWordsSetup();
+  // const { isShow, setIsShow } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
+
+  const [isMarked, setIsMarked] = useState(false);
+  const [isDisplay, setIsDisplay] = useState(false);
+  const [isTurned, setIsTurned] = useState(false);
+
+  const speakWord = () => {
+    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+    speak({ text: wordData[currentWordIndex].word, rate: 0.8, voice: selectedVoice });
+  };
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
@@ -21,15 +34,6 @@ export const Card = () => {
       console.log(i, wordData[i].czWord);
     }
   }, []);
-
-  const [isDisplay, setIsDisplay] = useState(false);
-  const [isMarked, setIsMarked] = useState(false);
-  const [isTurned, setIsTurned] = useState(false);
-
-  const speakWord = () => {
-    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-    speak({ text: wordData[currentWordIndex].word, rate: 0.8, voice: selectedVoice });
-  };
 
   useEffect(() => {
     if (isTurned) {
@@ -52,7 +56,6 @@ export const Card = () => {
     setIsDisplay(false);
   };
 
-  const [progressbar, setProgressbar] = useState(0);
   const [length, setLength] = useState(0);
 
   const handleClickPrev = () => {
@@ -62,6 +65,7 @@ export const Card = () => {
       console.log(progressbar);
       setLength(prevValue => prevValue - 1);
       console.log(length);
+      setIsDisplay(false);
     }
 
     if (currentWordIndex > 0) {
@@ -79,6 +83,7 @@ export const Card = () => {
       console.log(progressbar);
       setLength(prevValue => prevValue + 1);
       console.log(length);
+      setIsDisplay(false);
     }
 
     if (currentWordIndex < 9) {

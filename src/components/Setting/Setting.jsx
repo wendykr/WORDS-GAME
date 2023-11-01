@@ -45,11 +45,6 @@ export const Setting = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
-    // setCategoryValue(categoryValue);
-    // setSetupCountWord(setupCountWord);
-    // setIsCzech(isCzech);
-    // setIsFavorite(isFavorite);
-    // setIsAudio(isAudio);
 
     setCategoryValue(isTemporaryCategory);
     setSetupCountWord(isTemporaryCount);
@@ -60,6 +55,12 @@ export const Setting = () => {
     let filterCategory = wordData.filter(word => word.category === isTemporaryCategory);
     console.log('%c filterCategory ', 'background: red; color: white;');
     console.log(...filterCategory);
+
+    if (filterCategory.length < isTemporaryCount) {
+      alert('Number of words is greater than the number of words from the chosen category.');
+      setIsShow(true);
+      return;
+    }
 
     if (filterCategory.length > 0) {
       setAllWords(filterCategory);
@@ -91,18 +92,18 @@ export const Setting = () => {
               <div className="form__row--label">Question format</div>
               <div className="form__row--option">
                 <RadioButton
-                  // setTemporaryFunction={setIsCzech}
                   setTemporaryFunction={setIsTemporaryCzech}
                   name="language" firstValue="CZECH" secondValue="ENGLISH"
-                  checkedValue={isTemporaryCzech} />
+                  checkedValue={isCzech}
+                />
               </div>
             </div>
             <div className="form__row">
               <div className="form__row--label">Words from the category</div>
               <div className="form__row--option">
                 <SelectList
-                  // setCategoryValue={setCategoryValue}
                   setTemporaryFunction={setIsTemporaryCategory}
+                  categoryValue={categoryValue}
                 />
               </div>
             </div>
@@ -110,7 +111,6 @@ export const Setting = () => {
               <div className="form__row--label">Number of words</div>
               <div className="form__row--option">
                   <InputField
-                    // setNumberValue={setSetupCountWord}
                     setTemporaryFunction={setIsTemporaryCount}
                     setupCountWord={setupCountWord}
                   />
@@ -120,10 +120,10 @@ export const Setting = () => {
               <div className="form__row--label">Favorite terms only</div>
               <div className="form__row--option">
                 <RadioButton
-                  // setTemporaryFunction={setIsFavorite}
                   setTemporaryFunction={setIsTemporaryFavorite}
                   name="favorite" firstValue="YES" secondValue="NO"
-                  checkedValue={isFavorite} />
+                  checkedValue={isFavorite}
+                />
               </div>
             </div>
             <div className="form__row">
@@ -131,9 +131,9 @@ export const Setting = () => {
               <div className="form__row--option">
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryAudio}
-                  // setTemporaryFunction={setIsAudio}
                   name="audio" firstValue="YES" secondValue="NO"
-                  checkedValue={isAudio} />
+                  checkedValue={isAudio}
+                />
               </div>
             </div>
             <div className="form__row form__row--button">
