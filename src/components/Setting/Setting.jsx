@@ -56,13 +56,12 @@ export const Setting = () => {
     console.log('%c filterCategory ', 'background: red; color: white;');
     console.log(...filterCategory);
 
-    if (filterCategory.length < isTemporaryCount) {
-      alert('Number of words is greater than the number of words from the chosen category.');
-      setIsShow(true);
-      return;
-    }
-
     if (filterCategory.length > 0) {
+      if (filterCategory.length < isTemporaryCount) {
+        alert('Number of words is greater than the number of words from the chosen category.');
+        setIsShow(true);
+        return;
+      }
       setAllWords(filterCategory);
     } else {
       setAllWords(wordData);
