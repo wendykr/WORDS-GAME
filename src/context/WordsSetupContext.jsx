@@ -14,10 +14,10 @@ export const WordsSetupProvider = ({children}) => {
 
   const [progressbar, setProgressbar] = useState(0); // progressBar line
 
-  const updateProgressbar = () => {
+  const updateProgressbar = (up) => {
     setProgressbar((prevValue) => {
       const increment = 100 / setupCountWord;
-      const newValue = prevValue + increment;
+      const newValue = up ? prevValue + increment : prevValue - increment;
       return newValue;
     });
   };

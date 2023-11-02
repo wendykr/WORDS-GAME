@@ -13,16 +13,22 @@ export const RadioButton = ({
 
   const handleToggle = (event) => {
     const newValue = event.target.value;
-    console.log(name, newValue);
-    // setCheckValue(newValue);
+    setCheckValue(newValue);
     setTemporaryFunction(newValue);
   };
 
   return (
       <div className="radioButton">
-        <input type="radio" id={`${name}-radio-one`} className="radioButton__input" name={`${name}`} value={true} checked={checkValue === true} onChange={handleToggle} />
+        <input
+          type="radio" id={`${name}-radio-one`} className="radioButton__input" name={`${name}`} value="true"
+          checked={checkValue === 'true' || checkValue === true}
+          onChange={handleToggle}
+        />
         <label className="radioButton__label" htmlFor={`${name}-radio-one`}>{firstValue}</label>
-        <input type="radio" id={`${name}-radio-two`} className="radioButton__input" name={`${name}`} value={false} checked={checkValue === false} onChange={handleToggle} />
+        <input type="radio" id={`${name}-radio-two`} className="radioButton__input" name={`${name}`} value="false"
+          checked={checkValue === 'false' || checkValue === false}
+          onChange={handleToggle}
+        />
         <label className="radioButton__label" htmlFor={`${name}-radio-two`}>{secondValue}</label>
       </div>
   );

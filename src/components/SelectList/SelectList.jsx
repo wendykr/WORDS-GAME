@@ -19,7 +19,7 @@ export const SelectList = ({
 
   const options = uniqueCategories.map((category, index) => (
     <option key={index} value={category}>
-      {category.charAt(0).toUpperCase() + category.slice(1)}
+      {category[0].toUpperCase() + category.slice(1)}
     </option>
   ));
 

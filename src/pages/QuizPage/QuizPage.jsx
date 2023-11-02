@@ -21,8 +21,8 @@ export const QuizPage = () => {
     setCurrentWord
   } = useWordsSetup();
 
-  // console.log('%c randomWords ', 'background: gray; color: white;');
-  // console.log(randomWords);
+  console.log('%c randomWords ', 'background: gray; color: white;');
+  console.log(randomWords);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {

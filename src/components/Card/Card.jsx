@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
-// import { useWordsSetup } from '../../context/WordsSetupContext';
+import { useWordsSetup } from '../../context/WordsSetupContext';
 // import { useSettings } from '../../context/SettingsContext';
 import './Card.scss';
 import { wordData } from '../../constants/words';
@@ -11,11 +11,18 @@ import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
 
-export const Card = () => {
+export const Card = (
+  { czWord,
+    word,
+    counter,
+    // setCurrentWordIndex,
+    // currentWordIndex,
+    // randomWords,
+  }) => {
 
-  const [progressbar, setProgressbar] = useState(0);
-  // const { updateProgressbar, progressbar, } = useWordsSetup();
-  // const { isShow, setIsShow } = useSettings();
+  // const [progressbar, setProgressbar] = useState(0);
+  const { updateProgressbar, progressbar } = useWordsSetup();
+  // const { setupCountWord } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
 
   const [isMarked, setIsMarked] = useState(false);
@@ -24,16 +31,16 @@ export const Card = () => {
 
   const speakWord = () => {
     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-    speak({ text: wordData[currentWordIndex].word, rate: 0.8, voice: selectedVoice });
+    speak({ text: word, rate: 0.8, voice: selectedVoice });
   };
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
-  useEffect(() => {
-    for (let i = 0; i < 10; i++) {
-      console.log(i, wordData[i].czWord);
-    }
-  }, []);
+  //   useEffect(() => {
+  //   for (let i = 0; i < 10; i++) {
+  //     // console.log(i, wordData[i].czWord);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (isTurned) {
@@ -61,8 +68,9 @@ export const Card = () => {
   const handleClickPrev = () => {
     if (length !== 0) {
       console.log('click on prev');
-      setProgressbar(prevValue => prevValue - 11.11);
-      console.log(progressbar);
+      // setProgressbar(prevValue => prevValue - 11.11);
+      updateProgressbar(false);
+      // console.log(progressbar);
       setLength(prevValue => prevValue - 1);
       console.log(length);
       setIsDisplay(false);
@@ -77,16 +85,17 @@ export const Card = () => {
   }
 
   const handleClickNext = () => {
-    if (length !== 9) {
+    if (length !== (counter--)) {
       console.log('click on next');
-      setProgressbar(prevValue => prevValue + 11.11);
-      console.log(progressbar);
+      // setProgressbar(prevValue => prevValue + 11.11);
+      updateProgressbar(true);
+      // console.log(progressbar);
       setLength(prevValue => prevValue + 1);
       console.log(length);
       setIsDisplay(false);
     }
 
-    if (currentWordIndex < 9) {
+    if (currentWordIndex < counter) {
       if (isTurned) {
         setIsTurned(false);
       }
@@ -94,23 +103,23 @@ export const Card = () => {
     }
   }
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      console.log(event.key);
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     console.log(event.key);
 
-      if (event.key === 'ArrowRight') {
-        console.log('NEXT');
-        handleClickNext();
-      }
+  //     if (event.key === 'ArrowRight') {
+  //       console.log('NEXT');
+  //       handleClickNext();
+  //     }
 
-      if (event.key === 'ArrowLeft') {
-        console.log('PREV');
-        handleClickPrev();
-      }
-    };
+  //     if (event.key === 'ArrowLeft') {
+  //       console.log('PREV');
+  //       handleClickPrev();
+  //     }
+  //   };
 
-    document.addEventListener('keydown', handleKeyDown);
-  }, []);
+  //   document.addEventListener('keydown', handleKeyDown);
+  // }, []);
 
   return (
     <div className="card">
@@ -130,7 +139,7 @@ export const Card = () => {
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
-              <h2 className="front-word">{wordData[currentWordIndex].czWord}</h2>
+              <h2 className="front-word">{czWord}</h2>
             </div>
           </div>
           <div className="card__body--back">
@@ -144,14 +153,14 @@ export const Card = () => {
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
-              <h2 className="front-word">{wordData[currentWordIndex].word}</h2>
+              <h2 className="front-word">{word}</h2>
             </div>
             </div>
         </div>
       </div>
 
       <div className="card__foot">
-        <NavigationArrows length={length}
+        <NavigationArrows length={length} setupCountWord={counter}
           handleClickPrev={handleClickPrev} 
           handleClickNext={handleClickNext} 
         />
