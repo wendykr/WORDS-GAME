@@ -14,9 +14,9 @@ export const WordsSetupProvider = ({children}) => {
 
   const [progressbar, setProgressbar] = useState(0); // progressBar line
 
-  const updateProgressbar = (up) => {
+  const updateProgressbar = (deg, up) => {
     setProgressbar((prevValue) => {
-      const increment = 100 / setupCountWord;
+      const increment = deg ? 100 / setupCountWord : 100 / (setupCountWord - 1);
       const newValue = up ? prevValue + increment : prevValue - increment;
       return newValue;
     });

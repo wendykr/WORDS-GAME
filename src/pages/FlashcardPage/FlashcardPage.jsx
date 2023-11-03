@@ -1,7 +1,5 @@
-import React from 'react';
-import { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import './FlashcardPage.scss';
-// import { wordData } from '../../constants/words';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from "../../context/SettingsContext";
@@ -23,12 +21,8 @@ export const FlashcardPage = () => {
     setCurrentWord
   } = useWordsSetup();
 
-  console.log('%c randomWords ', 'background: gray; color: white;');
-  console.log(randomWords);
-
-  const generateCurrentNewWord = (wordsArray) => {
-    setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
-  };
+  // console.log('%c randomWords ', 'background: gray; color: white;');
+  // console.log(randomWords);
 
   useEffect(() => {
     let randomIndx = [];
@@ -47,7 +41,15 @@ export const FlashcardPage = () => {
     generateCurrentNewWord(randomIndx);
   }, [setupCountWord]);
 
-  // const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  
+  const generateCurrentNewWord = (wordsArray, index) => {
+    setCurrentWord(wordsArray[index]);
+  };
+  
+  useEffect(() => {
+    generateCurrentNewWord(randomWords, currentWordIndex);
+  }, [currentWordIndex, randomWords]);
 
   useEffect(() => {
     for (let i = 0; i < randomWords.length; i++) {
@@ -55,9 +57,7 @@ export const FlashcardPage = () => {
     }
   }, [randomWords]);
 
-  console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
-
-  console.log('setupCountWord', setupCountWord);
+  // console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 
   return (
     <main className="flashcards">
@@ -65,11 +65,8 @@ export const FlashcardPage = () => {
         <Card 
           czWord={currentWord?.czWord}
           word={currentWord?.word}
-          // generateCurrentNewWord={generateCurrentNewWord}
-          // randomWords={randomWords}
-          counter={setupCountWord}
-          // currentWordIndex={currentWordIndex}
-          // setCurrentWordIndex={setCurrentWordIndex}
+          currentWordIndex={currentWordIndex}
+          setCurrentWordIndex={setCurrentWordIndex}
         />
       </div>
     </main>

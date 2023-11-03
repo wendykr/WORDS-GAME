@@ -10,9 +10,11 @@ export const RadioButton = ({
   }) => {
 
   const [checkValue, setCheckValue] = useState(checkedValue);
+  // console.log('checkValue', typeof checkValue);
 
   const handleToggle = (event) => {
     const newValue = event.target.value;
+    // console.log('newValue', typeof newValue);
     setCheckValue(newValue);
     setTemporaryFunction(newValue);
   };

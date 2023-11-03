@@ -120,7 +120,7 @@ export const Question = ({
         // console.log('%c incorrect ', 'background:red;color:white;');
       } else {
         // console.log('%c updateProgressbar ', 'background:white;color:green;font-weight:bold;');
-        updateProgressbar(true);
+        updateProgressbar(true, true);
         setInputValue(inputValue);
         setResultState("correct");
         // console.log('%c correct ', 'background:green;color:white;');

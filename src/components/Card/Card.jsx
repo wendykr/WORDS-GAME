@@ -3,9 +3,8 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-// import { useSettings } from '../../context/SettingsContext';
+import { useSettings } from '../../context/SettingsContext';
 import './Card.scss';
-import { wordData } from '../../constants/words';
 
 import { MdHelpCenter } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
@@ -14,16 +13,23 @@ import { FaVolumeUp } from "react-icons/fa";
 export const Card = (
   { czWord,
     word,
-    counter,
-    // setCurrentWordIndex,
-    // currentWordIndex,
-    // randomWords,
+    setCurrentWordIndex,
+    currentWordIndex,
   }) => {
 
-  // const [progressbar, setProgressbar] = useState(0);
+    // const firstLetterEng = word[0];
+    // console.log(firstLetterEng);
+    // const firstLetterCze = czWord[0];
+    // console.log(firstLetterCze);
+
+  // console.log('%c INIT currentWordIndex ', 'background:black;color:white;font-weight:bold;');
+  // console.log('currentWordIndex', currentWordIndex);
+
   const { updateProgressbar, progressbar } = useWordsSetup();
-  // const { setupCountWord } = useSettings();
+  const { setupCountWord } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
+
+  // console.log('Card setupCountWord', setupCountWord);
 
   const [isMarked, setIsMarked] = useState(false);
   const [isDisplay, setIsDisplay] = useState(false);
@@ -33,14 +39,6 @@ export const Card = (
     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
     speak({ text: word, rate: 0.8, voice: selectedVoice });
   };
-
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-
-  //   useEffect(() => {
-  //   for (let i = 0; i < 10; i++) {
-  //     // console.log(i, wordData[i].czWord);
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (isTurned) {
@@ -63,43 +61,27 @@ export const Card = (
     setIsDisplay(false);
   };
 
-  const [length, setLength] = useState(0);
-
   const handleClickPrev = () => {
-    if (length !== 0) {
-      console.log('click on prev');
-      // setProgressbar(prevValue => prevValue - 11.11);
-      updateProgressbar(false);
-      // console.log(progressbar);
-      setLength(prevValue => prevValue - 1);
-      console.log(length);
-      setIsDisplay(false);
-    }
-
+    // console.log('%c click PREV ', 'background:white;color:red;font-weight:bold;');
     if (currentWordIndex > 0) {
       if (isTurned) {
         setIsTurned(false);
       }
-      setCurrentWordIndex(prevIndex => prevIndex - 1);
+      updateProgressbar(false, false);
+      setCurrentWordIndex(prevValue => prevValue - 1);
+      setIsDisplay(false);
     }
   }
 
   const handleClickNext = () => {
-    if (length !== (counter--)) {
-      console.log('click on next');
-      // setProgressbar(prevValue => prevValue + 11.11);
-      updateProgressbar(true);
-      // console.log(progressbar);
-      setLength(prevValue => prevValue + 1);
-      console.log(length);
-      setIsDisplay(false);
-    }
-
-    if (currentWordIndex < counter) {
+    // console.log('%c click NEXT ', 'background:white;color:green;font-weight:bold;');
+    if (currentWordIndex < (setupCountWord - 1)) {
       if (isTurned) {
         setIsTurned(false);
       }
-      setCurrentWordIndex(prevIndex => prevIndex + 1);
+      updateProgressbar(false, true);
+      setCurrentWordIndex(prevValue => prevValue + 1);
+      setIsDisplay(false);
     }
   }
 
@@ -132,7 +114,12 @@ export const Card = (
           <div className="card__body--front">
             <div className="container--icons">
               <span className="icons--right">
-                <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} /> <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>{`${wordData[currentWordIndex].word[0]}_`}</span>
+                <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} />
+                  <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>
+                    {/* {`${wordData[currentWordIndex].word[0]}_`} */}
+                    {`${word}_`}
+                    {/* {`${firstLetterEng}_`} */}
+                  </span>
               </span>
               <span className="icons--left">
                 <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
@@ -145,7 +132,12 @@ export const Card = (
           <div className="card__body--back">
             <div className="container--icons">
               <span className="icons--right">
-                <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} /> <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>{`${wordData[currentWordIndex].czWord[0]}_`}</span>
+                <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} />
+                  <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>
+                    {/* {`${wordData[currentWordIndex].czWord[0]}_`} */}
+                    {`${czWord}_`}
+                    {/* {`${firstLetterCze}_`} */}
+                  </span>
               </span>
               <span className="icons--left">
                 <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" />
@@ -160,7 +152,7 @@ export const Card = (
       </div>
 
       <div className="card__foot">
-        <NavigationArrows length={length} setupCountWord={counter}
+        <NavigationArrows currentWordIndex={currentWordIndex} setupCountWord={setupCountWord}
           handleClickPrev={handleClickPrev} 
           handleClickNext={handleClickNext} 
         />

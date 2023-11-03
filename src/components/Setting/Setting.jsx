@@ -49,6 +49,7 @@ export const Setting = () => {
     setCategoryValue(isTemporaryCategory);
     setSetupCountWord(isTemporaryCount);
     setIsCzech(isTemporaryCzech);
+    // console.log('isTemporaryCzech', typeof isTemporaryCzech);
     setIsFavorite(isTemporaryFavorite);
     setIsAudio(isTemporaryAudio);
 
