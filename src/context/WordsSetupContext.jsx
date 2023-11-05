@@ -1,5 +1,5 @@
 import React, {useState, useContext, createContext} from 'react';
-import { wordData } from "../constants/words";
+import { wordData } from '../constants/words';
 import { useSettings } from './SettingsContext';
 
 export const WordsSetupContext = createContext();
@@ -11,6 +11,9 @@ export const WordsSetupProvider = ({children}) => {
   const [allWords, setAllWords] = useState(wordData); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
   const [currentWord, setCurrentWord] = useState(); // aktuální slovo
+
+  const [inputValue, setInputValue] = useState("");
+  const [resultState, setResultState] = useState("");
 
   const [progressbar, setProgressbar] = useState(0); // progressBar line
 
@@ -26,12 +29,15 @@ export const WordsSetupProvider = ({children}) => {
     <WordsSetupContext.Provider value={{
       updateProgressbar,
       progressbar,
+      setProgressbar,
       allWords,
       setAllWords,
       randomWords,
       setRandomWords,
       currentWord,
-      setCurrentWord
+      setCurrentWord,
+      inputValue, setInputValue,
+      resultState, setResultState,
     }}>
       {children}
     </WordsSetupContext.Provider>

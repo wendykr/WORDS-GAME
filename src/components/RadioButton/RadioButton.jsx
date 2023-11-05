@@ -9,12 +9,11 @@ export const RadioButton = ({
     setTemporaryFunction
   }) => {
 
-  const [checkValue, setCheckValue] = useState(checkedValue);
-  // console.log('checkValue', typeof checkValue);
+  const [checkValue, setCheckValue] = useState(Boolean(checkedValue));
+  // console.log('checkValue', typeof checkValue, checkValue);
 
   const handleToggle = (event) => {
-    const newValue = event.target.value;
-    // console.log('newValue', typeof newValue);
+    const newValue = event.target.value === 'true' ? true : false;
     setCheckValue(newValue);
     setTemporaryFunction(newValue);
   };
@@ -22,12 +21,12 @@ export const RadioButton = ({
   return (
       <div className="radioButton">
         <input
-          type="radio" id={`${name}-radio-one`} className="radioButton__input" name={`${name}`} value="true"
+          type="radio" id={`${name}-radio-one`} className="radioButton__input" name={`${name}`} value={true}
           checked={checkValue === 'true' || checkValue === true}
           onChange={handleToggle}
         />
         <label className="radioButton__label" htmlFor={`${name}-radio-one`}>{firstValue}</label>
-        <input type="radio" id={`${name}-radio-two`} className="radioButton__input" name={`${name}`} value="false"
+        <input type="radio" id={`${name}-radio-two`} className="radioButton__input" name={`${name}`} value={false}
           checked={checkValue === 'false' || checkValue === false}
           onChange={handleToggle}
         />

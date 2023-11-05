@@ -1,8 +1,8 @@
 import React from 'react';
 import './NavigationArrows.scss';
 
-import { BsFillArrowLeftSquareFill } from "react-icons/bs";
-import { BsFillArrowRightSquareFill } from "react-icons/bs";
+import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
+import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 export const NavigationArrows = ({ handleClickPrev, handleClickNext, currentWordIndex, setupCountWord }) => {
 

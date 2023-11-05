@@ -1,15 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
-import { Setting } from "../../components/Setting/Setting";
-import { ProgressBar } from "../ProgressBar/ProgressBar";
-import { Button } from "../Button/Button";
+import { Setting } from '../../components/Setting/Setting';
+import { ProgressBar } from '../ProgressBar/ProgressBar';
+import { Button } from '../Button/Button';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-import "./Question.scss";
+// import { speakWord } from '../../helpers/speakWord'
+import './Question.scss';
 
-import { MdHelpCenter } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
-// import { FaVolumeUp } from "react-icons/fa";s
+import { MdHelpCenter } from 'react-icons/md';
+import { FaStar } from 'react-icons/fa';
+import { FaVolumeUp } from 'react-icons/fa';
 
 export const Question = ({
     czWord,
@@ -19,37 +20,44 @@ export const Question = ({
     generateCurrentNewWord,
   }) => {
 
-  const { updateProgressbar, progressbar, 
+  const {
+    updateProgressbar, progressbar,
+    inputValue, setInputValue,
+    resultState, setResultState, 
   } = useWordsSetup();
-  const { isShow, setIsShow } = useSettings();
+  const { isShow, setIsShow, isCzech } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
-
-  const [isMarked, setIsMarked] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [resultState, setResultState] = useState("");
-  // const [isHiddenInput, setIsHiddenInput] = useState(false);
-
-  const refInput = useRef(null);
 
   const speakWord = () => {
     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
     speak({ text: word, rate: 0.8, voice: selectedVoice });
   };
 
+  // console.log('isCzech', typeof isCzech, isCzech);
+
+  const [isMarked, setIsMarked] = useState(false);
+  // const [isHiddenInput, setIsHiddenInput] = useState(false);
+
+  const refInput = useRef(null);
+
   const handleStarToggle = () => {
     setIsMarked((prevState) => !prevState);
   };
 
   const showFirstLetter = () => {
-    const currentValue = word[0];
+    const currentValue = isCzech ? word[0] : czWord[0];
     setInputValue(currentValue);
     refInput.current.focus();
   };
 
+
   const answerReveal = () => {
-    setInputValue(word);
+    setInputValue(isCzech ? word : czWord);
     setResultState("dont-know");
-    speakWord();
+    // speakWord();
+    isCzech ? speakWord() : '';
+    // speakWord(speak, word, voices);
+    // isCzech ? speakWord(speak, word, voices) : '';
   };
 
   const changeWord = (event) => {
@@ -64,9 +72,12 @@ export const Question = ({
 
       if (event.key === "Enter" && inputValue.length !== 0) {
         // console.log("Enter");
-        speakWord();
+        // speakWord();
+        isCzech ? speakWord() : '';
+        // speakWord(speak, word, voices);
+        // isCzech ? speakWord(speak, word, voices) : '';
 
-        if (inputValue.toLowerCase() !== word.toLowerCase()) {
+        if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
           setResultState("incorrect");
           // console.log("incorrect");
         } else {
@@ -113,9 +124,17 @@ export const Question = ({
 
     if (resultState === "") {
       // setIsHiddenInput(true);
-      speakWord();
+      // speakWord();
+      // if (isCzech) {
+      //   speakWord(speak, word, voices);
+      // }
+      // speakWord();
+      isCzech ? speakWord() : '';
+      // speakWord(speak, word, voices);
+      // isCzech ? speakWord(speak, word, voices) : '';
+      // isCzech ? speakWord(speak, word, voices) : speakWord();
 
-      if (inputValue.toLowerCase() !== word.toLowerCase()) {
+      if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
         setResultState("incorrect");
         // console.log('%c incorrect ', 'background:red;color:white;');
       } else {
@@ -173,8 +192,11 @@ export const Question = ({
           title="Mark icon"
         />
 
-        {/* <h2 className="guess-word" onClick={speak}>{czWord} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2> */}
-        <h2 className="guess-word">{czWord}</h2>
+        {isCzech ?
+          <h2 className="guess-word">{czWord}</h2>
+          :
+          <h2 className="guess-word" onClick={speakWord}>{word} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
+        }
 
         <p
           className={`hint ${resultState !== "" ? "hidden" : ""}`}
@@ -211,7 +233,7 @@ export const Question = ({
         {(resultState === "dont-know" || resultState === "incorrect") && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
-            <div className="answer__content answer--correct">{word}</div>
+            <div className="answer__content answer--correct">{isCzech ? word : czWord}</div>
           </div>
         )}
       </div>

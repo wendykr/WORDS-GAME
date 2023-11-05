@@ -6,9 +6,9 @@ import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import './Card.scss';
 
-import { MdHelpCenter } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
-import { FaVolumeUp } from "react-icons/fa";
+import { MdHelpCenter } from 'react-icons/md';
+import { FaStar } from 'react-icons/fa';
+import { FaVolumeUp } from 'react-icons/fa';
 
 export const Card = (
   { czWord,
@@ -17,16 +17,14 @@ export const Card = (
     currentWordIndex,
   }) => {
 
-    // const firstLetterEng = word[0];
-    // console.log(firstLetterEng);
-    // const firstLetterCze = czWord[0];
-    // console.log(firstLetterCze);
+  const firstLetterCze = czWord && czWord[0];
+  const firstLetterEng = word && word[0];
 
   // console.log('%c INIT currentWordIndex ', 'background:black;color:white;font-weight:bold;');
   // console.log('currentWordIndex', currentWordIndex);
 
   const { updateProgressbar, progressbar } = useWordsSetup();
-  const { setupCountWord } = useSettings();
+  const { setupCountWord, isCzech } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
 
   // console.log('Card setupCountWord', setupCountWord);
@@ -41,7 +39,7 @@ export const Card = (
   };
 
   useEffect(() => {
-    if (isTurned) {
+    if (isTurned && isCzech) {
       setTimeout(() => {
         speakWord();
       }, 1000);
@@ -116,17 +114,22 @@ export const Card = (
               <span className="icons--right">
                 <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} />
                   <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>
-                    {/* {`${wordData[currentWordIndex].word[0]}_`} */}
-                    {`${word}_`}
-                    {/* {`${firstLetterEng}_`} */}
+                    {`${isCzech ? firstLetterEng : firstLetterCze}_`}
                   </span>
               </span>
-              <span className="icons--left">
+              {isCzech ? 
+                <span className="icons--left">
+                  {/* <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" /> */}
+                  <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+                </span>
+                :
+                <span className="icons--left">
+                <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" />
                 <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
-              </span>
+              </span>}
             </div>
             <div className="container--words" onClick={handleClick} >
-              <h2 className="front-word">{czWord}</h2>
+              <h2 className="front-word">{isCzech ? czWord : word}</h2>
             </div>
           </div>
           <div className="card__body--back">
@@ -134,18 +137,23 @@ export const Card = (
               <span className="icons--right">
                 <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} />
                   <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>
-                    {/* {`${wordData[currentWordIndex].czWord[0]}_`} */}
-                    {`${czWord}_`}
-                    {/* {`${firstLetterCze}_`} */}
+                    {`${isCzech ? firstLetterCze : firstLetterEng}_`}
                   </span>
               </span>
-              <span className="icons--left">
-                <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" />
-                <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
-              </span>
+              {isCzech ?
+                <span className="icons--left">
+                  <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" />
+                  <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+                </span>
+              :
+                <span className="icons--left">
+                {/* <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" /> */}
+                    <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+                </span>
+              }
             </div>
             <div className="container--words" onClick={handleClick} >
-              <h2 className="front-word">{word}</h2>
+              <h2 className="front-word">{isCzech ? word : czWord}</h2>
             </div>
             </div>
         </div>

@@ -1,23 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './InputField.scss';
 
-export const InputField = ({
-    setTemporaryFunction,
-    setupCountWord
-  }) => {
+export const InputField = ({ setTemporaryFunction }) => {
+  const [inputValue, setInputValue] = useState('');
 
   const entryInput = (event) => {
-    const inputValue = event.target.value;
-
-    if (inputValue <= 0) {
-      alert('Number of words must be greater than 0');
-      event.target.value = "";
-    } else {
-      setTemporaryFunction(inputValue);
-    }
+    const newValue = event.target.value;
+    setInputValue(newValue);
+    setTemporaryFunction(newValue);
   };
 
   return (
-    <input type="number" id="number" className="input" onChange={entryInput} placeholder={`${setupCountWord}`} />
+    <input type="number"id="number" className="input" onChange={entryInput}
+      value={inputValue}
+    />
   );
 }

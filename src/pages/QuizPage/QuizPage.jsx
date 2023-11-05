@@ -1,24 +1,28 @@
-import React, { useEffect } from "react";
-import "./QuizPage.scss";
-import { Question } from "../../components/Question/Question";
+import React, { useEffect } from'react';
+// import { useSpeechSynthesis } from 'react-speech-kit';
+import './QuizPage.scss';
+import { Question } from '../../components/Question/Question';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-import { useSettings } from "../../context/SettingsContext";
+import { useSettings } from '../../context/SettingsContext';
+// import { speakWord } from '../../helpers/speakWord'
+import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
-const generateRandomNumber = (limit) => {
-  const randomIndex = Math.floor(Math.random() * limit);
-  return randomIndex;
-};
+generateRandomNumber();
 
 export const QuizPage = () => {
 
-  const { setupCountWord } = useSettings();
+  const { setupCountWord,
+    // isCzech
+  } = useSettings();
+
+  // const { speak, voices } = useSpeechSynthesis();
 
   const {
     allWords,
     randomWords,
     setRandomWords,
     currentWord,
-    setCurrentWord
+    setCurrentWord,
   } = useWordsSetup();
 
   console.log('%c randomWords ', 'background: gray; color: white;');
@@ -55,10 +59,16 @@ export const QuizPage = () => {
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
+
+    // isCzech ?   : speakWord()
+    // isCzech ? '' : speakWord(speak, 'Hello', voices);
+    
   }, [setupCountWord]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
+
+    // isCzech ? '' : speakWord(speak, 'Hello', voices);
   }, [randomWords]);
 
   // console.log("Aktuální slovo v QuizPage:", currentWord);

@@ -6,10 +6,10 @@ import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
 import { useSettings } from '../../context/SettingsContext';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-import { wordData } from "../../constants/words";
+import { wordData } from '../../constants/words';
 
-import { IoSettingsSharp } from "react-icons/io5";
-import { RxCross2 } from "react-icons/rx";
+import { IoSettingsSharp } from 'react-icons/io5';
+import { RxCross2 } from 'react-icons/rx';
 
 export const Setting = () => {
 
@@ -28,7 +28,11 @@ export const Setting = () => {
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
 
-  const { setAllWords } = useWordsSetup();
+  const {
+    setAllWords, setProgressbar,
+    setInputValue,
+    setResultState
+  } = useWordsSetup();
 
   // const [formData, setFormData] = useState({
   //   question: true,
@@ -47,19 +51,29 @@ export const Setting = () => {
     setIsShow(prevState => !prevState);
 
     setCategoryValue(isTemporaryCategory);
-    setSetupCountWord(isTemporaryCount);
+
+    if (isTemporaryCount <= 0) {
+      alert('Number of words must be greater than 0.');
+      setIsShow(true);
+      return;
+    } else {
+      setSetupCountWord(Number(isTemporaryCount));
+    }
+
     setIsCzech(isTemporaryCzech);
-    // console.log('isTemporaryCzech', typeof isTemporaryCzech);
+    console.log('isTemporaryCzech', typeof isTemporaryCzech, isTemporaryCzech);
     setIsFavorite(isTemporaryFavorite);
     setIsAudio(isTemporaryAudio);
+    setProgressbar(0);
 
     let filterCategory = wordData.filter(word => word.category === isTemporaryCategory);
     console.log('%c filterCategory ', 'background: red; color: white;');
     console.log(...filterCategory);
 
+    //! Enough Word Check
     if (filterCategory.length > 0) {
       if (filterCategory.length < isTemporaryCount) {
-        alert('Number of words is greater than the number of words from the chosen category.');
+        alert(`The maximum number of words from the selected category ${isTemporaryCategory} is ${filterCategory.length}.`);
         setIsShow(true);
         return;
       }
@@ -67,6 +81,9 @@ export const Setting = () => {
     } else {
       setAllWords(wordData);
     }
+
+    setInputValue("");
+    setResultState("");
 
     console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
@@ -112,7 +129,7 @@ export const Setting = () => {
               <div className="form__row--option">
                   <InputField
                     setTemporaryFunction={setIsTemporaryCount}
-                    setupCountWord={setupCountWord}
+                    // setupCountWord={isTemporaryCount}
                   />
               </div>
             </div>

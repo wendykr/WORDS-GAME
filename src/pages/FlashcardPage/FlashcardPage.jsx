@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-import { useSettings } from "../../context/SettingsContext";
+import { useSettings } from '../../context/SettingsContext';
+import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
-const generateRandomNumber = (limit) => {
-  const randomIndex = Math.floor(Math.random() * limit);
-  return randomIndex;
-};
+generateRandomNumber();
 
 export const FlashcardPage = () => {
 
