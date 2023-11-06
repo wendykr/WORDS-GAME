@@ -14,18 +14,12 @@ export const SettingsProvider = ({children}) => {
 
   return (
     <SettingsContext.Provider value={{
-      setupCountWord, 
-      setSetupCountWord,
-      isShow,
-      setIsShow,
-      isCzech,
-      setIsCzech,
-      isFavorite,
-      setIsFavorite,
-      isAudio,
-      setIsAudio,
-      categoryValue,
-      setCategoryValue,
+      setupCountWord, setSetupCountWord,
+      isShow, setIsShow,
+      isCzech, setIsCzech,
+      isFavorite, setIsFavorite,
+      isAudio, setIsAudio,
+      categoryValue, setCategoryValue,
     }}>
       {children}
     </SettingsContext.Provider>

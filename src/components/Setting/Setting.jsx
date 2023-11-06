@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Setting.scss';
 import { RadioButton } from '../RadioButton/RadioButton';
 import { SelectList } from '../SelectList/SelectList';
@@ -16,23 +15,21 @@ export const Setting = () => {
   const {
     isShow, setIsShow,
     isCzech, setIsCzech,
-    categoryValue, setCategoryValue,
-    setupCountWord, setSetupCountWord,
+    setCategoryValue,
+    setSetupCountWord,
     isFavorite, setIsFavorite,
     isAudio, setIsAudio
   } = useSettings();
+
+  const {
+    setAllWords, setProgressbar, setInputValue, setResultState, setCurrentWordIndex, setIsTurned
+  } = useWordsSetup();
   
   const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
   const [isTemporaryCategory, setIsTemporaryCategory] = useState("");
   const [isTemporaryCount, setIsTemporaryCount] = useState("");
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
-
-  const {
-    setAllWords, setProgressbar,
-    setInputValue,
-    setResultState
-  } = useWordsSetup();
 
   // const [formData, setFormData] = useState({
   //   question: true,
@@ -84,14 +81,19 @@ export const Setting = () => {
 
     setInputValue("");
     setResultState("");
+    setCurrentWordIndex(0);
+
+    setIsTemporaryCategory("");
+    setIsTemporaryCount("");
+    setIsTurned(false);
 
     console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
-    console.log('Category: ' + isTemporaryCategory);
-    console.log('Count: ' + isTemporaryCount);
-    console.log('isCzech: ' + isTemporaryCzech);
-    console.log('isFavorite: ' + isTemporaryFavorite);
-    console.log('isAudio: ' + isTemporaryAudio);
+    // console.log('Category: ' + isTemporaryCategory);
+    // console.log('Count: ' + isTemporaryCount);
+    // console.log('isCzech: ' + isTemporaryCzech);
+    // console.log('isFavorite: ' + isTemporaryFavorite);
+    // console.log('isAudio: ' + isTemporaryAudio);
   }
 
   return (
@@ -120,7 +122,7 @@ export const Setting = () => {
               <div className="form__row--option">
                 <SelectList
                   setTemporaryFunction={setIsTemporaryCategory}
-                  categoryValue={categoryValue}
+                  categoryValue={isTemporaryCategory}
                 />
               </div>
             </div>

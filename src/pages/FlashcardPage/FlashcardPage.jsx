@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
@@ -11,22 +11,15 @@ generateRandomNumber();
 
 export const FlashcardPage = () => {
 
-  const { setupCountWord, isCzech } = useSettings();
-
-  const { speak, voices } = useSpeechSynthesis();
-
-  const speakWord = (word) => {
-    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-    speak({ text: word, rate: 0.8, voice: selectedVoice });
-  };
-
+  const { setupCountWord, isCzech, isAudio } = useSettings();
   const {
     allWords,
-    randomWords,
-    setRandomWords,
-    currentWord,
-    setCurrentWord
+    randomWords, setRandomWords,
+    currentWordIndex, setCurrentWordIndex,
+    currentWord, setCurrentWord
   } = useWordsSetup();
+
+  const { speak, voices } = useSpeechSynthesis();
 
   // console.log('%c randomWords ', 'background: gray; color: white;');
   // console.log(randomWords);
@@ -44,15 +37,9 @@ export const FlashcardPage = () => {
 
     setRandomWords(randomIndx);
 
-    console.log("random index", generateRandomNumber(randomIndx.length));
+    // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [setupCountWord]);
-
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  
-  const generateCurrentNewWord = (wordsArray, index) => {
-    setCurrentWord(wordsArray[index]);
-  };
   
   useEffect(() => {
     generateCurrentNewWord(randomWords, currentWordIndex);
@@ -60,7 +47,7 @@ export const FlashcardPage = () => {
 
   useEffect(() => {
     for (let i = 0; i < randomWords.length; i++) {
-      console.log(i, randomWords[i].czWord, randomWords[i].word, randomWords[i].category);
+      // console.log(i, randomWords[i].czWord, randomWords[i].word, randomWords[i].category);
     }
   }, [randomWords]);
 
@@ -68,6 +55,17 @@ export const FlashcardPage = () => {
     isCzech ? '' : speakWord(currentWord?.word);
     // isCzech ? '' : speakWord(speak, currentWord?.word, voices);
   }, [currentWord]);
+
+  const generateCurrentNewWord = (wordsArray, index) => {
+    setCurrentWord(wordsArray[index]);
+  };
+
+  const speakWord = (word) => {
+    if (isAudio) {
+      const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+      speak({ text: word, rate: 0.8, voice: selectedVoice });
+    }
+  };
 
   // console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 

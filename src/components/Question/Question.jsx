@@ -11,6 +11,7 @@ import './Question.scss';
 import { MdHelpCenter } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa';
 import { FaVolumeUp } from 'react-icons/fa';
+import { IoVolumeMute } from 'react-icons/io5';
 
 export const Question = ({
     czWord,
@@ -25,20 +26,18 @@ export const Question = ({
     inputValue, setInputValue,
     resultState, setResultState, 
   } = useWordsSetup();
-  const { isShow, setIsShow, isCzech } = useSettings();
+  const { isShow, setIsShow, isCzech, isAudio } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
-
-  const speakWord = () => {
-    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-    speak({ text: word, rate: 0.8, voice: selectedVoice });
-  };
-
-  // console.log('isCzech', typeof isCzech, isCzech);
-
   const [isMarked, setIsMarked] = useState(false);
   // const [isHiddenInput, setIsHiddenInput] = useState(false);
-
   const refInput = useRef(null);
+
+  const speakWord = () => {
+    if (isAudio) {
+      const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+      speak({ text: word, rate: 0.8, voice: selectedVoice });
+    }
+  };
 
   const handleStarToggle = () => {
     setIsMarked((prevState) => !prevState);
@@ -49,7 +48,6 @@ export const Question = ({
     setInputValue(currentValue);
     refInput.current.focus();
   };
-
 
   const answerReveal = () => {
     setInputValue(isCzech ? word : czWord);
@@ -195,7 +193,9 @@ export const Question = ({
         {isCzech ?
           <h2 className="guess-word">{czWord}</h2>
           :
-          <h2 className="guess-word" onClick={speakWord}>{word} <FaVolumeUp className="icon-volume" title="Sound icon" /></h2>
+          <h2 className="guess-word" onClick={speakWord}>{word}&nbsp; 
+            { isAudio ? <FaVolumeUp className="icon-volume" title="Sound icon" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
+          </h2>
         }
 
         <p

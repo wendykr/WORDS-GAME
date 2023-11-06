@@ -11,9 +11,12 @@ export const WordsSetupProvider = ({children}) => {
   const [allWords, setAllWords] = useState(wordData); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
   const [currentWord, setCurrentWord] = useState(); // aktuální slovo
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   const [inputValue, setInputValue] = useState("");
   const [resultState, setResultState] = useState("");
+
+  const [isTurned, setIsTurned] = useState(false);
 
   const [progressbar, setProgressbar] = useState(0); // progressBar line
 
@@ -28,16 +31,14 @@ export const WordsSetupProvider = ({children}) => {
   return (
     <WordsSetupContext.Provider value={{
       updateProgressbar,
-      progressbar,
-      setProgressbar,
-      allWords,
-      setAllWords,
-      randomWords,
-      setRandomWords,
-      currentWord,
-      setCurrentWord,
+      progressbar, setProgressbar,
+      allWords, setAllWords,
+      randomWords, setRandomWords,
+      currentWord, setCurrentWord,
+      currentWordIndex, setCurrentWordIndex,
       inputValue, setInputValue,
       resultState, setResultState,
+      isTurned, setIsTurned,
     }}>
       {children}
     </WordsSetupContext.Provider>

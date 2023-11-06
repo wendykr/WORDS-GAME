@@ -11,43 +11,17 @@ generateRandomNumber();
 
 export const QuizPage = () => {
 
-  const { setupCountWord,
-    isCzech
-  } = useSettings();
+  const { setupCountWord, isCzech, isAudio } = useSettings();
+  const {
+    allWords,
+    randomWords, setRandomWords,
+    currentWord, setCurrentWord,
+  } = useWordsSetup();
 
   const { speak, voices } = useSpeechSynthesis();
 
-  const speakWord = (word) => {
-    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-    speak({ text: word, rate: 0.8, voice: selectedVoice });
-  };
-
-  const {
-    allWords,
-    randomWords,
-    setRandomWords,
-    currentWord,
-    setCurrentWord,
-  } = useWordsSetup();
-
   console.log('%c randomWords ', 'background: gray; color: white;');
   console.log(randomWords);
-
-  const removeRandomWord = () => {
-    setRandomWords((prevRandomWords) => {
-      const filteredWords = prevRandomWords.filter((word) => {
-        // console.log(word.word, currentWord.word);
-        return word.id !== currentWord.id;
-      });
-      // console.log('%c filteredWords ', 'background: blue; color: white;');
-      // console.log(filteredWords);
-      return filteredWords;
-    });
-  };
-
-  const generateCurrentNewWord = (wordsArray) => {
-    setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
-  };
 
   useEffect(() => {
     let randomIndx = [];
@@ -74,6 +48,29 @@ export const QuizPage = () => {
     isCzech ? '' : speakWord(currentWord?.word);
     // isCzech ? '' : speakWord(speak, currentWord.word, voices);
   }, [currentWord]);
+
+  const speakWord = (word) => {
+    if (isAudio) {
+      const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+      speak({ text: word, rate: 0.8, voice: selectedVoice });
+    }
+  };
+
+  const removeRandomWord = () => {
+    setRandomWords((prevRandomWords) => {
+      const filteredWords = prevRandomWords.filter((word) => {
+        // console.log(word.word, currentWord.word);
+        return word.id !== currentWord.id;
+      });
+      // console.log('%c filteredWords ', 'background: blue; color: white;');
+      // console.log(filteredWords);
+      return filteredWords;
+    });
+  };
+
+  const generateCurrentNewWord = (wordsArray) => {
+    setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
+  };
 
   // console.log("Aktuální slovo v QuizPage:", currentWord);
 
