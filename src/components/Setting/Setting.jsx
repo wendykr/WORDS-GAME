@@ -23,8 +23,8 @@ export const Setting = () => {
   } = useSettings();
   
   const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
-  const [isTemporaryCategory, setIsTemporaryCategory] = useState(categoryValue);
-  const [isTemporaryCount, setIsTemporaryCount] = useState(setupCountWord);
+  const [isTemporaryCategory, setIsTemporaryCategory] = useState("");
+  const [isTemporaryCount, setIsTemporaryCount] = useState("");
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
 
@@ -61,7 +61,7 @@ export const Setting = () => {
     }
 
     setIsCzech(isTemporaryCzech);
-    console.log('isTemporaryCzech', typeof isTemporaryCzech, isTemporaryCzech);
+    // console.log('isTemporaryCzech', typeof isTemporaryCzech, isTemporaryCzech);
     setIsFavorite(isTemporaryFavorite);
     setIsAudio(isTemporaryAudio);
     setProgressbar(0);
@@ -129,7 +129,7 @@ export const Setting = () => {
               <div className="form__row--option">
                   <InputField
                     setTemporaryFunction={setIsTemporaryCount}
-                    // setupCountWord={isTemporaryCount}
+                    setupCountWord={isTemporaryCount}
                   />
               </div>
             </div>

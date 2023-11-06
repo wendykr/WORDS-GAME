@@ -1,5 +1,5 @@
 import React, { useEffect } from'react';
-// import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechSynthesis } from 'react-speech-kit';
 import './QuizPage.scss';
 import { Question } from '../../components/Question/Question';
 import { useWordsSetup } from '../../context/WordsSetupContext';
@@ -12,10 +12,15 @@ generateRandomNumber();
 export const QuizPage = () => {
 
   const { setupCountWord,
-    // isCzech
+    isCzech
   } = useSettings();
 
-  // const { speak, voices } = useSpeechSynthesis();
+  const { speak, voices } = useSpeechSynthesis();
+
+  const speakWord = (word) => {
+    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+    speak({ text: word, rate: 0.8, voice: selectedVoice });
+  };
 
   const {
     allWords,
@@ -59,17 +64,16 @@ export const QuizPage = () => {
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
-
-    // isCzech ?   : speakWord()
-    // isCzech ? '' : speakWord(speak, 'Hello', voices);
-    
   }, [setupCountWord]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
-
-    // isCzech ? '' : speakWord(speak, 'Hello', voices);
   }, [randomWords]);
+
+  useEffect(() => {
+    isCzech ? '' : speakWord(currentWord?.word);
+    // isCzech ? '' : speakWord(speak, currentWord.word, voices);
+  }, [currentWord]);
 
   // console.log("Aktuální slovo v QuizPage:", currentWord);
 

@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useSpeechSynthesis } from 'react-speech-kit';
 import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
+// import { speakWord } from '../../helpers/speakWord'
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
 
 export const FlashcardPage = () => {
 
-  const { setupCountWord } = useSettings();
+  const { setupCountWord, isCzech } = useSettings();
+
+  const { speak, voices } = useSpeechSynthesis();
+
+  const speakWord = (word) => {
+    const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+    speak({ text: word, rate: 0.8, voice: selectedVoice });
+  };
 
   const {
     allWords,
@@ -51,9 +60,14 @@ export const FlashcardPage = () => {
 
   useEffect(() => {
     for (let i = 0; i < randomWords.length; i++) {
-      console.log(i, randomWords[i].czWord, randomWords[i].category);
+      console.log(i, randomWords[i].czWord, randomWords[i].word, randomWords[i].category);
     }
   }, [randomWords]);
+
+  useEffect(() => {
+    isCzech ? '' : speakWord(currentWord?.word);
+    // isCzech ? '' : speakWord(speak, currentWord?.word, voices);
+  }, [currentWord]);
 
   // console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 
