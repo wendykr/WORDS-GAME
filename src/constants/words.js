@@ -217,15 +217,9 @@ export const wordData = [
   },
   {
     id: 37,
-<<<<<<< HEAD
-    word: "Painting",
-    czWord: "Malba",
-    category: "Art",
-=======
     word: "Bird",
     czWord: "Pták",
     category: "Animals",
->>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 38,
@@ -253,15 +247,9 @@ export const wordData = [
   },
   {
     id: 42,
-<<<<<<< HEAD
-    word: "Coffee",
-    czWord: "Káva",
-    category: "Beverages",
-=======
     word: "Island",
     czWord: "Ostrov",
     category: "Places",
->>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 43,
@@ -277,15 +265,9 @@ export const wordData = [
   },
   {
     id: 45,
-<<<<<<< HEAD
-    word: "Clock",
-    czWord: "Hodiny",
-    category: "Technology",
-=======
     word: "Desert",
     czWord: "Poušť",
     category: "Nature",
->>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 46,
@@ -295,17 +277,6 @@ export const wordData = [
   },
   {
     id: 47,
-<<<<<<< HEAD
-    word: "Star",
-    czWord: "Hvězda",
-    category: "Space",
-  },
-  {
-    id: 48,
-    word: "Chair",
-    czWord: "Židle",
-    category: "Furniture",
-=======
     word: "Concert",
     czWord: "Koncert",
     category: "Entertainment",
@@ -315,7 +286,6 @@ export const wordData = [
     word: "Countryside",
     czWord: "Venkov",
     category: "Places",
->>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 49,
@@ -329,9 +299,6 @@ export const wordData = [
     czWord: "Zrcadlo",
     category: "Furniture",
   },
-<<<<<<< HEAD
-];
-=======
   {
     id: 51,
     word: "Door",
@@ -657,4 +624,3 @@ export const wordData = [
     category: "People",
   },
 ];
->>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
