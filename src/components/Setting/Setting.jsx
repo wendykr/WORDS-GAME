@@ -22,7 +22,14 @@ export const Setting = () => {
   } = useSettings();
 
   const {
-    setAllWords, setProgressbar, setInputValue, setResultState, setCurrentWordIndex, setIsTurned
+    setAllWords,
+    setProgressbar,
+    setInputValue,
+    setResultState,
+    setCurrentWordIndex,
+    setIsTurned,
+    setRandomWords,
+    setCurrentWord
   } = useWordsSetup();
   
   const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
@@ -82,9 +89,15 @@ export const Setting = () => {
     setInputValue("");
     setResultState("");
     setCurrentWordIndex(0);
+    setRandomWords([]);
+    setCurrentWord();
 
     setIsTemporaryCategory("");
     setIsTemporaryCount("");
+    setIsTemporaryCzech(isCzech);
+    setIsTemporaryFavorite(isFavorite);
+    setIsTemporaryAudio(isAudio);
+
     setIsTurned(false);
 
     console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
@@ -106,14 +119,14 @@ export const Setting = () => {
             <h3 className="setting__body--title">Setting options</h3>
             <RxCross2 className="icon-close" onClick={showSetup} title="Close icon" />
         </div>
-          <form className="form">
+          <form className="form" key={isShow}>
             <div className="form__row">
               <div className="form__row--label">Question format</div>
               <div className="form__row--option">
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryCzech}
                   name="language" firstValue="CZECH" secondValue="ENGLISH"
-                  checkedValue={isCzech}
+                  checkedValue={isTemporaryCzech}
                 />
               </div>
             </div>
@@ -141,7 +154,7 @@ export const Setting = () => {
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryFavorite}
                   name="favorite" firstValue="YES" secondValue="NO"
-                  checkedValue={isFavorite}
+                  checkedValue={isTemporaryFavorite}
                 />
               </div>
             </div>
@@ -151,7 +164,7 @@ export const Setting = () => {
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryAudio}
                   name="audio" firstValue="YES" secondValue="NO"
-                  checkedValue={isAudio}
+                  checkedValue={isTemporaryAudio}
                 />
               </div>
             </div>

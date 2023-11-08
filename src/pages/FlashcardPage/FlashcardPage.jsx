@@ -21,8 +21,9 @@ export const FlashcardPage = () => {
 
   const { speak, voices } = useSpeechSynthesis();
 
-  // console.log('%c randomWords ', 'background: gray; color: white;');
-  // console.log(randomWords);
+  console.log('%c randomWords FLASH ', 'background: gray; color: white;');
+  console.log(randomWords);
+
 
   useEffect(() => {
     let randomIndx = [];
@@ -37,22 +38,30 @@ export const FlashcardPage = () => {
 
     setRandomWords(randomIndx);
 
+    console.log("loaded new words");
+
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [setupCountWord]);
   
   useEffect(() => {
     generateCurrentNewWord(randomWords, currentWordIndex);
+
+    console.log("generate new words");
+
   }, [currentWordIndex, randomWords]);
 
-  useEffect(() => {
-    for (let i = 0; i < randomWords.length; i++) {
-      // console.log(i, randomWords[i].czWord, randomWords[i].word, randomWords[i].category);
-    }
-  }, [randomWords]);
+  // useEffect(() => {
+  //   for (let i = 0; i < randomWords.length; i++) {
+  //     // console.log(i, randomWords[i].czWord, randomWords[i].word, randomWords[i].category);
+  //   }
+  // }, [randomWords]);
 
   useEffect(() => {
     isCzech ? '' : speakWord(currentWord?.word);
+
+    console.log("speaked");
+
     // isCzech ? '' : speakWord(speak, currentWord?.word, voices);
   }, [currentWord]);
 
@@ -67,7 +76,7 @@ export const FlashcardPage = () => {
     }
   };
 
-  // console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
+  console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 
   return (
     <main className="flashcards">

@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/pages/ErrorPage/ErrorPage.scss","ErrorPage.css"],"names":[],"mappings":"AAAA;EACE,kBAAA;ACCF","file":"ErrorPage.css"}
+{"version":3,"sources":["../src/pages/ErrorPage/ErrorPage.scss","ErrorPage.css"],"names":[],"mappings":"AAAA;EACE,eAAA;EACA,kBAAA;EACA,cAAA;ACCF;ADCE;EALF;IAMI,cAAA;ECEF;AACF;ADAE;EACE,eAAA;ACEJ;ADAI;EAHF;IAII,eAAA;ECGJ;AACF;ADAE;EACE,eAAA;ACEJ;ADAI;EAHF;IAII,eAAA;ECGJ;AACF;ADAE;EACE,eAAA;EACA,cAAA;ACEJ;ADAI;EAJF;IAKI,eAAA;ECGJ;AACF;ADDI;EACE,qBAAA;EACA,cAAA;ACGN","file":"ErrorPage.css"}

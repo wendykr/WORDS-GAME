@@ -20,7 +20,7 @@ export const QuizPage = () => {
 
   const { speak, voices } = useSpeechSynthesis();
 
-  console.log('%c randomWords ', 'background: gray; color: white;');
+  console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const QuizPage = () => {
     setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
   };
 
-  // console.log("Aktuální slovo v QuizPage:", currentWord);
+  console.log("Aktuální slovo v QuizPage:", currentWord);
 
   return (
     <main className="quiz">
