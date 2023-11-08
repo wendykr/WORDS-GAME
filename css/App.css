@@ -6,6 +6,7 @@
   align-items: center;
 }
 .container__head, .container__foot {
+  margin-top: 40px;
   min-width: 350px;
   max-width: 640px;
 }
@@ -19,12 +20,21 @@
     max-width: 860px;
   }
 }
-.container__head {
-  margin-bottom: 20px;
-}
 .container__body {
   width: 100%;
 }
-.container__foot {
-  margin-top: 20px;
+.container__body--bar {
+  margin: 30px auto;
+  min-width: 350px;
+  max-width: 560px;
+}
+@media screen and (min-width: 640px) {
+  .container__body--bar {
+    width: 680px;
+  }
+}
+@media screen and (min-width: 860px) {
+  .container__body--bar {
+    width: 780px;
+  }
 }/*# sourceMappingURL=App.css.map */
