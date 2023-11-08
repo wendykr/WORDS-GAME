@@ -11,30 +11,6 @@ import { SettingsProvider } from './context/SettingsContext';
 function App() {
 
   return (
-<<<<<<< HEAD
-    <div className="container">
-      <div className="container__head">
-        <Header />
-      </div>
-
-      <div className="container__body">
-        <div className="container__body--bar">
-          <ProgressBar line="91" />
-        </div>
-
-        {
-          wordData.map(({ id, czWord, word }, index ) => (
-            (index === randomIndex) && <Card czWord={czWord} word={word} key={id} />
-            )
-          )
-        }
-      </div>
-
-      <div className="container__foot">
-        <Footer />
-      </div>
-    </div>
-=======
     <SettingsProvider>
     <WordsSetupProvider>
     <BrowserRouter>
@@ -50,7 +26,6 @@ function App() {
     </BrowserRouter>
     </WordsSetupProvider>
     </SettingsProvider>
->>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   );
 }
 
