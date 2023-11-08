@@ -1,15 +1,17 @@
 .footer {
-    padding: 20px 40px;
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.5;
+  margin: 0 auto;
+  padding: 20px 40px;
+  max-width: 1400px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
 
-    &__link {
-        color: #1a1a1a;
-        text-decoration: none;
+  &__link {
+    color: #1a1a1a;
+    text-decoration: none;
 
-        &:hover {
-            text-decoration: underline;
-        }
+    &:hover {
+      color: #fd7e14;
     }
+  }
 }

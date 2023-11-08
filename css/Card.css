@@ -1,16 +1,15 @@
 .card {
   margin: 0 auto;
   padding: 40px;
-  min-width: 350px;
+  min-width: 270px;
   max-width: 640px;
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 @media screen and (min-width: 640px) {
   .card {
-    width: 100%;
+    width: 640px;
   }
 }
 @media screen and (min-width: 860px) {
@@ -19,145 +18,153 @@
   }
 }
 .card__head {
-  margin-bottom: 20px;
-  margin-left: auto;
+  margin-bottom: 40px;
 }
-.card__body {
+@media screen and (min-width: 640px) {
+  .card__head {
+    margin-bottom: 40px;
+  }
+}
+.card__body--container {
+  margin: 20px 0;
+  width: auto;
+  height: 400px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+@media screen and (min-width: 640px) {
+  .card__body--container {
+    margin: 20px 40px;
+  }
+}
+.card__body--container.is-turned {
+  transform: rotateX(180deg);
+}
+.card__body--front, .card__body--back {
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d2d6dc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  position: absolute;
+  backface-visibility: hidden;
+}
+.card__body--front {
+  background-color: #ffffff;
+}
+.card__body--back {
+  background-color: #e6e6e6;
+  transform: rotateX(180deg);
 }
 .card__foot {
-  margin-top: 8px;
+  margin-top: 4px;
   display: flex;
-  flex-direction: column;
-}
-.card__foot--link {
-  margin-top: 12px;
-  margin-left: auto;
-  color: #1a1a1a;
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-.card__foot--link:hover {
-  text-decoration: underline;
+  flex-direction: row;
+  justify-content: center;
+  gap: 100px;
 }
 
-.guess-word {
-  padding: 56px 0;
+.icons--right, .icons--left {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icons--left {
+  gap: 8px;
+}
+
+.icons--left {
+  gap: 16px;
+}
+
+.hint-firts-word {
+  margin-left: 4px;
+  font-size: 20px;
+  color: #008000;
+  display: none;
+}
+.hint-firts-word.show {
+  display: block;
+}
+
+.container--icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.container--words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.front-word {
+  margin: 0;
   display: inline-block;
   font-size: 36px;
   font-family: "Mukta", sans-serif;
   font-weight: bold;
   text-align: center;
-  cursor: pointer;
 }
 @media screen and (min-width: 640px) {
-  .guess-word {
+  .front-word {
     font-size: 50px;
   }
 }
 
-.your-answer {
-  margin-top: 8px;
-  padding: 8px;
-  width: 100%;
-  height: 40px;
-  background-color: #ffffff;
-  font-size: 16px;
-  border: 2px solid #c0c0c0;
-  border-radius: 4px;
-  outline: none;
-}
-.your-answer.hidden {
-  display: none;
-}
-@media screen and (min-width: 640px) {
-  .your-answer {
-    height: 50px;
-    font-size: 24px;
-  }
-}
-.your-answer:focus {
-  outline: none;
-  border: 2px solid #959595;
-}
-.your-answer:active {
-  border: 2px solid #c0c0c0;
-}
-.your-answer.true {
-  border: 2px solid #008000;
-}
-.your-answer.false {
-  border: 2px solid #FF0000;
-}
-
-.answer {
-  margin-top: 8px;
-  padding: 8px;
-  width: 100%;
-  height: 40px;
-  font-size: 16px;
-  background-color: #ffffff;
-  border: 2px solid #c0c0c0;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-}
-.answer--correct {
-  color: #008000;
-  border: 2px solid #008000;
-}
-.answer--incorrect {
-  color: #ff0000;
-  border: 2px solid #ff0000;
-}
-@media screen and (min-width: 640px) {
-  .answer {
-    height: 50px;
-    font-size: 24px;
-  }
-}
-
-.hint {
-  margin-top: 24px;
-  margin-bottom: 0;
-  margin-left: 0;
+.hint-icon {
   margin-right: auto;
+  font-size: 30px;
   color: #1a1a1a;
   text-decoration: none;
   transition: color 0.3s ease;
   cursor: pointer;
 }
-.hint:hover {
+.hint-icon:hover {
   color: #fd7e14;
-}
-@media screen and (min-width: 640px) {
-  .hint {
-    font-size: 20px;
-  }
 }
 
 .icon-star {
   margin-left: auto;
   font-size: 30px;
-  transition: color 0.3s ease;
   fill: #aaaaaa;
+  transition: fill 0.3s ease;
   cursor: pointer;
 }
+.icon-star:hover {
+  fill: #ffcc00;
+}
 .icon-star--marked {
-  fill: #FFCC00;
+  fill: #ffcc00;
 }
 
 .icon-volume {
   font-size: 30px;
   fill: #5481b7;
+  cursor: pointer;
 }
 .icon-volume:hover {
   fill: #13529e;
 }
 
-.icon-hint {
-  font-size: 24px;
-  vertical-align: bottom;
+.card__body--back h2 {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.is-turned .card__body--back h2 {
+  opacity: 1;
 }/*# sourceMappingURL=Card.css.map */

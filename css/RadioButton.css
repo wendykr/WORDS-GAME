@@ -1,0 +1,39 @@
+.radioButton {
+  display: flex;
+  overflow: hidden;
+}
+.radioButton__input {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+.radioButton__input:checked + .radioButton__label {
+  background-color: #fd7e14;
+  color: #ffffff;
+  cursor: auto;
+  transition: 0.3s;
+}
+.radioButton__label {
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  padding: 8px 16px;
+  margin-right: -1px;
+  border: 1px solid #e4e4e4;
+  transition: all 0.1s ease-in-out;
+}
+.radioButton__label:hover {
+  cursor: pointer;
+}
+.radioButton__label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+.radioButton__label:last-of-type {
+  border-radius: 0 4px 4px 0;
+}/*# sourceMappingURL=RadioButton.css.map */

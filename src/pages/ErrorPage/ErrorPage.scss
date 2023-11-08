@@ -1,0 +1,39 @@
+.error {
+  padding: 0 40px;
+  text-align: center;
+  line-height: 2;
+
+  @media screen and (min-width: 450px) {
+    line-height: 3;
+  }
+
+  &__head {
+    font-size: 20px;
+
+    @media screen and (min-width: 450px) {
+      font-size: 26px;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+
+    @media screen and (min-width: 450px) {
+      font-size: 18px;
+    }
+  }
+
+  &__link {
+    font-size: 14px;
+    color: #1a1a1a;
+
+    @media screen and (min-width: 450px) {
+      font-size: 16px;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: #fd7e14;
+    }
+  }
+}

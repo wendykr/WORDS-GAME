@@ -12,17 +12,18 @@
     cursor: pointer;
 
     @media screen and (min-width: 640px) {
-        font-size: 20px;
-        padding: 14px 24px;
+      font-size: 20px;
+      padding: 14px 24px;
     }
 
-    &:hover {
-        background-color: #ff9944;
-    }
+  &:hover {
+    background-color: #ff9944;
+  }
 
-    &.disabled {
-        background-color: #d4d4d4;
-        color: #4a5568;
-        cursor: auto;
-    }
+  &.disabled {
+    background-color: #d4d4d4;
+    color: #4a5568;
+    cursor: auto;
+    transition: none;
+  }
 }

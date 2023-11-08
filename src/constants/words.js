@@ -25,9 +25,9 @@ export const wordData = [
   },
   {
     id: 5,
-    word: "Book",
-    czWord: "Kniha",
-    category: "Education",
+    word: "Bridge",
+    czWord: "Most",
+    category: "Buildings",
   },
   {
     id: 6,
@@ -49,9 +49,9 @@ export const wordData = [
   },
   {
     id: 9,
-    word: "Chair",
-    czWord: "Židle",
-    category: "Furniture",
+    word: "Shirt",
+    czWord: "Košile",
+    category: "Clothing",
   },
   {
     id: 10,
@@ -85,9 +85,9 @@ export const wordData = [
   },
   {
     id: 15,
-    word: "Food",
-    czWord: "Jídlo",
-    category: "Cuisine",
+    word: "Elephant",
+    czWord: "Slon",
+    category: "Animals",
   },
   {
     id: 16,
@@ -217,9 +217,15 @@ export const wordData = [
   },
   {
     id: 37,
+<<<<<<< HEAD
     word: "Painting",
     czWord: "Malba",
     category: "Art",
+=======
+    word: "Bird",
+    czWord: "Pták",
+    category: "Animals",
+>>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 38,
@@ -247,9 +253,15 @@ export const wordData = [
   },
   {
     id: 42,
+<<<<<<< HEAD
     word: "Coffee",
     czWord: "Káva",
     category: "Beverages",
+=======
+    word: "Island",
+    czWord: "Ostrov",
+    category: "Places",
+>>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 43,
@@ -265,9 +277,15 @@ export const wordData = [
   },
   {
     id: 45,
+<<<<<<< HEAD
     word: "Clock",
     czWord: "Hodiny",
     category: "Technology",
+=======
+    word: "Desert",
+    czWord: "Poušť",
+    category: "Nature",
+>>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 46,
@@ -277,6 +295,7 @@ export const wordData = [
   },
   {
     id: 47,
+<<<<<<< HEAD
     word: "Star",
     czWord: "Hvězda",
     category: "Space",
@@ -286,6 +305,17 @@ export const wordData = [
     word: "Chair",
     czWord: "Židle",
     category: "Furniture",
+=======
+    word: "Concert",
+    czWord: "Koncert",
+    category: "Entertainment",
+  },
+  {
+    id: 48,
+    word: "Countryside",
+    czWord: "Venkov",
+    category: "Places",
+>>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599
   },
   {
     id: 49,
@@ -299,4 +329,332 @@ export const wordData = [
     czWord: "Zrcadlo",
     category: "Furniture",
   },
+<<<<<<< HEAD
 ];
+=======
+  {
+    id: 51,
+    word: "Door",
+    czWord: "Dveře",
+    category: "Buildings",
+  },
+  {
+    id: 52,
+    word: "Window",
+    czWord: "Okno",
+    category: "Buildings",
+  },
+  {
+    id: 53,
+    word: "Laptop",
+    czWord: "Notebook",
+    category: "Technology",
+  },
+  {
+    id: 54,
+    word: "Cup",
+    czWord: "Šálek",
+    category: "Tableware",
+  },
+  {
+    id: 55,
+    word: "Plate",
+    czWord: "Talíř",
+    category: "Tableware",
+  },
+  {
+    id: 56,
+    word: "Spoon",
+    czWord: "Lžíce",
+    category: "Tableware",
+  },
+  {
+    id: 57,
+    word: "Fork",
+    czWord: "Vidlička",
+    category: "Tableware",
+  },
+  {
+    id: 58,
+    word: "Knife",
+    czWord: "Nůž",
+    category: "Tableware",
+  },
+  {
+    id: 59,
+    word: "Mountains",
+    czWord: "Hory",
+    category: "Nature",
+  },
+  {
+    id: 60,
+    word: "Valley",
+    czWord: "Údolí",
+    category: "Nature",
+  },
+  {
+    id: 61,
+    word: "Bedroom",
+    czWord: "Ložnice",
+    category: "Rooms",
+  },
+  {
+    id: 62,
+    word: "Living Room",
+    czWord: "Obývací pokoj",
+    category: "Rooms",
+  },
+  {
+    id: 63,
+    word: "Kitchen",
+    czWord: "Kuchyně",
+    category: "Rooms",
+  },
+  {
+    id: 64,
+    word: "Bathroom",
+    czWord: "Koupelna",
+    category: "Rooms",
+  },
+  {
+    id: 65,
+    word: "Keyboard",
+    czWord: "Klávesnice",
+    category: "Technology",
+  },
+  {
+    id: 66,
+    word: "Flower",
+    czWord: "Květina",
+    category: "Nature",
+  },
+  {
+    id: 67,
+    word: "Grass",
+    czWord: "Tráva",
+    category: "Nature",
+  },
+  {
+    id: 68,
+    word: "Sky",
+    czWord: "Nebe",
+    category: "Nature",
+  },
+  {
+    id: 69,
+    word: "Cloud",
+    czWord: "Oblak",
+    category: "Nature",
+  },
+  {
+    id: 70,
+    word: "Bus",
+    czWord: "Autobus",
+    category: "Transportation",
+  },
+  {
+    id: 71,
+    word: "Snow",
+    czWord: "Sníh",
+    category: "Weather",
+  },
+  {
+    id: 72,
+    word: "Clarinet",
+    czWord: "Klarinet",
+    category: "Music",
+  },
+  {
+    id: 73,
+    word: "Saxophone",
+    czWord: "Saxofon",
+    category: "Music",
+  },
+  {
+    id: 74,
+    word: "Toilet",
+    czWord: "Záchod",
+    category: "Rooms",
+  },
+  {
+    id: 75,
+    word: "Theater",
+    czWord: "Divadlo",
+    category: "Entertainment",
+  },
+  {
+    id: 76,
+    word: "Building",
+    czWord: "Budova",
+    category: "Buildings",
+  },
+  {
+    id: 77,
+    word: "Meadow",
+    czWord: "Louka",
+    category: "Nature",
+  },
+  {
+    id: 78,
+    word: "Coat",
+    czWord: "Kabát",
+    category: "Clothing",
+  },
+  {
+    id: 79,
+    word: "Screen",
+    czWord: "Obrazovka",
+    category: "Technology",
+  },
+  {
+    id: 80,
+    word: "Girl",
+    czWord: "Holka",
+    category: "People",
+  },
+  {
+    id: 81,
+    word: "Bananas",
+    czWord: "Banány",
+    category: "Food",
+  },
+  {
+    id: 82,
+    word: "Snake",
+    czWord: "Had",
+    category: "Animals",
+  },
+  {
+    id: 83,
+    word: "Sister",
+    czWord: "Sestra",
+    category: "People",
+  },
+  {
+    id: 84,
+    word: "Sweater",
+    czWord: "Svetr",
+    category: "Clothing",
+  },
+  {
+    id: 85,
+    word: "Lake",
+    czWord: "Jezero",
+    category: "Nature",
+  },
+  {
+    id: 86,
+    word: "River",
+    czWord: "Řeka",
+    category: "Nature",
+  },
+  {
+    id: 87,
+    word: "Forest",
+    czWord: "Les",
+    category: "Nature",
+  },
+  {
+    id: 88,
+    word: "Hockey",
+    czWord: "Hokej",
+    category: "Sports",
+  },
+  {
+    id: 89,
+    word: "Hamster",
+    czWord: "Křeček",
+    category: "Animals",
+  },
+  {
+    id: 90,
+    word: "Keyboard",
+    czWord: "Klávesy",
+    category: "Music",
+  },
+  {
+    id: 91,
+    word: "Horse",
+    czWord: "Kůň",
+    category: "Animals",
+  },
+  {
+    id: 92,
+    word: "Flute",
+    czWord: "Flétna",
+    category: "Music",
+  },
+  {
+    id: 93,
+    word: "Drizzle",
+    czWord: "Mrholení",
+    category: "Weather",
+  },
+  {
+    id: 94,
+    word: "Storm",
+    czWord: "Bouře",
+    category: "Weather",
+  },
+  {
+    id: 95,
+    word: "Basketball",
+    czWord: "Basketbal",
+    category: "Sports",
+  },
+  {
+    id: 96,
+    word: "Wind",
+    czWord: "Vítr",
+    category: "Weather",
+  },
+  {
+    id: 97,
+    word: "Tennis",
+    czWord: "Tenis",
+    category: "Sports",
+  },
+  {
+    id: 98,
+    word: "Flood",
+    czWord: "Záplava",
+    category: "Weather",
+  },
+  {
+    id: 99,
+    word: "Parrot",
+    czWord: "Papoušek",
+    category: "Animals",
+  },
+  {
+    id: 100,
+    word: "Violin",
+    czWord: "Housle",
+    category: "Music",
+  },
+  {
+    id: 101,
+    word: "Ice skating",
+    czWord: "Bruslení",
+    category: "Sports",
+  },
+  {
+    id: 102,
+    word: "Rabbit",
+    czWord: "Králík",
+    category: "Animals",
+  },
+  {
+    id: 103,
+    word: "Potatoes",
+    czWord: "Brambory",
+    category: "Food",
+  },
+  {
+    id: 104,
+    word: "Brother",
+    czWord: "Bratr",
+    category: "People",
+  },
+];
+>>>>>>> 1533464b5c6354ffcb035d348d7b3c666b12f599

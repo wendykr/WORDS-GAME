@@ -6,7 +6,6 @@
   align-items: center;
 }
 .container__head, .container__foot {
-  margin-top: 40px;
   min-width: 350px;
   max-width: 640px;
 }
@@ -20,10 +19,12 @@
     max-width: 860px;
   }
 }
+.container__head {
+  margin-bottom: 20px;
+}
 .container__body {
   width: 100%;
 }
-.container__body--bar {
-  margin: 30px auto;
-  width: 80%;
+.container__foot {
+  margin-top: 20px;
 }/*# sourceMappingURL=App.css.map */

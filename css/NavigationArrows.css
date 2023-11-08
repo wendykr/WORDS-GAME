@@ -1,0 +1,13 @@
+.icon-prev, .icon-next {
+  font-size: 40px;
+  color: #fd7e14;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+.icon-prev:hover, .icon-next:hover {
+  color: #ff9944;
+}
+.icon-prev.disabled, .icon-next.disabled {
+  color: #a1a1a1;
+  cursor: auto;
+}/*# sourceMappingURL=NavigationArrows.css.map */

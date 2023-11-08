@@ -1,0 +1,39 @@
+.error {
+  padding: 0 40px;
+  text-align: center;
+  line-height: 2;
+}
+@media screen and (min-width: 450px) {
+  .error {
+    line-height: 3;
+  }
+}
+.error__head {
+  font-size: 20px;
+}
+@media screen and (min-width: 450px) {
+  .error__head {
+    font-size: 26px;
+  }
+}
+.error__text {
+  font-size: 16px;
+}
+@media screen and (min-width: 450px) {
+  .error__text {
+    font-size: 18px;
+  }
+}
+.error__link {
+  font-size: 14px;
+  color: #1a1a1a;
+}
+@media screen and (min-width: 450px) {
+  .error__link {
+    font-size: 16px;
+  }
+}
+.error__link:hover {
+  text-decoration: none;
+  color: #fd7e14;
+}/*# sourceMappingURL=ErrorPage.css.map */
