@@ -52,9 +52,15 @@ export const Card = (
   }, [repeat]);
 
   const speakWord = () => {
-    if (isAudio) {
+    if (isAudio && voices.length > 0) {
       const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-      speak({ text: word, rate: 0.8, voice: selectedVoice });
+      if (selectedVoice) {
+        speak({ text: word, rate: 0.8, voice: selectedVoice });
+      } else {
+        console.error('Hlas "Google US English" nenalezen.');
+      }
+    } else {
+      console.error('Hlasové funkce nejsou k dispozici.');
     }
   };
 
@@ -70,7 +76,6 @@ export const Card = (
     isTurned && setRepeat(true);
     setIsTurned(prevState => !prevState);
     setIsDisplay(false);
-    
   };
 
   const handleClickPrev = () => {
@@ -92,6 +97,7 @@ export const Card = (
         setIsTurned(false);
       }
       updateProgressbar(false, true);
+      console.log('click');
       setCurrentWordIndex(prevValue => prevValue + 1);
       setIsDisplay(false);
     }

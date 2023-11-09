@@ -38,6 +38,8 @@ export const Setting = () => {
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
 
+  // console.log('set isCzech', isCzech);
+
   // const [formData, setFormData] = useState({
   //   question: true,
   //   totalWords: 0,

@@ -4,7 +4,6 @@ import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-// import { speakWord } from '../../helpers/speakWord'
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -23,7 +22,6 @@ export const FlashcardPage = () => {
 
   console.log('%c randomWords FLASH ', 'background: gray; color: white;');
   console.log(randomWords);
-
 
   useEffect(() => {
     let randomIndx = [];
@@ -51,18 +49,9 @@ export const FlashcardPage = () => {
 
   }, [currentWordIndex, randomWords]);
 
-  // useEffect(() => {
-  //   for (let i = 0; i < randomWords.length; i++) {
-  //     // console.log(i, randomWords[i].czWord, randomWords[i].word, randomWords[i].category);
-  //   }
-  // }, [randomWords]);
-
   useEffect(() => {
     isCzech ? '' : speakWord(currentWord?.word);
-
     console.log("speaked");
-
-    // isCzech ? '' : speakWord(speak, currentWord?.word, voices);
   }, [currentWord]);
 
   const generateCurrentNewWord = (wordsArray, index) => {
@@ -70,9 +59,15 @@ export const FlashcardPage = () => {
   };
 
   const speakWord = (word) => {
-    if (isAudio) {
+    if (isAudio && voices.length > 0) {
       const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-      speak({ text: word, rate: 0.8, voice: selectedVoice });
+      if (selectedVoice) {
+        speak({ text: word, rate: 0.8, voice: selectedVoice });
+      } else {
+        console.error('Hlas "Google US English" nenalezen.');
+      }
+    } else {
+      console.error('Hlasové funkce nejsou k dispozici.');
     }
   };
 

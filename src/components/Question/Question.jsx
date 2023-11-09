@@ -5,7 +5,6 @@ import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Button } from '../Button/Button';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-// import { speakWord } from '../../helpers/speakWord'
 import './Question.scss';
 
 import { MdHelpCenter } from 'react-icons/md';
@@ -33,9 +32,15 @@ export const Question = ({
   const refInput = useRef(null);
 
   const speakWord = () => {
-    if (isAudio) {
+    if (isAudio && voices.length > 0) {
       const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-      speak({ text: word, rate: 0.8, voice: selectedVoice });
+      if (selectedVoice) {
+        speak({ text: word, rate: 0.8, voice: selectedVoice });
+      } else {
+        console.error('Hlas "Google US English" nenalezen.');
+      }
+    } else {
+      console.error('Hlasové funkce nejsou k dispozici.');
     }
   };
 
@@ -52,10 +57,7 @@ export const Question = ({
   const answerReveal = () => {
     setInputValue(isCzech ? word : czWord);
     setResultState("dont-know");
-    // speakWord();
     isCzech ? speakWord() : '';
-    // speakWord(speak, word, voices);
-    // isCzech ? speakWord(speak, word, voices) : '';
   };
 
   const changeWord = (event) => {
@@ -70,10 +72,7 @@ export const Question = ({
 
       if (event.key === "Enter" && inputValue.length !== 0) {
         // console.log("Enter");
-        // speakWord();
         isCzech ? speakWord() : '';
-        // speakWord(speak, word, voices);
-        // isCzech ? speakWord(speak, word, voices) : '';
 
         if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
           setResultState("incorrect");
@@ -122,15 +121,7 @@ export const Question = ({
 
     if (resultState === "") {
       // setIsHiddenInput(true);
-      // speakWord();
-      // if (isCzech) {
-      //   speakWord(speak, word, voices);
-      // }
-      // speakWord();
       isCzech ? speakWord() : '';
-      // speakWord(speak, word, voices);
-      // isCzech ? speakWord(speak, word, voices) : '';
-      // isCzech ? speakWord(speak, word, voices) : speakWord();
 
       if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
         setResultState("incorrect");

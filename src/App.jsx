@@ -1,31 +1,48 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HomePage } from './pages/HomePage/HomePage';
-import { FlashcardPage } from './pages/FlashcardPage/FlashcardPage';
-import { QuizPage } from './pages/QuizPage/QuizPage';
-import { ErrorPage } from './pages/ErrorPage/ErrorPage';
-import { SharedLayout } from './components/SharedLayout/SharedLayout';
-import { WordsSetupProvider } from './context/WordsSetupContext';
-import { SettingsProvider } from './context/SettingsContext';
+import React, { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useWordsSetup } from './context/WordsSetupContext';
+import { useSettings } from './context/SettingsContext';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
 
 function App() {
 
+  const { setSetupCountWord,
+    setIsShow,
+    setIsCzech,
+    setIsFavorite,
+    setIsAudio,
+    setCategoryValue
+  } = useSettings();
+  
+  const {
+    setCurrentWord, setCurrentWordIndex, setProgressbar, setIsTurned,
+  } = useWordsSetup();
+
+  const location = useLocation();
+
+  const isHeaderHidden = location.pathname === '/';
+  const path = location.pathname;
+
+  useEffect(() => {
+    setSetupCountWord(5);
+    setIsShow(false);
+    setIsCzech(false);
+    setIsFavorite(false);
+    setIsAudio(true);
+    setCategoryValue();
+    setCurrentWord();
+    setCurrentWordIndex(0);
+    setProgressbar(0);
+    setIsTurned(false);
+  }, [path]);
+
   return (
-    <SettingsProvider>
-    <WordsSetupProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/flashcards" element={<FlashcardPage />} />
-          <Route path="/quiz" element={<QuizPage />} />
-          <Route path="/match" element={<ErrorPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    </WordsSetupProvider>
-    </SettingsProvider>
+    <>
+      {!isHeaderHidden && <Header />}
+      <Outlet />
+      <Footer />
+    </>
   );
 }
 
