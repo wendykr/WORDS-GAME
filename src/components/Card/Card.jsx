@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'; 
-import { useSpeechSynthesis } from 'react-speech-kit';
+import React, { useState, useEffect } from 'react';
+import './Card.scss';
+// import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-import './Card.scss';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 
 import { MdHelpCenter } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa';
@@ -23,7 +24,7 @@ export const Card = (
 
   const { setupCountWord, isCzech, isAudio } = useSettings();
   const { updateProgressbar, progressbar, isTurned, setIsTurned } = useWordsSetup();
-  const { speak, voices } = useSpeechSynthesis();
+  const { speakWord } = useVoiceSpeak();
 
   // console.log('Card setupCountWord', setupCountWord);
 
@@ -37,7 +38,7 @@ export const Card = (
   useEffect(() => {
     if (isTurned && isCzech) {
       setTimeout(() => {
-        speakWord();
+        speakWord(word);
       }, 1000);
     }
   }, [isTurned]);
@@ -46,23 +47,23 @@ export const Card = (
     if (repeat && !isCzech) {
       setRepeat(prevState => !prevState);
       setTimeout(() => {
-        speakWord();
+        speakWord(word);
       }, 1000);
     }
   }, [repeat]);
 
-  const speakWord = () => {
-    if (isAudio && voices.length > 0) {
-      const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-      if (selectedVoice) {
-        speak({ text: word, rate: 0.8, voice: selectedVoice });
-      } else {
-        console.error('Hlas "Google US English" nenalezen.');
-      }
-    } else {
-      console.error('Hlasové funkce nejsou k dispozici.');
-    }
-  };
+  // const speakWord = () => {
+  //   if (isAudio && voices.length > 0) {
+  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+  //     if (selectedVoice) {
+  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
+  //     } else {
+  //       console.error('Hlas "Google US English" nenalezen.');
+  //     }
+  //   } else {
+  //     console.error('Hlasové funkce nejsou k dispozici.');
+  //   }
+  // };
 
   const showFirstLetter = () => {
     setIsDisplay(prevState => !prevState);
@@ -74,7 +75,7 @@ export const Card = (
 
   const handleClick = () => {
     isTurned && setRepeat(true);
-    // speakWord();
+    // speakWord(word);
     setIsTurned(prevState => !prevState);
     setIsDisplay(false);
   };
@@ -102,6 +103,10 @@ export const Card = (
       setCurrentWordIndex(prevValue => prevValue + 1);
       setIsDisplay(false);
     }
+  }
+
+  const handleSpeakWord = () => {
+    isCzech ? '' : isAudio && speakWord(word);
   }
 
   // useEffect(() => {
@@ -141,7 +146,7 @@ export const Card = (
               <span className="icons--left">
                 { !isCzech && (
                   isAudio ? 
-                  <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" />
+                  <FaVolumeUp className="icon-volume" onClick={handleSpeakWord} title="Sound icon" />
                   :
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )

@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import './Question.scss';
+// import { useSpeechSynthesis } from 'react-speech-kit';
 import { Setting } from '../../components/Setting/Setting';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Button } from '../Button/Button';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-import './Question.scss';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 
 import { MdHelpCenter } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa';
@@ -26,7 +27,7 @@ export const Question = ({
     resultState, setResultState, 
   } = useWordsSetup();
   const { isShow, setIsShow, isCzech, isAudio } = useSettings();
-  const { speak, voices } = useSpeechSynthesis();
+  const { speakWord } = useVoiceSpeak();
   const [isFavorite, setIsFavorite] = useState(false);
   // const [isHiddenInput, setIsHiddenInput] = useState(false);
   const refInput = useRef(null);
@@ -34,18 +35,18 @@ export const Question = ({
 
   // const isFavorite = 
 
-  const speakWord = () => {
-    if (isAudio && voices.length > 0) {
-      const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-      if (selectedVoice) {
-        speak({ text: word, rate: 0.8, voice: selectedVoice });
-      } else {
-        console.error('Hlas "Google US English" nenalezen.');
-      }
-    } else {
-      console.error('Hlasové funkce nejsou k dispozici.');
-    }
-  };
+  // const speakWord = () => {
+  //   if (isAudio && voices.length > 0) {
+  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+  //     if (selectedVoice) {
+  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
+  //     } else {
+  //       console.error('Hlas "Google US English" nenalezen.');
+  //     }
+  //   } else {
+  //     console.error('Hlasové funkce nejsou k dispozici.');
+  //   }
+  // };
 
   const handleStarToggle = () => {
     setIsFavorite((prevState) => !prevState);
@@ -60,7 +61,7 @@ export const Question = ({
   const answerReveal = () => {
     setInputValue(isCzech ? word : czWord);
     setResultState("dont-know");
-    isCzech ? speakWord() : '';
+    isCzech && isAudio && speakWord(word);
   };
 
   const changeWord = (event) => {
@@ -75,7 +76,7 @@ export const Question = ({
 
       if (event.key === "Enter" && inputValue.length !== 0) {
         // console.log("Enter");
-        isCzech ? speakWord() : '';
+        isCzech && isAudio && speakWord(word);
 
         if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
           setResultState("incorrect");
@@ -124,7 +125,7 @@ export const Question = ({
 
     if (resultState === "") {
       // setIsHiddenInput(true);
-      isCzech ? speakWord() : '';
+      isCzech && isAudio && speakWord(word);
 
       if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
         setResultState("incorrect");

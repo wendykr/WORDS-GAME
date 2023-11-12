@@ -1,9 +1,10 @@
 import React, { useEffect } from'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+// import { useSpeechSynthesis } from 'react-speech-kit';
 import './QuizPage.scss';
 import { Question } from '../../components/Question/Question';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -17,7 +18,7 @@ export const QuizPage = () => {
     currentWord, setCurrentWord,
   } = useWordsSetup();
 
-  const { speak, voices } = useSpeechSynthesis();
+  const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -47,21 +48,21 @@ export const QuizPage = () => {
   }, [randomWords]);
 
   useEffect(() => {
-    isCzech ? '' : speakWord(currentWord?.word);
+    isCzech ? '' : isAudio && speakWord(currentWord?.word);
   }, [currentWord]);
 
-  const speakWord = (word) => {
-    if (isAudio && voices.length > 0) {
-      const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-      if (selectedVoice) {
-        speak({ text: word, rate: 0.8, voice: selectedVoice });
-      } else {
-        console.error('Hlas "Google US English" nenalezen.');
-      }
-    } else {
-      console.error('Hlasové funkce nejsou k dispozici.');
-    }
-  };
+  // const speakWord = (word) => {
+  //   if (isAudio && voices.length > 0) {
+  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+  //     if (selectedVoice) {
+  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
+  //     } else {
+  //       console.error('Hlas "Google US English" nenalezen.');
+  //     }
+  //   } else {
+  //     console.error('Hlasové funkce nejsou k dispozici.');
+  //   }
+  // };
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {

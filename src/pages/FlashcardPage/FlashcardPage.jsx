@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+// import { useSpeechSynthesis } from 'react-speech-kit';
 import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
+import { useVoiceSpeak } from "../../context/VoiceSpeakContext";
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -18,7 +19,7 @@ export const FlashcardPage = () => {
     currentWord, setCurrentWord
   } = useWordsSetup();
 
-  const { speak, voices } = useSpeechSynthesis();
+  const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords FLASH ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -50,26 +51,25 @@ export const FlashcardPage = () => {
   }, [currentWordIndex, randomWords]);
 
   useEffect(() => {
-    isCzech ? '' : speakWord(currentWord?.word);
-    console.log("speaked");
+    isCzech ? '' : isAudio && speakWord(currentWord?.word);
   }, [currentWord]);
 
   const generateCurrentNewWord = (wordsArray, index) => {
     setCurrentWord(wordsArray[index]);
   };
 
-  const speakWord = (word) => {
-    if (isAudio && voices.length > 0) {
-      const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-      if (selectedVoice) {
-        speak({ text: word, rate: 0.8, voice: selectedVoice });
-      } else {
-        console.error('Hlas "Google US English" nenalezen.');
-      }
-    } else {
-      console.error('Hlasové funkce nejsou k dispozici.');
-    }
-  };
+  // const speakWord = (word) => {
+  //   if (isAudio && voices.length > 0) {
+  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
+  //     if (selectedVoice) {
+  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
+  //     } else {
+  //       console.error('Hlas "Google US English" nenalezen.');
+  //     }
+  //   } else {
+  //     console.error('Hlasové funkce nejsou k dispozici.');
+  //   }
+  // };
 
   console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 

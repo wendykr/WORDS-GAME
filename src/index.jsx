@@ -9,6 +9,7 @@ import { QuizPage } from './pages/QuizPage/QuizPage';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 import { WordsSetupProvider } from './context/WordsSetupContext';
 import { SettingsProvider } from './context/SettingsContext';
+import { VoiceSpeakProvider } from './context/VoiceSpeakContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -39,12 +40,14 @@ const router = createBrowserRouter([
   }
 ])
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-  <SettingsProvider>
-  <WordsSetupProvider>
-  <RouterProvider router={router} />
-  </WordsSetupProvider>
-  </SettingsProvider>
+  <VoiceSpeakProvider>
+    <SettingsProvider>
+      <WordsSetupProvider>
+        <RouterProvider router={router} />
+      </WordsSetupProvider>
+    </SettingsProvider>
+  </VoiceSpeakProvider>
   // </React.StrictMode>,
-)
+);
