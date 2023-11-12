@@ -1,5 +1,4 @@
 import React, { useEffect } from'react';
-// import { useSpeechSynthesis } from 'react-speech-kit';
 import './QuizPage.scss';
 import { Question } from '../../components/Question/Question';
 import { useWordsSetup } from '../../context/WordsSetupContext';
@@ -50,19 +49,6 @@ export const QuizPage = () => {
   useEffect(() => {
     isCzech ? '' : isAudio && speakWord(currentWord?.word);
   }, [currentWord]);
-
-  // const speakWord = (word) => {
-  //   if (isAudio && voices.length > 0) {
-  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-  //     if (selectedVoice) {
-  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
-  //     } else {
-  //       console.error('Hlas "Google US English" nenalezen.');
-  //     }
-  //   } else {
-  //     console.error('Hlasové funkce nejsou k dispozici.');
-  //   }
-  // };
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {

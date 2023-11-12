@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './Card.scss';
-// import { useSpeechSynthesis } from 'react-speech-kit';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
 import { useWordsSetup } from '../../context/WordsSetupContext';
@@ -36,7 +35,7 @@ export const Card = (
   const firstLetterEng = word && word[0];
 
   useEffect(() => {
-    if (isTurned && isCzech) {
+    if (isTurned && isCzech && isAudio) {
       setTimeout(() => {
         speakWord(word);
       }, 1000);
@@ -44,26 +43,13 @@ export const Card = (
   }, [isTurned]);
 
   useEffect(() => {
-    if (repeat && !isCzech) {
+    if (repeat && !isCzech && isAudio) {
       setRepeat(prevState => !prevState);
       setTimeout(() => {
         speakWord(word);
       }, 1000);
     }
   }, [repeat]);
-
-  // const speakWord = () => {
-  //   if (isAudio && voices.length > 0) {
-  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-  //     if (selectedVoice) {
-  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
-  //     } else {
-  //       console.error('Hlas "Google US English" nenalezen.');
-  //     }
-  //   } else {
-  //     console.error('Hlasové funkce nejsou k dispozici.');
-  //   }
-  // };
 
   const showFirstLetter = () => {
     setIsDisplay(prevState => !prevState);
@@ -75,7 +61,6 @@ export const Card = (
 
   const handleClick = () => {
     isTurned && setRepeat(true);
-    // speakWord(word);
     setIsTurned(prevState => !prevState);
     setIsDisplay(false);
   };

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { useSpeechSynthesis } from 'react-speech-kit';
 import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
@@ -57,19 +56,6 @@ export const FlashcardPage = () => {
   const generateCurrentNewWord = (wordsArray, index) => {
     setCurrentWord(wordsArray[index]);
   };
-
-  // const speakWord = (word) => {
-  //   if (isAudio && voices.length > 0) {
-  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-  //     if (selectedVoice) {
-  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
-  //     } else {
-  //       console.error('Hlas "Google US English" nenalezen.');
-  //     }
-  //   } else {
-  //     console.error('Hlasové funkce nejsou k dispozici.');
-  //   }
-  // };
 
   console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 

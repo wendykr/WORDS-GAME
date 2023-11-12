@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import './Question.scss';
-// import { useSpeechSynthesis } from 'react-speech-kit';
 import { Setting } from '../../components/Setting/Setting';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Button } from '../Button/Button';
@@ -34,19 +33,6 @@ export const Question = ({
 
 
   // const isFavorite = 
-
-  // const speakWord = () => {
-  //   if (isAudio && voices.length > 0) {
-  //     const selectedVoice = voices.find(voice => voice.name === 'Google US English');
-  //     if (selectedVoice) {
-  //       speak({ text: word, rate: 0.8, voice: selectedVoice });
-  //     } else {
-  //       console.error('Hlas "Google US English" nenalezen.');
-  //     }
-  //   } else {
-  //     console.error('Hlasové funkce nejsou k dispozici.');
-  //   }
-  // };
 
   const handleStarToggle = () => {
     setIsFavorite((prevState) => !prevState);
@@ -157,6 +143,10 @@ export const Question = ({
     // console.log("resultState", resultState);
   };
 
+  const handleSpeakWord = () => {
+    isCzech ? '' : isAudio && speakWord(word);
+  };
+
   const buttonText =
     resultState !== ""
       ? resultState === "finished"
@@ -188,7 +178,7 @@ export const Question = ({
         {isCzech ?
           <h2 className="guess-word">{czWord}</h2>
           :
-          <h2 className="guess-word" onClick={speakWord}>{word}&nbsp; 
+          <h2 className="guess-word" onClick={handleSpeakWord}>{word}&nbsp; 
             { isAudio ? <FaVolumeUp className="icon-volume" title="Sound icon" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
           </h2>
         }
