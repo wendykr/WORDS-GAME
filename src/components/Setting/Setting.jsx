@@ -15,7 +15,7 @@ export const Setting = () => {
   const {
     isShow, setIsShow,
     isCzech, setIsCzech,
-    setCategoryValue,
+    categoryValue, setCategoryValue,
     setSetupCountWord,
     isFavorite, setIsFavorite,
     isAudio, setIsAudio
@@ -33,12 +33,10 @@ export const Setting = () => {
   } = useWordsSetup();
   
   const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
-  const [isTemporaryCategory, setIsTemporaryCategory] = useState("");
-  const [isTemporaryCount, setIsTemporaryCount] = useState("");
+  const [isTemporaryCategory, setIsTemporaryCategory] = useState();
+  const [isTemporaryCount, setIsTemporaryCount] = useState();
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
-
-  // console.log('set isCzech', isCzech);
 
   // const [formData, setFormData] = useState({
   //   question: true,
@@ -94,11 +92,11 @@ export const Setting = () => {
     setRandomWords([]);
     setCurrentWord();
 
-    setIsTemporaryCategory("");
+    setIsTemporaryCategory(isTemporaryCategory);
     setIsTemporaryCount("");
-    setIsTemporaryCzech(isCzech);
-    setIsTemporaryFavorite(isFavorite);
-    setIsTemporaryAudio(isAudio);
+    setIsTemporaryCzech(isTemporaryCzech);
+    setIsTemporaryFavorite(isTemporaryFavorite);
+    setIsTemporaryAudio(isTemporaryAudio);
 
     setIsTurned(false);
 
@@ -128,7 +126,7 @@ export const Setting = () => {
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryCzech}
                   name="language" firstValue="CZECH" secondValue="ENGLISH"
-                  checkedValue={isTemporaryCzech}
+                  checkedValue={isCzech}
                 />
               </div>
             </div>
@@ -137,7 +135,7 @@ export const Setting = () => {
               <div className="form__row--option">
                 <SelectList
                   setTemporaryFunction={setIsTemporaryCategory}
-                  categoryValue={isTemporaryCategory}
+                  categoryValue={categoryValue}
                 />
               </div>
             </div>
@@ -156,7 +154,7 @@ export const Setting = () => {
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryFavorite}
                   name="favorite" firstValue="YES" secondValue="NO"
-                  checkedValue={isTemporaryFavorite}
+                  checkedValue={isFavorite}
                 />
               </div>
             </div>
@@ -166,7 +164,7 @@ export const Setting = () => {
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryAudio}
                   name="audio" firstValue="YES" secondValue="NO"
-                  checkedValue={isTemporaryAudio}
+                  checkedValue={isAudio}
                 />
               </div>
             </div>

@@ -27,9 +27,12 @@ export const Question = ({
   } = useWordsSetup();
   const { isShow, setIsShow, isCzech, isAudio } = useSettings();
   const { speak, voices } = useSpeechSynthesis();
-  const [isMarked, setIsMarked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   // const [isHiddenInput, setIsHiddenInput] = useState(false);
   const refInput = useRef(null);
+
+
+  // const isFavorite = 
 
   const speakWord = () => {
     if (isAudio && voices.length > 0) {
@@ -45,7 +48,7 @@ export const Question = ({
   };
 
   const handleStarToggle = () => {
-    setIsMarked((prevState) => !prevState);
+    setIsFavorite((prevState) => !prevState);
   };
 
   const showFirstLetter = () => {
@@ -176,9 +179,9 @@ export const Question = ({
       </div>
       <div className="question__body">
         <FaStar
-          className={`icon-star ${isMarked ? "icon-star--marked" : ""}`}
+          className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
           onClick={handleStarToggle}
-          title="Mark icon"
+          title="Favorite icon"
         />
 
         {isCzech ?

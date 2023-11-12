@@ -5,15 +5,19 @@ import './Navigation.scss';
 import { LuAlignJustify } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
 import { useWordsSetup } from '../../context/WordsSetupContext';
+import { wordData } from '../../constants/words';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { setRandomWords, setCurrentWord } = useWordsSetup();
+  const { setRandomWords, setCurrentWord,
+    setAllWords
+  } = useWordsSetup();
 
   const handleCloseMenu = () => {
     setIsOpen(!isOpen);
     setRandomWords([]);
     setCurrentWord();
+    setAllWords(wordData);
   }
 
   return (

@@ -7,16 +7,17 @@ import { Footer } from './components/Footer/Footer';
 
 function App() {
 
-  const { setSetupCountWord,
+  const {
+    setSetupCountWord,
     setIsShow,
     setIsCzech,
     setIsFavorite,
     setIsAudio,
     setCategoryValue
   } = useSettings();
-  
+
   const {
-    setCurrentWord, setCurrentWordIndex, setProgressbar, setIsTurned,
+    setCurrentWord, setCurrentWordIndex, setProgressbar, setInputValue, setResultState, setIsTurned
   } = useWordsSetup();
 
   const location = useLocation();
@@ -34,6 +35,8 @@ function App() {
     setCurrentWord();
     setCurrentWordIndex(0);
     setProgressbar(0);
+    setInputValue("");
+    setResultState("");
     setIsTurned(false);
   }, [path]);
 

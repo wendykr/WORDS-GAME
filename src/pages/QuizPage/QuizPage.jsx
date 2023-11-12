@@ -22,6 +22,9 @@ export const QuizPage = () => {
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
 
+
+  // setAllWords(favoriteWords)
+
   useEffect(() => {
     let randomIndx = [];
 
@@ -73,7 +76,8 @@ export const QuizPage = () => {
   };
 
   const generateCurrentNewWord = (wordsArray) => {
-    setCurrentWord(wordsArray[generateRandomNumber(wordsArray.length)]);
+    const newObject = Object.assign({}, wordsArray[generateRandomNumber(wordsArray.length)]);
+    setCurrentWord(newObject);
   };
 
   console.log("Aktuální slovo v QuizPage:", currentWord);

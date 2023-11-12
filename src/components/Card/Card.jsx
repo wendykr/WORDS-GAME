@@ -27,7 +27,7 @@ export const Card = (
 
   // console.log('Card setupCountWord', setupCountWord);
 
-  const [isMarked, setIsMarked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isDisplay, setIsDisplay] = useState(false);
   const [repeat, setRepeat] = useState(false);
 
@@ -69,11 +69,12 @@ export const Card = (
   };
 
   const handleStarToggle = () => {
-    setIsMarked(prevState => !prevState);
+    setIsFavorite(prevState => !prevState);
   };
 
   const handleClick = () => {
     isTurned && setRepeat(true);
+    // speakWord();
     setIsTurned(prevState => !prevState);
     setIsDisplay(false);
   };
@@ -145,7 +146,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={handleStarToggle} title="Favorite icon" />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
@@ -168,7 +169,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isMarked ? 'icon-star--marked' : ''}`} onClick={handleStarToggle} title="Mark icon" />
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={handleStarToggle} title="Favorite icon" />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
