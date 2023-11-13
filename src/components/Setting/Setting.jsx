@@ -149,7 +149,7 @@ export const Setting = () => {
               </div>
             </div>
             <div className="form__row">
-              <div className="form__row--label">Favorite terms only</div>
+              <div className="form__row--label">Favorite words only</div>
               <div className="form__row--option">
                 <RadioButton
                   setTemporaryFunction={setIsTemporaryFavorite}

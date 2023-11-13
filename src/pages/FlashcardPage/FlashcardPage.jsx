@@ -65,6 +65,7 @@ export const FlashcardPage = () => {
         <Card 
           czWord={currentWord?.czWord}
           word={currentWord?.word}
+          currentWord={currentWord}
           currentWordIndex={currentWordIndex}
           setCurrentWordIndex={setCurrentWordIndex}
         />

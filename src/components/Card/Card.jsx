@@ -14,6 +14,7 @@ import { IoVolumeMute } from 'react-icons/io5';
 export const Card = (
   { czWord,
     word,
+    currentWord,
     setCurrentWordIndex,
     currentWordIndex,
   }) => {
@@ -22,7 +23,10 @@ export const Card = (
   // console.log('currentWordIndex', currentWordIndex);
 
   const { setupCountWord, isCzech, isAudio } = useSettings();
-  const { updateProgressbar, progressbar, isTurned, setIsTurned } = useWordsSetup();
+  const { updateProgressbar, progressbar, isTurned, setIsTurned,
+    favoriteWords,
+    setFavoriteWords
+  } = useWordsSetup();
   const { speakWord } = useVoiceSpeak();
 
   // console.log('Card setupCountWord', setupCountWord);
@@ -33,6 +37,10 @@ export const Card = (
 
   const firstLetterCze = czWord && czWord[0];
   const firstLetterEng = word && word[0];
+
+  useEffect(() => {
+    setIsFavorite(favoriteWords.includes(currentWord));
+  }, [currentWord, favoriteWords]);
 
   useEffect(() => {
     if (isTurned && isCzech && isAudio) {
@@ -57,6 +65,15 @@ export const Card = (
 
   const handleStarToggle = () => {
     setIsFavorite(prevState => !prevState);
+    setFavoriteWords(prev => {
+      const index = prev.indexOf(currentWord);
+      if (index === -1) {
+        return [...prev, currentWord];
+      }
+      const updatedWords = [...prev];
+      updatedWords.splice(index, 1);
+      return updatedWords;
+    });
   };
 
   const handleClick = () => {
@@ -88,11 +105,15 @@ export const Card = (
       setCurrentWordIndex(prevValue => prevValue + 1);
       setIsDisplay(false);
     }
+    setIsFavorite(false);
   }
 
   const handleSpeakWord = () => {
     isCzech ? '' : isAudio && speakWord(word);
   }
+
+  console.log('%c favoriteWords ', 'background: green; color: white;');
+  console.log(favoriteWords);
 
   // useEffect(() => {
   //   const handleKeyDown = (event) => {

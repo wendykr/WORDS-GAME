@@ -12,6 +12,7 @@ export const WordsSetupProvider = ({children}) => {
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
   const [currentWord, setCurrentWord] = useState(); // aktuální slovo
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [favoriteWords, setFavoriteWords] = useState([]);
 
   const [inputValue, setInputValue] = useState("");
   const [resultState, setResultState] = useState("");
@@ -36,6 +37,7 @@ export const WordsSetupProvider = ({children}) => {
       randomWords, setRandomWords,
       currentWord, setCurrentWord,
       currentWordIndex, setCurrentWordIndex,
+      favoriteWords, setFavoriteWords,
       inputValue, setInputValue,
       resultState, setResultState,
       isTurned, setIsTurned,
