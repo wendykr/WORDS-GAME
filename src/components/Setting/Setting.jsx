@@ -54,37 +54,38 @@ export const Setting = () => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
 
-    setCategoryValue(isTemporaryCategory);
-
     if (isTemporaryCount <= 0) {
       alert('Number of words must be greater than 0.');
       setIsShow(true);
       return;
     } else {
       setSetupCountWord(Number(isTemporaryCount));
+
+      if (isTemporaryCategory) {
+        setCategoryValue(isTemporaryCategory);
+
+        let filterCategory = wordData.filter(word => word.category === isTemporaryCategory);
+        console.log('%c filterCategory ', 'background: red; color: white;');
+        console.log(...filterCategory);
+
+        console.log('isTemporaryCount', isTemporaryCount);
+
+        if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
+          alert(`The maximum number of words from the selected category ${isTemporaryCategory} is ${filterCategory.length}.`);
+          setIsShow(true);
+          return;
+        } else {
+          setAllWords(filterCategory);
+        }
+      } else {
+        setAllWords(wordData);
+      }
     }
 
     setIsCzech(isTemporaryCzech);
-    // console.log('isTemporaryCzech', typeof isTemporaryCzech, isTemporaryCzech);
     setIsFavorite(isTemporaryFavorite);
     setIsAudio(isTemporaryAudio);
     setProgressbar(0);
-
-    let filterCategory = wordData.filter(word => word.category === isTemporaryCategory);
-    console.log('%c filterCategory ', 'background: red; color: white;');
-    console.log(...filterCategory);
-
-    //! Enough Word Check
-    if (filterCategory.length > 0) {
-      if (filterCategory.length < isTemporaryCount) {
-        alert(`The maximum number of words from the selected category ${isTemporaryCategory} is ${filterCategory.length}.`);
-        setIsShow(true);
-        return;
-      }
-      setAllWords(filterCategory);
-    } else {
-      setAllWords(wordData);
-    }
 
     setInputValue("");
     setResultState("");

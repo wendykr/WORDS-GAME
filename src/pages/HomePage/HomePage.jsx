@@ -3,7 +3,7 @@ import './HomePage.scss';
 import { Mode } from '../../components/Mode/Mode';
 import images01 from '../../components/Mode/images/flashcards.svg';
 import images02 from '../../components/Mode/images/quiz.svg';
-import images03 from '../../components/Mode/images/pexeso.svg';
+import images03 from '../../components/Mode/images/match.svg';
 
 const modesData = [
   {
@@ -22,10 +22,10 @@ const modesData = [
   },
   {
     id: 3,
-    title: "Pexeso",
-    description: "Find the pairs that belong together.",
+    title: "Match",
+    description: "Combine correct answer above the question.",
     img: images03,
-    url: "pexeso"
+    url: "match"
   }
 ];
 

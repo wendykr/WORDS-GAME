@@ -40,8 +40,6 @@
 
       &.is-turned {
         transform: rotateX(180deg);
-
-
       }
     }
 
@@ -171,13 +169,3 @@
     fill: #13529e;
   }
 }
-
-// .card__body--back h2 {
-//   opacity: 0;
-//   transition: opacity 300ms ease-in;
-//   transition-delay: 300ms;
-// } 
-
-// .is-turned .card__body--back h2 {
-//   opacity: 1;
-// } 

@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <QuizPage />,
       },
       {
-        path: 'pexeso',
+        path: 'match',
         element: <ErrorPage />,
       },
       {

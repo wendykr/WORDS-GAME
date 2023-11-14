@@ -87,10 +87,15 @@ export const Card = (
     if (currentWordIndex > 0) {
       if (isTurned) {
         setIsTurned(false);
+        setTimeout(() => {
+          setCurrentWordIndex(prevValue => prevValue - 1);
+          setIsDisplay(false);
+        }, 300);
+      } else {
+        setCurrentWordIndex(prevValue => prevValue - 1);
+        setIsDisplay(false);
       }
       updateProgressbar(false, false);
-      setCurrentWordIndex(prevValue => prevValue - 1);
-      setIsDisplay(false);
     }
   }
 
@@ -98,12 +103,17 @@ export const Card = (
     // console.log('%c click NEXT ', 'background:white;color:green;font-weight:bold;');
     if (currentWordIndex < (setupCountWord - 1)) {
       if (isTurned) {
-        setIsTurned(false);
+        setIsTurned(false); // Otočí slovo zpět
+        setTimeout(() => {
+          setCurrentWordIndex(prevValue => prevValue + 1);
+          setIsDisplay(false);
+        }, 300);
+      } else {
+        setCurrentWordIndex(prevValue => prevValue + 1);
+        setIsDisplay(false);
       }
       updateProgressbar(false, true);
       console.log('click');
-      setCurrentWordIndex(prevValue => prevValue + 1);
-      setIsDisplay(false);
     }
     setIsFavorite(false);
   }
@@ -186,7 +196,7 @@ export const Card = (
             <div className="container--words" onClick={handleClick} >
               <h2 className="front-word">{isCzech ? word : czWord}</h2>
             </div>
-            </div>
+          </div>
         </div>
       </div>
 
