@@ -6,6 +6,7 @@ import './index.scss';
 import { HomePage } from './pages/HomePage/HomePage';
 import { FlashcardPage } from './pages/FlashcardPage/FlashcardPage';
 import { QuizPage } from './pages/QuizPage/QuizPage';
+import { MatchPage } from './pages/MatchPage/MatchPage';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 import { WordsSetupProvider } from './context/WordsSetupContext';
 import { SettingsProvider } from './context/SettingsContext';
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'match',
-        element: <ErrorPage />,
+        element: <MatchPage />,
       },
       {
         path: '*',

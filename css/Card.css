@@ -114,8 +114,8 @@
 .front-word {
   margin: 0;
   display: inline-block;
-  font-size: 36px;
   font-family: "Mukta", sans-serif;
+  font-size: 42px;
   font-weight: bold;
   text-align: center;
 }
@@ -135,27 +135,4 @@
 }
 .hint-icon:hover {
   color: #fd7e14;
-}
-
-.icon-star {
-  margin-left: auto;
-  font-size: 30px;
-  fill: #aaaaaa;
-  transition: fill 0.3s ease;
-  cursor: pointer;
-}
-.icon-star:hover {
-  fill: #ffcc00;
-}
-.icon-star--favorite {
-  fill: #ffcc00;
-}
-
-.icon-volume {
-  font-size: 30px;
-  fill: #5481b7;
-  cursor: pointer;
-}
-.icon-volume:hover {
-  fill: #13529e;
 }/*# sourceMappingURL=Card.css.map */

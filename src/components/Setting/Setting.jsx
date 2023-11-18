@@ -54,12 +54,13 @@ export const Setting = () => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
 
-    if (isTemporaryCount <= 0) {
+    console.log('isTemporaryCount', isTemporaryCount);
+
+    if (isTemporaryCount <= 0 || typeof isTemporaryCount === 'undefined') {
       alert('Number of words must be greater than 0.');
       setIsShow(true);
       return;
     } else {
-      setSetupCountWord(Number(isTemporaryCount));
 
       if (isTemporaryCategory) {
         setCategoryValue(isTemporaryCategory);
@@ -73,11 +74,16 @@ export const Setting = () => {
         if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
           alert(`The maximum number of words from the selected category ${isTemporaryCategory} is ${filterCategory.length}.`);
           setIsShow(true);
+          console.log('alert');
           return;
         } else {
+          console.log('filter');
+          setSetupCountWord(Number(isTemporaryCount));
           setAllWords(filterCategory);
         }
       } else {
+        console.log('all');
+        setSetupCountWord(Number(isTemporaryCount));
         setAllWords(wordData);
       }
     }

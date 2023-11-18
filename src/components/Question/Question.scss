@@ -34,16 +34,20 @@
   }
 
   &__foot {
-    margin-top: 8px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
 
+    @media screen and (min-width: 640px) {
+      margin-top: 10px;
+    }
+
     &--link {
-      margin-top: 12px;
+      margin-top: 16px;
       margin-left: auto;
       color: #1a1a1a;
-      text-decoration: none;
       font-weight: bold;
+      text-decoration: none;
       cursor: pointer;
 
       &.hidden {
@@ -58,10 +62,10 @@
 }
 
 .guess-word {
-  padding: 26px 0;
+  padding: 30px 0;
   display: inline-block;
-  font-size: 36px;
   font-family: 'Mukta', sans-serif;
+  font-size: 42px;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
@@ -74,11 +78,11 @@
 
 .your-answer {
   margin-top: 8px;
-  padding: 8px;
+  padding: 10px 8px;
   width: 100%;
-  height: 40px;
+  height: 50px;
   background-color: #ffffff;
-  font-size: 16px;
+  font-size: 18px;
   border: 2px solid #c0c0c0;
   border-radius: 4px; 
   outline: none;
@@ -103,17 +107,17 @@
 }
 
 .answer {
-  margin: 4px 0;
+  margin-top: 10px;
   width: 100%;
-  height: 60px;
+  height: 74px;
 
   @media screen and (min-width: 640px) {
-    margin: 12px 0;
-    height: 64px;
+    margin-top: 12px;
+    height: 76px;
   }
 
   &__label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 
     @media screen and (min-width: 640px) {
@@ -123,10 +127,10 @@
 
   &__content {
     margin-top: 4px;
-    padding: 8px;
+    padding: 10px 8px;
     width: 100%;
-    height: 40px;
-    font-size: 16px;
+    height: 50px;
+    font-size: 18px;
     background-color: #ffffff;
     border: 2px solid #c0c0c0;
     border-radius: 4px;
@@ -138,18 +142,6 @@
       font-size: 24px;
     }
   }
-
-  &--correct {
-    background-color: #ccffcc;
-    color: #008000;
-    border: 2px solid #008000;
-  }
-
-  &--incorrect {
-    background-color: #ffcccc;
-    color: #ff0000;
-    border: 2px solid #ff0000;
-  }
 }
 
 .hint {
@@ -157,6 +149,7 @@
   margin-bottom: 0;
   margin-left: 0;
   margin-right: auto;
+  font-size: 18px;
   color: #1a1a1a;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -173,31 +166,6 @@
   @media screen and (min-width: 640px) {
     margin-top: 24px;
     font-size: 20px;
-  }
-}
-
-.icon-star {
-  margin-left: auto;
-  font-size: 30px;
-  fill: #aaaaaa;
-  transition: fill 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    fill: #ffcc00;
-  }
-
-  &--favorite {
-    fill: #ffcc00;
-  }
-}
-
-.icon-volume {
-  font-size: 30px;
-  fill: #5481b7;
-
-  &:hover {
-    fill: #13529e;
   }
 }
 

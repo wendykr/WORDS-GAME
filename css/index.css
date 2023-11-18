@@ -26,4 +26,35 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.correct {
+  background-color: #ccffcc !important;
+  color: #008000 !important;
+  border: 2px solid #008000 !important;
+}
+
+.incorrect {
+  background-color: #ffcccc !important;
+  color: #ff0000 !important;
+  border: 2px solid #ff0000 !important;
+}
+
+.icon-star {
+  margin-left: auto;
+  font-size: 30px;
+  fill: #aaaaaa;
+  transition: fill 0.3s ease;
+  cursor: pointer;
+}
+.icon-star--favorite {
+  fill: #ffcc00;
+}
+
+.icon-volume {
+  font-size: 30px;
+  fill: #5481b7;
+}
+.icon-volume:hover {
+  fill: #13529e;
 }/*# sourceMappingURL=index.css.map */

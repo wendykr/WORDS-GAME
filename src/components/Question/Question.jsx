@@ -202,7 +202,7 @@ export const Question = ({
         {resultState === "incorrect" && (
           <div className="answer">
             <p className="answer__label">Your answer</p>
-            <div className="answer__content answer--incorrect">
+            <div className="answer__content incorrect">
               {inputValue}
             </div>
           </div>
@@ -211,14 +211,14 @@ export const Question = ({
         {(resultState === "correct" || resultState === "finished") && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
-            <div className="answer__content answer--correct">{inputValue}</div>
+            <div className="answer__content correct">{inputValue}</div>
           </div>
         )}
 
         {(resultState === "dont-know" || resultState === "incorrect") && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
-            <div className="answer__content answer--correct">{isCzech ? word : czWord}</div>
+            <div className="answer__content correct">{isCzech ? word : czWord}</div>
           </div>
         )}
       </div>
