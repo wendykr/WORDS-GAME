@@ -1,23 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 import { LuAlignJustify } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-import { wordData } from '../../constants/words';
+// import { wordData } from '../../constants/words';
+import { supabase } from '../../supabaseClient';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { setRandomWords, setCurrentWord,
-    setAllWords
+    setAllWords, allWords
   } = useWordsSetup();
+
+  useEffect(() => {
+    getTerms();
+  }, []);
+
+  async function getTerms() {
+    try {
+
+      let { data: terms, error } = await supabase
+        .from('terms')
+        // vypsat všechny
+        .select('*')
+        .order('id');
+        // vypsat z kategorie Animal
+        // .eq('category', 'Animals');
+        // vypsat všechny FALSE
+        // .eq('favorite', false);
+        // vypsat z kategorie Animal a TRUE
+        // .eq('category', 'Animals')
+        // .eq('favorite', true);
+  
+      if (error) {
+        console.error('Chyba při načítání dat:', error);
+        return;
+      }
+  
+      setAllWords(terms);
+      console.log("terms", terms);
+    } catch (error) {
+      console.error('Neočekávaná chyba při načítání dat:', error);
+    }
+  }
 
   const handleCloseMenu = () => {
     setIsOpen(!isOpen);
     setRandomWords([]);
     setCurrentWord();
-    setAllWords(wordData);
+    setAllWords(allWords);
   }
 
   return (

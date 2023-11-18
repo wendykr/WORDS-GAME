@@ -1,5 +1,6 @@
-import React, {useState, useContext, createContext} from 'react';
-import { wordData } from '../constants/words';
+import React, {useState, useContext, createContext, useEffect} from 'react';
+import { supabase } from '../supabaseClient';
+// import { wordData } from '../constants/words';
 import { useSettings } from './SettingsContext';
 
 export const WordsSetupContext = createContext();
@@ -8,7 +9,7 @@ export const WordsSetupProvider = ({children}) => {
 
   const { setupCountWord } = useSettings();
 
-  const [allWords, setAllWords] = useState(wordData); // všechna slova
+  const [allWords, setAllWords] = useState([]); // všechna slova
   const [randomWords, setRandomWords] = useState([]); // náhodná slova
   const [currentWord, setCurrentWord] = useState(); // aktuální slovo
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -20,6 +21,38 @@ export const WordsSetupProvider = ({children}) => {
   const [isTurned, setIsTurned] = useState(false);
 
   const [progressbar, setProgressbar] = useState(0); // progressBar line
+
+  useEffect(() => {
+    getTerms();
+  }, []);
+
+  async function getTerms() {
+    try {
+
+      let { data: terms, error } = await supabase
+        .from('terms')
+        // vypsat všechny
+        .select('*')
+        .order('id');
+        // vypsat z kategorie Animal
+        // .eq('category', 'Animals');
+        // vypsat všechny FALSE
+        // .eq('favorite', false);
+        // vypsat z kategorie Animal a TRUE
+        // .eq('category', 'Animals')
+        // .eq('favorite', true);
+  
+      if (error) {
+        console.error('Chyba při načítání dat:', error);
+        return;
+      }
+  
+      setAllWords(terms);
+      console.log("terms", terms);
+    } catch (error) {
+      console.error('Neočekávaná chyba při načítání dat:', error);
+    }
+  }
 
   const updateProgressbar = (deg, up) => {
     setProgressbar((prevValue) => {

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Setting.scss';
 import { RadioButton } from '../RadioButton/RadioButton';
 import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
 import { useSettings } from '../../context/SettingsContext';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-import { wordData } from '../../constants/words';
+// import { wordData } from '../../constants/words';
+import { supabase } from '../../supabaseClient';
 
 import { IoSettingsSharp } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
@@ -22,7 +23,7 @@ export const Setting = () => {
   } = useSettings();
 
   const {
-    setAllWords,
+    setAllWords, allWords, 
     setProgressbar,
     setInputValue,
     setResultState,
@@ -37,6 +38,38 @@ export const Setting = () => {
   const [isTemporaryCount, setIsTemporaryCount] = useState();
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
+
+  useEffect(() => {
+    getTerms();
+  }, []);
+
+  async function getTerms() {
+    try {
+
+      let { data: terms, error } = await supabase
+        .from('terms')
+        // vypsat všechny
+        .select('*')
+        .order('id');
+        // vypsat z kategorie Animal
+        // .eq('category', 'Animals');
+        // vypsat všechny FALSE
+        // .eq('favorite', false);
+        // vypsat z kategorie Animal a TRUE
+        // .eq('category', 'Animals')
+        // .eq('favorite', true);
+  
+      if (error) {
+        console.error('Chyba při načítání dat:', error);
+        return;
+      }
+  
+      setAllWords(terms);
+      console.log("terms", terms);
+    } catch (error) {
+      console.error('Neočekávaná chyba při načítání dat:', error);
+    }
+  }
 
   // const [formData, setFormData] = useState({
   //   question: true,
@@ -65,7 +98,7 @@ export const Setting = () => {
       if (isTemporaryCategory) {
         setCategoryValue(isTemporaryCategory);
 
-        let filterCategory = wordData.filter(word => word.category === isTemporaryCategory);
+        let filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
         console.log('%c filterCategory ', 'background: red; color: white;');
         console.log(...filterCategory);
 
@@ -84,7 +117,7 @@ export const Setting = () => {
       } else {
         console.log('all');
         setSetupCountWord(Number(isTemporaryCount));
-        setAllWords(wordData);
+        setAllWords(allWords);
       }
     }
 

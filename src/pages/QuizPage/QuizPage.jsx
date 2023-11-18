@@ -47,7 +47,7 @@ export const QuizPage = () => {
   }, [randomWords]);
 
   useEffect(() => {
-    isCzech ? '' : isAudio && speakWord(currentWord?.word);
+    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
   }, [currentWord]);
 
   const removeRandomWord = () => {
@@ -73,8 +73,10 @@ export const QuizPage = () => {
     <main className="quiz">
       <div className="quiz__body">
         <Question
-          czWord={currentWord?.czWord}
-          word={currentWord?.word}
+          id={currentWord?.id}
+          czword={currentWord?.czword}
+          enword={currentWord?.enword}
+          favorite={currentWord?.favorite}
           removeRandomWord={removeRandomWord}
           randomWords={randomWords}
           generateCurrentNewWord={generateCurrentNewWord}

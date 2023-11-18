@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { supabase } from '../../supabaseClient';
 import './Question.scss';
 import { Setting } from '../../components/Setting/Setting';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
@@ -12,9 +13,12 @@ import { FaStar } from 'react-icons/fa';
 import { FaVolumeUp } from 'react-icons/fa';
 import { IoVolumeMute } from 'react-icons/io5';
 
-export const Question = ({
-    czWord,
-    word,
+export const Question = (
+  {
+    id,
+    czword,
+    enword,
+    favorite,
     removeRandomWord,
     randomWords,
     generateCurrentNewWord,
@@ -27,27 +31,56 @@ export const Question = ({
   } = useWordsSetup();
   const { isShow, setIsShow, isCzech, isAudio } = useSettings();
   const { speakWord } = useVoiceSpeak();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(favorite);
   // const [isHiddenInput, setIsHiddenInput] = useState(false);
   const refInput = useRef(null);
 
+  useEffect(() => {
+    setIsFavorite(favorite);
+  }, [favorite]);
 
-  // const isFavorite = 
+  async function updateFavorite(id) {
+    try {
+      const { data: currentTerm, error } = await supabase
+        .from('terms')
+        .select('favorite')
+        .eq('id', id)
+        .single();
 
-  const handleStarToggle = () => {
-    setIsFavorite((prevState) => !prevState);
-  };
+      if (error) {
+        console.error('Error fetching current term:', error);
+        throw error;
+      }
+
+      const { updateError } = await supabase
+        .from('terms')
+        .update({ favorite: !currentTerm.favorite })
+        .eq('id', id);
+
+      if (updateError) {
+        console.error('Error updating term:', updateError);
+        throw updateError;
+      }
+
+      // překreslit
+      console.log('favorite', favorite);
+      setIsFavorite(!currentTerm.favorite);
+
+    } catch (error) {
+      alert('Unexpected error during update: ' + error.message);
+    }
+  }
 
   const showFirstLetter = () => {
-    const currentValue = isCzech ? word[0] : czWord[0];
+    const currentValue = isCzech ? enword[0] : czword[0];
     setInputValue(currentValue);
     refInput.current.focus();
   };
 
   const answerReveal = () => {
-    setInputValue(isCzech ? word : czWord);
+    setInputValue(isCzech ? enword : czword);
     setResultState("dont-know");
-    isCzech && isAudio && speakWord(word);
+    isCzech && isAudio && speakWord(enword);
   };
 
   const changeWord = (event) => {
@@ -62,9 +95,9 @@ export const Question = ({
 
       if (event.key === "Enter" && inputValue.length !== 0) {
         // console.log("Enter");
-        isCzech && isAudio && speakWord(word);
+        isCzech && isAudio && speakWord(enword);
 
-        if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
+        if (inputValue.toLowerCase() !== (isCzech ? enword.toLowerCase() : czword.toLowerCase())) {
           setResultState("incorrect");
           // console.log("incorrect");
         } else {
@@ -111,9 +144,9 @@ export const Question = ({
 
     if (resultState === "") {
       // setIsHiddenInput(true);
-      isCzech && isAudio && speakWord(word);
+      isCzech && isAudio && speakWord(enword);
 
-      if (inputValue.toLowerCase() !== (isCzech ? word.toLowerCase() : czWord.toLowerCase())) {
+      if (inputValue.toLowerCase() !== (isCzech ? enword.toLowerCase() : czword.toLowerCase())) {
         setResultState("incorrect");
         // console.log('%c incorrect ', 'background:red;color:white;');
       } else {
@@ -144,7 +177,7 @@ export const Question = ({
   };
 
   const handleSpeakWord = () => {
-    isCzech ? '' : isAudio && speakWord(word);
+    isCzech ? '' : isAudio && speakWord(enword);
   };
 
   const buttonText =
@@ -171,14 +204,14 @@ export const Question = ({
       <div className="question__body">
         <FaStar
           className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
-          onClick={handleStarToggle}
+          onClick={() => updateFavorite(id)}
           title="Favorite icon"
         />
 
         {isCzech ?
-          <h2 className="guess-word">{czWord}</h2>
+          <h2 className="guess-word">{czword}</h2>
           :
-          <h2 className="guess-word" onClick={handleSpeakWord}>{word}&nbsp; 
+          <h2 className="guess-word" onClick={handleSpeakWord}>{enword}&nbsp; 
             { isAudio ? <FaVolumeUp className="icon-volume" title="Sound icon" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
           </h2>
         }
@@ -218,7 +251,7 @@ export const Question = ({
         {(resultState === "dont-know" || resultState === "incorrect") && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
-            <div className="answer__content correct">{isCzech ? word : czWord}</div>
+            <div className="answer__content correct">{isCzech ? enword : czword}</div>
           </div>
         )}
       </div>

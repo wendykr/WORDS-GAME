@@ -50,7 +50,7 @@ export const FlashcardPage = () => {
   }, [currentWordIndex, randomWords]);
 
   useEffect(() => {
-    isCzech ? '' : isAudio && speakWord(currentWord?.word);
+    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
   }, [currentWord]);
 
   const generateCurrentNewWord = (wordsArray, index) => {
@@ -63,8 +63,10 @@ export const FlashcardPage = () => {
     <main className="flashcards">
       <div className="flashcards__body">
         <Card 
-          czWord={currentWord?.czWord}
-          word={currentWord?.word}
+          id={currentWord?.id}
+          czword={currentWord?.czword}
+          enword={currentWord?.enword}
+          favorite={currentWord?.favorite}
           currentWord={currentWord}
           currentWordIndex={currentWordIndex}
           setCurrentWordIndex={setCurrentWordIndex}
