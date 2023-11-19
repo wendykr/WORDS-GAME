@@ -22,7 +22,7 @@ export const Card = (
     currentWordIndex,
   }) => {
 
-    console.log('favorite', favorite);
+    // console.log('favorite', favorite);
 
   // console.log('%c INIT currentWordIndex ', 'background:black;color:white;font-weight:bold;');
   // console.log('currentWordIndex', currentWordIndex);
@@ -41,7 +41,7 @@ export const Card = (
   const firstLetterCze = czword && czword[0];
   const firstLetterEng = enword && enword[0];
 
-  console.log('isFavorite', isFavorite);
+  // console.log('isFavorite', isFavorite);
 
   useEffect(() => {
     setIsFavorite(favorite);
@@ -92,7 +92,7 @@ export const Card = (
       }
 
       // překreslit
-      console.log('favorite', favorite);
+      // console.log('favorite', favorite);
       setIsFavorite(!currentTerm.favorite);
 
     } catch (error) {
@@ -120,6 +120,7 @@ export const Card = (
         setIsDisplay(false);
       }
       updateProgressbar(false, false);
+      // setIsFavorite();
     }
   }
 
@@ -137,6 +138,7 @@ export const Card = (
         setIsDisplay(false);
       }
       updateProgressbar(false, true);
+      // setIsFavorite();
       console.log('click');
     }
   }

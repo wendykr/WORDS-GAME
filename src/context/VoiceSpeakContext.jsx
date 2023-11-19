@@ -17,7 +17,7 @@ export const VoiceSpeakProvider = ({ children }) => {
       );
     }
 
-    console.log("currentVoice", currentVoice);
+    // console.log("currentVoice", currentVoice);
   }, [currentVoice, voices]);
 
   const speakWord = (word) => {

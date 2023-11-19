@@ -65,7 +65,7 @@ export const Setting = () => {
       }
   
       setAllWords(terms);
-      console.log("terms", terms);
+      // console.log("terms", terms);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }
@@ -86,40 +86,59 @@ export const Setting = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
-
-    console.log('isTemporaryCount', isTemporaryCount);
-
-    if (isTemporaryCount <= 0 || typeof isTemporaryCount === 'undefined') {
+  
+    if (typeof isTemporaryCount === 'undefined' || isTemporaryCount <= 0) {
       alert('Number of words must be greater than 0.');
       setIsShow(true);
       return;
     } else {
 
+      let filterCategory;
+
+      // je vybrána kategorie
       if (isTemporaryCategory) {
         setCategoryValue(isTemporaryCategory);
 
-        let filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
+        // je vybrána hvězdička
+        if (isTemporaryFavorite) {
+          filterCategory = allWords.filter(word => word.category === isTemporaryCategory && word.favorite === isTemporaryFavorite);
+        } else {
+          filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
+        }
+
         console.log('%c filterCategory ', 'background: red; color: white;');
         console.log(...filterCategory);
 
-        console.log('isTemporaryCount', isTemporaryCount);
-
         if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
-          alert(`The maximum number of words from the selected category ${isTemporaryCategory} is ${filterCategory.length}.`);
+          alert(`The maximum number of words is ${filterCategory.length}.`);
           setIsShow(true);
-          console.log('alert');
           return;
         } else {
-          console.log('filter');
           setSetupCountWord(Number(isTemporaryCount));
           setAllWords(filterCategory);
         }
       } else {
-        console.log('all');
         setSetupCountWord(Number(isTemporaryCount));
         setAllWords(allWords);
       }
     }
+    console.log('456');
+
+    // if (isTemporaryFavorite) {
+    //   let selectFavorite = allWords.filter(word => word.favorite === isTemporaryFavorite);
+
+    //   if (isTemporaryCount < selectFavorite.length) {
+    //     alert(`The maximum number of words with favorite is ${selectFavorite.length}.`);
+    //     setIsShow(true);
+    //     console.log('alert');
+    //   } else {
+    //     // console.log('isTemporaryFavorite:', isTemporaryFavorite);
+
+    //     console.log('%c selectFavorite ', 'background: yellow; color: white;');
+    //     console.log(...selectFavorite);
+    //     setAllWords(selectFavorite);
+    //   }
+    // }
 
     setIsCzech(isTemporaryCzech);
     setIsFavorite(isTemporaryFavorite);

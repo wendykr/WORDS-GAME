@@ -14,13 +14,6 @@ export const SettingsProvider = ({children}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   // const [isAudio, setIsAudio] = useState(false);
 
-  // const [favoriteWords, setFavoriteWords] = useState([]);
-
-  // const isFavorite = pokud je momentální slovo ve favoriteWords
-  // setFavoriteWords(prev => [...prev, currentWord])
-
-  // //1. když 
-
   return (
     <SettingsContext.Provider value={{
       setupCountWord, setSetupCountWord,

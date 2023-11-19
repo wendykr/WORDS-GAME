@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SelectList.scss';
-import { wordData } from '../../constants/words';
+// import { wordData } from '../../constants/words';
+import { supabase } from '../../supabaseClient';
 
 export const SelectList = ({
     setTemporaryFunction,
@@ -8,8 +9,35 @@ export const SelectList = ({
   }) => {
 
   const [selectedCategory, setSelectedCategory] = useState(categoryValue);
+  const [categories, setCategories] = useState([]);
 
-  const uniqueCategories = [...new Set(wordData.map(oneOption => oneOption.category))].sort();
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  async function getCategories() {
+    try {
+      let { data: categoryData, error } = await supabase
+        .from('terms')
+        .select('category')
+        .order('category');
+  
+      if (error) {
+        console.error('Chyba při načítání dat:', error);
+        return;
+      }
+  
+      const uniqueCategories = [...new Set(categoryData.map(item => item.category))];
+  
+      // console.log("uniqueCategories", uniqueCategories);
+  
+      setCategories(uniqueCategories);
+    } catch (error) {
+      console.error('Neočekávaná chyba při načítání dat:', error);
+    }
+  }
+
+  // const uniqueCategories = [...new Set(wordData.map(oneOption => oneOption.category))].sort();
 
   const selectValue = (event) => {
     const selectedCategory = event.target.value;
@@ -17,7 +45,7 @@ export const SelectList = ({
     setTemporaryFunction(selectedCategory);
   };
 
-  const options = uniqueCategories.map((category, index) => (
+  const options = categories.map((category, index) => (
     <option key={index} value={category}>
       {category[0].toUpperCase() + category.slice(1)}
     </option>

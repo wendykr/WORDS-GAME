@@ -48,7 +48,7 @@ export const WordsSetupProvider = ({children}) => {
       }
   
       setAllWords(terms);
-      console.log("terms", terms);
+      // console.log("terms", terms);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }
