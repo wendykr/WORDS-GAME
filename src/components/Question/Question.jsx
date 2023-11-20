@@ -39,7 +39,7 @@ export const Question = (
     setIsFavorite(favorite);
   }, [favorite]);
 
-  async function updateFavorite(id) {
+  const updateFavorite = async (id) => {
     try {
       const { data: currentTerm, error } = await supabase
         .from('terms')

@@ -15,7 +15,7 @@ export const SelectList = ({
     getCategories();
   }, []);
 
-  async function getCategories() {
+  const getCategories = async () => {
     try {
       let { data: categoryData, error } = await supabase
         .from('terms')

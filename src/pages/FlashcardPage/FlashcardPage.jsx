@@ -66,10 +66,13 @@ export const FlashcardPage = () => {
           id={currentWord?.id}
           czword={currentWord?.czword}
           enword={currentWord?.enword}
+          category={currentWord?.category}
           favorite={currentWord?.favorite}
           currentWord={currentWord}
           currentWordIndex={currentWordIndex}
           setCurrentWordIndex={setCurrentWordIndex}
+          randomWords={randomWords}
+          setRandomWords={setRandomWords}
         />
       </div>
     </main>

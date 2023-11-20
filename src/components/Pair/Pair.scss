@@ -19,6 +19,25 @@
 
   &__foot {
     margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+
+    &--link {
+      margin-top: 16px;
+      margin-left: auto;
+      color: #1a1a1a;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+
+      &.hidden {
+        display: none;
+      }
+
+      &:hover {
+        color: #fd7e14;
+      }
+    }
   }
 }
 

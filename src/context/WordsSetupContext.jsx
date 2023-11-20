@@ -26,7 +26,7 @@ export const WordsSetupProvider = ({children}) => {
     getTerms();
   }, []);
 
-  async function getTerms() {
+  const getTerms = async () => {
     try {
 
       let { data: terms, error } = await supabase

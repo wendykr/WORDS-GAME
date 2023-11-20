@@ -18,7 +18,7 @@ export const Navigation = () => {
     getTerms();
   }, []);
 
-  async function getTerms() {
+  const getTerms = async () => {
     try {
 
       let { data: terms, error } = await supabase

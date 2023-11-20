@@ -17,9 +17,12 @@ export const Card = (
     id,
     czword,
     enword,
+    category,
     favorite,
     setCurrentWordIndex,
     currentWordIndex,
+    randomWords,
+    setRandomWords,
   }) => {
 
     // console.log('favorite', favorite);
@@ -68,7 +71,7 @@ export const Card = (
     setIsDisplay(prevState => !prevState);
   };
 
-  async function updateFavorite(id) {
+  const updateFavorite = async (id) => {
     try {
       const { data: currentTerm, error } = await supabase
         .from('terms')
@@ -92,13 +95,27 @@ export const Card = (
       }
 
       // překreslit
-      // console.log('favorite', favorite);
       setIsFavorite(!currentTerm.favorite);
 
+      const updatedWord = {
+        ...currentTerm,
+        id,
+        czword,
+        enword,
+        category,
+        favorite: !currentTerm.favorite,
+      };
+
+      const updatedRandomWords = randomWords.map(word =>
+        word.id === id ? updatedWord : word
+      );
+
+      setRandomWords(updatedRandomWords);
+  
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);
     }
-  }
+  };
 
   const handleClick = () => {
     isTurned && setRepeat(true);
