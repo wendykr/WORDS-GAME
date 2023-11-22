@@ -17,6 +17,9 @@ export const SelectList = ({
 
   const getCategories = async () => {
     try {
+
+      setCategories(['Loading data...']);
+
       let { data: categoryData, error } = await supabase
         .from('terms')
         .select('category')
@@ -26,11 +29,11 @@ export const SelectList = ({
         console.error('Chyba při načítání dat:', error);
         return;
       }
-  
+
       const uniqueCategories = [...new Set(categoryData.map(item => item.category))];
   
       // console.log("uniqueCategories", uniqueCategories);
-  
+
       setCategories(uniqueCategories);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);

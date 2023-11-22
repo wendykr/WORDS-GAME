@@ -7,6 +7,10 @@
   display: flex;
   flex-direction: column;
 
+  &__hidden {
+    display: none;
+  }
+
   &__head {
     margin-bottom: 80px;
   }
@@ -67,6 +71,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: 0.3s ease;
 
   @media screen and (min-width: 640px) {
     padding: 10px;
@@ -74,7 +79,9 @@
   }
 
   &:hover {
-    background-color: #f2f2f2;
+    background-color: #d7e1ee;
+    border: 2px solid #13529e;
+    color: #13529e;
     cursor: pointer;
   }
 }

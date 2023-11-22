@@ -36,22 +36,18 @@ export const FlashcardPage = () => {
 
     setRandomWords(randomIndx);
 
-    console.log("loaded new words");
-
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [setupCountWord]);
   
   useEffect(() => {
     generateCurrentNewWord(randomWords, currentWordIndex);
-
     console.log("generate new words");
-
   }, [currentWordIndex, randomWords]);
 
   useEffect(() => {
     isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  }, [currentWord]);
+  }, [currentWord?.enword]);
 
   const generateCurrentNewWord = (wordsArray, index) => {
     setCurrentWord(wordsArray[index]);

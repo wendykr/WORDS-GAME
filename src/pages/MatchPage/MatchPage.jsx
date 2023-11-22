@@ -1,7 +1,6 @@
-import React, { useEffect } from'react';
+import React, { useState, useEffect } from'react';
 import './MatchPage.scss';
 import { Pair } from '../../components/Pair/Pair';
-// import { wordData } from '../../constants/words';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
@@ -23,6 +22,26 @@ export const MatchPage = () => {
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
 
+  const [uniqueWords, setUniqueWords] = useState([]);
+
+  useEffect(() => {
+    let randomIndx = [];
+
+    while (randomIndx.length < 2) {
+      const currentRandomNumber = generateRandomNumber(allWords.length);
+
+      if (!randomIndx.includes(allWords[currentRandomNumber]) || !randomIndx.includes(currentWord?.id)) {
+        randomIndx.push(allWords[currentRandomNumber]);
+      }
+    }
+
+    setUniqueWords(randomIndx);
+  
+  }, [currentWord?.id]);
+
+  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  console.log(uniqueWords);
+
   useEffect(() => {
     let randomIndx = [];
 
@@ -36,7 +55,6 @@ export const MatchPage = () => {
 
     setRandomWords(randomIndx);
 
-    // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [setupCountWord]);
 
@@ -78,13 +96,8 @@ export const MatchPage = () => {
             removeRandomWord={removeRandomWord}
             randomWords={randomWords}
             generateCurrentNewWord={generateCurrentNewWord}
+            uniqueWords={uniqueWords}
         />
-        {/* <Pair key={wordData[0].id} czWord={wordData[0].czWord} word={wordData[0].word} /> */}
-      {/* {
-        wordData.map(({ czWord, word, id }) => (
-          <Pair key={id} czWord={czWord} word={word} />
-        ))
-      } */}
       </div>
     </main>
   )

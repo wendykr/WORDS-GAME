@@ -37,18 +37,11 @@ export const Card = (
 
   // console.log('Card setupCountWord', setupCountWord);
 
-  const [isFavorite, setIsFavorite] = useState(favorite);
   const [isDisplay, setIsDisplay] = useState(false);
   const [repeat, setRepeat] = useState(false);
 
   const firstLetterCze = czword && czword[0];
   const firstLetterEng = enword && enword[0];
-
-  // console.log('isFavorite', isFavorite);
-
-  useEffect(() => {
-    setIsFavorite(favorite);
-  }, [favorite]);
 
   useEffect(() => {
     if (isTurned && isCzech && isAudio) {
@@ -87,15 +80,13 @@ export const Card = (
       const { updateError } = await supabase
         .from('terms')
         .update({ favorite: !currentTerm.favorite })
-        .eq('id', id);
+        .eq('id', id)
+
 
       if (updateError) {
         console.error('Error updating term:', updateError);
         throw updateError;
       }
-
-      // překreslit
-      setIsFavorite(!currentTerm.favorite);
 
       const updatedWord = {
         ...currentTerm,
@@ -137,7 +128,6 @@ export const Card = (
         setIsDisplay(false);
       }
       updateProgressbar(false, false);
-      // setIsFavorite();
     }
   }
 
@@ -155,8 +145,6 @@ export const Card = (
         setIsDisplay(false);
       }
       updateProgressbar(false, true);
-      // setIsFavorite();
-      console.log('click');
     }
   }
 
@@ -209,7 +197,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
+                <FaStar className={`icon-star ${favorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
@@ -232,7 +220,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
+                <FaStar className={`icon-star ${favorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >

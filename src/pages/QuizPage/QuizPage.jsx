@@ -22,9 +22,6 @@ export const QuizPage = () => {
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
 
-
-  // setAllWords(favoriteWords)
-
   useEffect(() => {
     let randomIndx = [];
 
@@ -44,11 +41,12 @@ export const QuizPage = () => {
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
+    console.log('new generation');
   }, [randomWords]);
 
   useEffect(() => {
     isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  }, [currentWord]);
+  }, [currentWord?.enword]);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
@@ -76,9 +74,11 @@ export const QuizPage = () => {
           id={currentWord?.id}
           czword={currentWord?.czword}
           enword={currentWord?.enword}
+          category={currentWord?.category}
           favorite={currentWord?.favorite}
           removeRandomWord={removeRandomWord}
           randomWords={randomWords}
+          setRandomWords={setRandomWords}
           generateCurrentNewWord={generateCurrentNewWord}
         />
       </div>

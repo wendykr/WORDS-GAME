@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { supabase } from '../../supabaseClient';
 import './Question.scss';
 import { Setting } from '../../components/Setting/Setting';
@@ -18,10 +18,12 @@ export const Question = (
     id,
     czword,
     enword,
+    category,
     favorite,
     removeRandomWord,
     randomWords,
     generateCurrentNewWord,
+    setRandomWords,
   }) => {
 
   const {
@@ -31,13 +33,8 @@ export const Question = (
   } = useWordsSetup();
   const { isShow, setIsShow, isCzech, isAudio } = useSettings();
   const { speakWord } = useVoiceSpeak();
-  const [isFavorite, setIsFavorite] = useState(favorite);
   // const [isHiddenInput, setIsHiddenInput] = useState(false);
   const refInput = useRef(null);
-
-  useEffect(() => {
-    setIsFavorite(favorite);
-  }, [favorite]);
 
   const updateFavorite = async (id) => {
     try {
@@ -62,9 +59,20 @@ export const Question = (
         throw updateError;
       }
 
-      // překreslit
-      console.log('favorite', favorite);
-      setIsFavorite(!currentTerm.favorite);
+      const updatedWord = {
+        ...currentTerm,
+        id,
+        czword,
+        enword,
+        category,
+        favorite: !currentTerm.favorite,
+      };
+
+      const updatedRandomWords = randomWords.map(word =>
+        word.id === id ? updatedWord : word
+      );
+
+      setRandomWords(updatedRandomWords);
 
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);
@@ -88,26 +96,26 @@ export const Question = (
     setInputValue(myWord);
   };
 
-  const handleCheckKeyDown = (event) => {
-    // console.log('%c handleCheckKeyDown ', 'background:orange;color:white;');
+  // const handleCheckKeyDown = (event) => {
+  //   // console.log('%c handleCheckKeyDown ', 'background:orange;color:white;');
 
-    if (resultState === "") {
+  //   if (resultState === "") {
 
-      if (event.key === "Enter" && inputValue.length !== 0) {
-        // console.log("Enter");
-        isCzech && isAudio && speakWord(enword);
+  //     if (event.key === "Enter" && inputValue.length !== 0) {
+  //       // console.log("Enter");
+  //       isCzech && isAudio && speakWord(enword);
 
-        if (inputValue.toLowerCase() !== (isCzech ? enword.toLowerCase() : czword.toLowerCase())) {
-          setResultState("incorrect");
-          // console.log("incorrect");
-        } else {
-          setInputValue(inputValue);
-          setResultState("correct");
-          // console.log("correct");
-        }
-      }
-    }
-  };
+  //       if (inputValue.toLowerCase() !== (isCzech ? enword.toLowerCase() : czword.toLowerCase())) {
+  //         setResultState("incorrect");
+  //         // console.log("incorrect");
+  //       } else {
+  //         setInputValue(inputValue);
+  //         setResultState("correct");
+  //         // console.log("correct");
+  //       }
+  //     }
+  //   }
+  // };
 
   // useEffect(() => {
   //   const handleKeyDown = (event) => {
@@ -203,7 +211,7 @@ export const Question = (
       </div>
       <div className="question__body">
         <FaStar
-          className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
+          className={`icon-star ${favorite ? "icon-star--favorite" : ""}`}
           onClick={() => updateFavorite(id)}
           title="Favorite icon"
         />
@@ -226,7 +234,7 @@ export const Question = (
         <input
           className={`your-answer ${resultState !== "" ? "hidden" : ""}`}
           onChange={changeWord}
-          onKeyDown={handleCheckKeyDown}
+          // onKeyDown={handleCheckKeyDown}
           value={inputValue}
           type="text"
           ref={refInput}

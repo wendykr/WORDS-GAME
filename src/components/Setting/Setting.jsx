@@ -5,7 +5,6 @@ import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
 import { useSettings } from '../../context/SettingsContext';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-// import { wordData } from '../../constants/words';
 import { supabase } from '../../supabaseClient';
 
 import { IoSettingsSharp } from 'react-icons/io5';
@@ -48,22 +47,14 @@ export const Setting = () => {
 
       let { data: terms, error } = await supabase
         .from('terms')
-        // vypsat všechny
         .select('*')
         .order('id');
-        // vypsat z kategorie Animal
-        // .eq('category', 'Animals');
-        // vypsat všechny FALSE
-        // .eq('favorite', false);
-        // vypsat z kategorie Animal a TRUE
-        // .eq('category', 'Animals')
-        // .eq('favorite', true);
-  
+
       if (error) {
         console.error('Chyba při načítání dat:', error);
         return;
       }
-  
+
       setAllWords(terms);
       // console.log("terms", terms);
     } catch (error) {
@@ -71,39 +62,38 @@ export const Setting = () => {
     }
   }
 
-  // const [formData, setFormData] = useState({
-  //   question: true,
-  //   totalWords: 0,
-  //   category: "all",
-  //   star: false,
-  //   audio: true
-  // });
+  console.log('allWords', allWords);
 
   const showSetup = () => {
     setIsShow(prevState => !prevState);
   };
 
   const handleSubmit = (event) => {
+    console.log("submit");
+
     event.preventDefault();
     setIsShow(prevState => !prevState);
-  
+
+    ///!!!!!!!!!! -------------
     if (typeof isTemporaryCount === 'undefined' || isTemporaryCount <= 0) {
       alert('Number of words must be greater than 0.');
       setIsShow(true);
       return;
     } else {
-
       let filterCategory;
 
       // je vybrána kategorie
       if (isTemporaryCategory) {
-        setCategoryValue(isTemporaryCategory);
+        // setCategoryValue(isTemporaryCategory);
+
+        console.log('isTemporaryCategory', isTemporaryCategory);
 
         // je vybrána hvězdička
         if (isTemporaryFavorite) {
           filterCategory = allWords.filter(word => word.category === isTemporaryCategory && word.favorite === isTemporaryFavorite);
         } else {
           filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
+          console.log('filterCategory', filterCategory)
         }
 
         console.log('%c filterCategory ', 'background: red; color: white;');
@@ -114,31 +104,53 @@ export const Setting = () => {
           setIsShow(true);
           return;
         } else {
-          setSetupCountWord(Number(isTemporaryCount));
+          console.log("filterCategory", filterCategory)
+
           setAllWords(filterCategory);
         }
       } else {
-        setSetupCountWord(Number(isTemporaryCount));
         setAllWords(allWords);
       }
+
+      setCategoryValue(isTemporaryCategory);
+      setSetupCountWord(isTemporaryCount);
+
     }
-    console.log('456');
+///!!!!!!!!!! -------------
 
-    // if (isTemporaryFavorite) {
-    //   let selectFavorite = allWords.filter(word => word.favorite === isTemporaryFavorite);
+    // if (isTemporaryCount <= 0 || typeof isTemporaryCount === 'undefined') {
+    //   alert('Number of words must be greater than 0.');
+    //   setIsShow(true);
+    //   return;
+    // } else {
 
-    //   if (isTemporaryCount < selectFavorite.length) {
-    //     alert(`The maximum number of words with favorite is ${selectFavorite.length}.`);
-    //     setIsShow(true);
-    //     console.log('alert');
+    //   if (isTemporaryCategory) {
+    //     setCategoryValue(isTemporaryCategory);
+
+    //     let filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
+    //     console.log('%c filterCategory ', 'background: red; color: white;');
+    //     console.log(...filterCategory);
+
+    //     console.log('isTemporaryCount', isTemporaryCount);
+
+    //     if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
+    //       alert(`The maximum number of words from the selected category ${isTemporaryCategory} is ${filterCategory.length}.`);
+    //       setIsShow(true);
+    //       console.log('alert');
+    //       return;
+    //     } else {
+    //       console.log('filter');
+    //       setSetupCountWord(Number(isTemporaryCount));
+    //       setAllWords(filterCategory);
+    //     }
     //   } else {
-    //     // console.log('isTemporaryFavorite:', isTemporaryFavorite);
-
-    //     console.log('%c selectFavorite ', 'background: yellow; color: white;');
-    //     console.log(...selectFavorite);
-    //     setAllWords(selectFavorite);
+    //     console.log('all');
+    //     setSetupCountWord(Number(isTemporaryCount));
+    //     setAllWords(allWords);
     //   }
     // }
+
+    console.log('456');
 
     setIsCzech(isTemporaryCzech);
     setIsFavorite(isTemporaryFavorite);
@@ -151,6 +163,8 @@ export const Setting = () => {
     setRandomWords([]);
     setCurrentWord();
 
+    setIsShow(false);
+
     setIsTemporaryCategory(isTemporaryCategory);
     setIsTemporaryCount("");
     setIsTemporaryCzech(isTemporaryCzech);
@@ -161,11 +175,11 @@ export const Setting = () => {
 
     console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
-    // console.log('Category: ' + isTemporaryCategory);
-    // console.log('Count: ' + isTemporaryCount);
-    // console.log('isCzech: ' + isTemporaryCzech);
-    // console.log('isFavorite: ' + isTemporaryFavorite);
-    // console.log('isAudio: ' + isTemporaryAudio);
+    console.log('Category: ' + isTemporaryCategory);
+    console.log('Count: ' + isTemporaryCount);
+    console.log('isCzech: ' + isTemporaryCzech);
+    console.log('isFavorite: ' + isTemporaryFavorite);
+    console.log('isAudio: ' + isTemporaryAudio);
   }
 
   return (
