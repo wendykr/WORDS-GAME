@@ -4,7 +4,7 @@ import './Pair.scss';
 import { Setting } from '../../components/Setting/Setting';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Button } from '../../components/Button/Button';
-// import { Answer } from '../../components/Answer/Answer';
+import { Response } from '../../components/Response/Response';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
@@ -22,14 +22,15 @@ export const Pair = ({
     czword,
     enword,
     favorite,
-    uniqueWords,
+    uniqueWords, setUniqueWords,
     removeRandomWord,
     randomWords,
     generateCurrentNewWord,
+    currentWord
   }) => {
 
   const {
-    // updateProgressbar,
+    updateProgressbar,
     progressbar,
     resultState, setResultState, 
     // allWords
@@ -41,6 +42,9 @@ export const Pair = ({
   const { speakWord } = useVoiceSpeak();
   const [isFavorite, setIsFavorite] = useState(favorite);
   const [isDisplay, setIsDisplay] = useState(false);
+  const [isMarked, setIsMarked] = useState(false);
+  const [isSearchWord, setIsSearchWord] = useState();
+  const [selectedResponseId, setSelectedResponseId] = useState(0);
   // const [randomWAnswer, setRandomAnswer] = useState([]);
 
   // const [uniqueWords, setUniqueWords] = useState([]);
@@ -66,18 +70,31 @@ export const Pair = ({
   // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
   // console.log(uniqueWords);
 
+  // const [addCurrentWord, setAddCurrentWord] = useState({
+  //   id,
+  //   czword,
+  //   enword,
+  //   favorite
+  // });
+
+  // console.log('currentWord', currentWord);
+  
+  useEffect(() => {
+    console.log('currentWord', currentWord);
+    setUniqueWords(prevWords => {
+      const newWords = [...prevWords, currentWord];
+      console.log('newWords', newWords);
+      return newWords;
+    });
+  }, [currentWord, setUniqueWords]);
+
+  useEffect(() => {
+    console.log('uniqueWords', uniqueWords);
+  }, [uniqueWords]);
+
   useEffect(() => {
     setIsFavorite(favorite);
   }, [favorite]);
-
-  const showFirstLetter = () => {
-    setIsDisplay(prevState => !prevState);
-  };
-
-  const answerReveal = () => {
-    setResultState("dont-know");
-    isCzech && isAudio && speakWord(enword);
-  };
 
   const updateFavorite = async (id) => {
     try {
@@ -111,9 +128,41 @@ export const Pair = ({
     }
   }
 
-  const handleCheckResult = () => {
-    console.log('');
+  const showFirstLetter = () => {
+    setIsDisplay(prevState => !prevState);
+  };
+
+  // kliknu na dont-know
+  const answerReveal = () => {
+    setResultState("dont-know");
+    setIsMarked(true);
+    isCzech && isAudio && speakWord(enword);
+  };
+
+    // kliknu na slovo
+  const handleCheckWord = (id, markWord) => {
+    setSelectedResponseId(id);
+    speakWord(markWord);
+    setIsSearchWord(markWord);
+    setIsMarked(true);
   }
+
+  const handleCheckResult = () => {
+    if (resultState === "") {
+      isCzech && isAudio && speakWord(enword);
+
+      // TRUE
+      if (isSearchWord === czword) {
+        setResultState("correct");
+        updateProgressbar(true, true);
+      }
+
+      // FALSE
+      if (isSearchWord !== czword) {
+        setResultState("incorrect");
+      }
+    }
+  };
 
   const handleClick = () => {
     if (resultState === "correct") {
@@ -123,11 +172,8 @@ export const Pair = ({
     }
 
     setResultState("");
+    setIsMarked(false);
   };
-
-  const handleWord = (czword) => {
-    console.log('handleWord', czword);
-  }
 
   const handleSpeakWord = () => {
     isCzech ? '' : isAudio && speakWord(enword);
@@ -176,22 +222,41 @@ export const Pair = ({
           </h2>
         }
 
-        {
+        {/* {
           uniqueWords.map((word) => (
             <div
               key={word.id}
-              className="pair__word"
-              onClick={() => handleWord(word.enword)}
+              className={`pair__word
+                ${(resultState === "dont-know" || resultState === "correct") && 'correct'}
+                ${(resultState === "incorrect") && 'incorrect'}
+                ${isMarked ? 'marked' : ''}`}
+              onClick={() => handleWord(isCzech ? word.enword : word.czword)}
             >
               <h3 className="h3">{isCzech ? word.enword : word.czword}</h3>
             </div>
           ))
-        }
-        <div className={`pair__word ${resultState === "dont-know" && 'correct'}`} onClick={() => handleWord(enword)}>
+        } */}
+        {/* <div className={`pair__word
+              ${(resultState === "dont-know" || resultState === "correct") && 'correct'}
+              ${(resultState === "incorrect") && 'incorrect'}
+              ${isMarked ? 'marked' : ''}`}
+            onClick={() => handleCheckWord(id, isCzech ? enword : czword)}>
           <h3 className="h3">{isCzech ? enword : czword}</h3>
-        </div>
+        </div> */}
 
-        {/* <Answer czword='Komponenta' enword='Komponenta' /> */}
+        {
+          uniqueWords.map((word) => (
+            <Response
+              key={word.id}
+              id={word.id}
+              czword={word.czword}
+              enword={word.engword}
+              handleCheckWord={handleCheckWord}
+              resultState={resultState}
+              isMarked={word.id === selectedResponseId}
+            />
+          ))
+        }
       </div>
 
       <div className="pair__foot">
@@ -205,6 +270,9 @@ export const Pair = ({
                 : handleCheckResult(event);
             }}
             text={buttonText}
+            isMarked={isMarked}
+            length='0'
+            inputValue=""
           />
         )}
 

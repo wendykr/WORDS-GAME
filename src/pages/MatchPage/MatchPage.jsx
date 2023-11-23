@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from'react';
 import './MatchPage.scss';
 import { Pair } from '../../components/Pair/Pair';
+// import { wordData } from '../../constants/words';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
@@ -55,6 +56,7 @@ export const MatchPage = () => {
 
     setRandomWords(randomIndx);
 
+    // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [setupCountWord]);
 
@@ -97,6 +99,8 @@ export const MatchPage = () => {
             randomWords={randomWords}
             generateCurrentNewWord={generateCurrentNewWord}
             uniqueWords={uniqueWords}
+            currentWord={currentWord}
+            setUniqueWords={setUniqueWords}
         />
       </div>
     </main>
