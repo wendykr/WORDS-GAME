@@ -62,7 +62,7 @@ export const Setting = () => {
     }
   }
 
-  console.log('allWords', allWords);
+  // console.log('allWords', allWords);
 
   const showSetup = () => {
     setIsShow(prevState => !prevState);

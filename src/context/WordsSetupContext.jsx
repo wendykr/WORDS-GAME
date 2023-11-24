@@ -31,16 +31,8 @@ export const WordsSetupProvider = ({children}) => {
 
       let { data: terms, error } = await supabase
         .from('terms')
-        // vypsat všechny
         .select('*')
         .order('id');
-        // vypsat z kategorie Animal
-        // .eq('category', 'Animals');
-        // vypsat všechny FALSE
-        // .eq('favorite', false);
-        // vypsat z kategorie Animal a TRUE
-        // .eq('category', 'Animals')
-        // .eq('favorite', true);
   
       if (error) {
         console.error('Chyba při načítání dat:', error);
@@ -48,7 +40,6 @@ export const WordsSetupProvider = ({children}) => {
       }
   
       setAllWords(terms);
-      // console.log("terms", terms);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }

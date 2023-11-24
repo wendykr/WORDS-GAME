@@ -8,21 +8,26 @@ import { Response } from '../../components/Response/Response';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
-// import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 import { MdHelpCenter } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa';
 import { FaVolumeUp } from 'react-icons/fa';
 import { IoVolumeMute } from 'react-icons/io5';
 
-// generateRandomNumber();
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
 export const Pair = ({
     id,
     czword,
     enword,
     favorite,
-    uniqueWords, setUniqueWords,
+    uniqueWords,
     removeRandomWord,
     randomWords,
     generateCurrentNewWord,
@@ -33,7 +38,6 @@ export const Pair = ({
     updateProgressbar,
     progressbar,
     resultState, setResultState, 
-    // allWords
   } = useWordsSetup();
 
   const {
@@ -42,55 +46,31 @@ export const Pair = ({
   const { speakWord } = useVoiceSpeak();
   const [isFavorite, setIsFavorite] = useState(favorite);
   const [isDisplay, setIsDisplay] = useState(false);
-  const [isMarked, setIsMarked] = useState(false);
+  const [isMarkedWord, setIsMarkedWord] = useState(false);
   const [isSearchWord, setIsSearchWord] = useState();
   const [selectedResponseId, setSelectedResponseId] = useState(0);
-  // const [randomWAnswer, setRandomAnswer] = useState([]);
-
-  // const [uniqueWords, setUniqueWords] = useState([]);
+  const [recentWords, setRecentWords] = useState([]);
+  const [isCorrectWord, setIsCorrectWord] = useState(false);
+  const [selectedCurrentId, setSelectedCurrentId] = useState(0);
+  const [isIncorrectWord, setIsIncorrectWord] = useState(false);
+  const [selectedFalseId, setSelectedFalseId] = useState(0);
 
   const firstLetterCze = czword && czword[0];
   const firstLetterEng = enword && enword[0];
 
-  // useEffect(() => {
-  //   let randomIndx = [];
-
-  //   while (randomIndx.length < 2) {
-  //     const currentRandomNumber = generateRandomNumber(allWords.length);
-
-  //     if (!randomIndx.includes(allWords[currentRandomNumber]) || !randomIndx.includes(id)) {
-  //       randomIndx.push(allWords[currentRandomNumber]);
-  //     }
-  //   }
-
-  //   setUniqueWords(randomIndx);
-  
-  // }, [allWords, id]);
-
   // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
   // console.log(uniqueWords);
-
-  // const [addCurrentWord, setAddCurrentWord] = useState({
-  //   id,
-  //   czword,
-  //   enword,
-  //   favorite
-  // });
-
-  // console.log('currentWord', currentWord);
   
   useEffect(() => {
-    console.log('currentWord', currentWord);
-    setUniqueWords(prevWords => {
-      const newWords = [...prevWords, currentWord];
-      console.log('newWords', newWords);
-      return newWords;
-    });
-  }, [currentWord, setUniqueWords]);
-
-  useEffect(() => {
-    console.log('uniqueWords', uniqueWords);
-  }, [uniqueWords]);
+    if (currentWord && uniqueWords) {
+      setRecentWords(prevWords => {
+        const newWords = [...prevWords, currentWord, ...uniqueWords].slice(-3);
+        const shuffledWords = shuffleArray(newWords);
+        console.log('recentWords', shuffledWords);
+        return shuffledWords;
+      });
+    }
+  }, [currentWord, uniqueWords]);
 
   useEffect(() => {
     setIsFavorite(favorite);
@@ -135,31 +115,49 @@ export const Pair = ({
   // kliknu na dont-know
   const answerReveal = () => {
     setResultState("dont-know");
-    setIsMarked(true);
+    setIsMarkedWord(true);
     isCzech && isAudio && speakWord(enword);
+    console.log('id', id);
+    setIsCorrectWord(true);
+    setSelectedCurrentId(id);
+    setIsDisplay(false);
   };
 
-    // kliknu na slovo
+  // kliknu na slovo
   const handleCheckWord = (id, markWord) => {
     setSelectedResponseId(id);
-    speakWord(markWord);
+    isCzech && isAudio && speakWord(markWord);
     setIsSearchWord(markWord);
-    setIsMarked(true);
+    setIsMarkedWord(true);
+    setIsDisplay(false);
   }
 
+  // kliknu na check
   const handleCheckResult = () => {
+    const wordId = selectedResponseId;
+    setSelectedResponseId(0);
+
     if (resultState === "") {
       isCzech && isAudio && speakWord(enword);
 
       // TRUE
-      if (isSearchWord === czword) {
+      if (isSearchWord === (isCzech ? enword : czword)) {
         setResultState("correct");
         updateProgressbar(true, true);
+
+        setIsCorrectWord(true);
+        setSelectedCurrentId(id);
       }
 
       // FALSE
-      if (isSearchWord !== czword) {
+      if (isSearchWord !== (isCzech ? enword : czword)) {
+        setSelectedFalseId(wordId);
+
+        setIsIncorrectWord(true);
         setResultState("incorrect");
+
+        setIsCorrectWord(true);
+        setSelectedCurrentId(id);
       }
     }
   };
@@ -172,7 +170,10 @@ export const Pair = ({
     }
 
     setResultState("");
-    setIsMarked(false);
+    console.log('resultState', resultState);
+    setIsMarkedWord(false);
+    setIsCorrectWord(false);
+    setIsIncorrectWord(false);
   };
 
   const handleSpeakWord = () => {
@@ -222,38 +223,18 @@ export const Pair = ({
           </h2>
         }
 
-        {/* {
-          uniqueWords.map((word) => (
-            <div
-              key={word.id}
-              className={`pair__word
-                ${(resultState === "dont-know" || resultState === "correct") && 'correct'}
-                ${(resultState === "incorrect") && 'incorrect'}
-                ${isMarked ? 'marked' : ''}`}
-              onClick={() => handleWord(isCzech ? word.enword : word.czword)}
-            >
-              <h3 className="h3">{isCzech ? word.enword : word.czword}</h3>
-            </div>
-          ))
-        } */}
-        {/* <div className={`pair__word
-              ${(resultState === "dont-know" || resultState === "correct") && 'correct'}
-              ${(resultState === "incorrect") && 'incorrect'}
-              ${isMarked ? 'marked' : ''}`}
-            onClick={() => handleCheckWord(id, isCzech ? enword : czword)}>
-          <h3 className="h3">{isCzech ? enword : czword}</h3>
-        </div> */}
-
         {
-          uniqueWords.map((word) => (
+          recentWords.map((word) => (
             <Response
               key={word.id}
               id={word.id}
               czword={word.czword}
-              enword={word.engword}
+              enword={word.enword}
               handleCheckWord={handleCheckWord}
-              resultState={resultState}
-              isMarked={word.id === selectedResponseId}
+              isCzech={isCzech}
+              isMarkedWord={word.id === selectedResponseId}
+              isCorrectWord={word.id === selectedCurrentId}
+              isIncorrectWord={word.id === selectedFalseId}
             />
           ))
         }
@@ -270,7 +251,7 @@ export const Pair = ({
                 : handleCheckResult(event);
             }}
             text={buttonText}
-            isMarked={isMarked}
+            isMarkedWord={isMarkedWord}
             length='0'
             inputValue=""
           />

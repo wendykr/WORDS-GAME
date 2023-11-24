@@ -20,8 +20,8 @@ export const MatchPage = () => {
 
   const { speakWord } = useVoiceSpeak();
 
-  console.log('%c randomWords QUIZ', 'background: gray; color: white;');
-  console.log(randomWords);
+  // console.log('%c randomWords QUIZ', 'background: gray; color: white;');
+  // console.log(randomWords);
 
   const [uniqueWords, setUniqueWords] = useState([]);
 
@@ -31,7 +31,8 @@ export const MatchPage = () => {
     while (randomIndx.length < 2) {
       const currentRandomNumber = generateRandomNumber(allWords.length);
 
-      if (!randomIndx.includes(allWords[currentRandomNumber]) || !randomIndx.includes(currentWord?.id)) {
+      if (!randomIndx.includes(allWords[currentRandomNumber]) || !randomIndx.includes(allWords[currentWord?.id])) {
+        console.log('allWords[currentWord?.id]', allWords[currentWord?.id]);
         randomIndx.push(allWords[currentRandomNumber]);
       }
     }
@@ -40,8 +41,8 @@ export const MatchPage = () => {
   
   }, [currentWord?.id]);
 
-  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  console.log(uniqueWords);
+  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  // console.log(uniqueWords);
 
   useEffect(() => {
     let randomIndx = [];
@@ -85,7 +86,7 @@ export const MatchPage = () => {
     setCurrentWord(newObject);
   };
 
-  console.log("Aktuální slovo v MatchPage:", currentWord);
+  // console.log("Aktuální slovo v MatchPage:", currentWord);
 
   return (
     <main className="match">

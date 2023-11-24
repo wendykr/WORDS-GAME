@@ -25,3 +25,6 @@ dist-ssr
 
 # Exclude .env.local
 .env.local
+
+# Exclude .dio
+*.dio

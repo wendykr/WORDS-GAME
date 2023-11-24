@@ -1,12 +1,12 @@
 import React from 'react';
 import './Button.scss';
 
-export const Button = ({ text, length, inputValue, onClick, isMarked }) => {
+export const Button = ({ text, length, inputValue, onClick, isMarkedWord }) => {
 
   return (
-    <button className={`button ${((length === 0 || inputValue === '') && !isMarked) ? 'disabled' : ''}`}
+    <button className={`button ${((length === 0 || inputValue === '') && !isMarkedWord) ? 'disabled' : ''}`}
             onClick={onClick}
-            disabled={((length === 0 || inputValue === '') && !isMarked) ? true : false}
+            disabled={((length === 0 || inputValue === '') && !isMarkedWord) ? true : false}
     > {text} </button>
   );
 }
