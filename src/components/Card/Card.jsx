@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
 import './Card.scss';
+import { Setting } from '../../components/Setting/Setting';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
 import { useWordsSetup } from '../../context/WordsSetupContext';
@@ -17,12 +18,8 @@ export const Card = (
     id,
     czword,
     enword,
-    category,
-    favorite,
     setCurrentWordIndex,
     currentWordIndex,
-    randomWords,
-    setRandomWords,
   }) => {
 
     // console.log('favorite', favorite);
@@ -30,10 +27,12 @@ export const Card = (
   // console.log('%c INIT currentWordIndex ', 'background:black;color:white;font-weight:bold;');
   // console.log('currentWordIndex', currentWordIndex);
 
-  const { setupCountWord, isCzech, isAudio } = useSettings();
+  const { isShow, setupCountWord, isCzech, isAudio } = useSettings();
   const { updateProgressbar, progressbar, isTurned, setIsTurned,
   } = useWordsSetup();
   const { speakWord } = useVoiceSpeak();
+
+  const [isFavorite, setIsFavorite] = useState();
 
   // console.log('Card setupCountWord', setupCountWord);
 
@@ -59,6 +58,22 @@ export const Card = (
       }, 1000);
     }
   }, [repeat]);
+
+  useEffect(() => {
+    console.log("NEW REFRESH");
+
+    const getIsFavorite = async () => {
+      const { data } = await supabase
+        .from("terms")
+        .select("favorite")
+        .eq("id", id)
+        .single();
+
+      setIsFavorite(data.favorite);
+    };
+
+    getIsFavorite();
+  }, [id]);
 
   const showFirstLetter = () => {
     setIsDisplay(prevState => !prevState);
@@ -88,21 +103,14 @@ export const Card = (
         throw updateError;
       }
 
-      const updatedWord = {
-        ...currentTerm,
-        id,
-        czword,
-        enword,
-        category,
-        favorite: !currentTerm.favorite,
-      };
+      const { data } = await supabase
+      .from("terms")
+      .select("favorite")
+      .eq("id", id)
+      .single();
 
-      const updatedRandomWords = randomWords.map(word =>
-        word.id === id ? updatedWord : word
-      );
+      setIsFavorite(data.favorite);
 
-      setRandomWords(updatedRandomWords);
-  
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);
     }
@@ -175,6 +183,9 @@ export const Card = (
 
   return (
     <div className="card">
+      <div className="card__hidden">
+        {isShow && <Setting /> }
+      </div>
       <div className="card__head">
         <ProgressBar line={progressbar} />
       </div>
@@ -197,7 +208,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${favorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
@@ -220,7 +231,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${favorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >

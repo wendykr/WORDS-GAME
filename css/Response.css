@@ -1,0 +1,31 @@
+.response {
+  padding: 12px;
+  width: 100%;
+  background-color: #ffffff;
+  border: 2px solid #d2d6dc;
+  border-radius: 4px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease;
+}
+@media screen and (min-width: 640px) {
+  .response {
+    padding: 10px;
+    font-size: 24px;
+  }
+}
+.response:hover {
+  background-color: #d7e1ee;
+  border: 2px solid #13529e;
+  color: #13529e;
+  cursor: pointer;
+}
+
+.marked {
+  background-color: #d7e1ee;
+  color: #13529e;
+  border: 2px solid #13529e;
+}/*# sourceMappingURL=Response.css.map */

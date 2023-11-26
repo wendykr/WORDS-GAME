@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../supabaseClient';
 import './Question.scss';
 import { Setting } from '../../components/Setting/Setting';
@@ -18,12 +18,9 @@ export const Question = (
     id,
     czword,
     enword,
-    category,
-    favorite,
     removeRandomWord,
     randomWords,
     generateCurrentNewWord,
-    setRandomWords,
   }) => {
 
   const {
@@ -35,6 +32,24 @@ export const Question = (
   const { speakWord } = useVoiceSpeak();
   // const [isHiddenInput, setIsHiddenInput] = useState(false);
   const refInput = useRef(null);
+
+  const [isFavorite, setIsFavorite] = useState();
+
+  useEffect(() => {
+    console.log("NEW REFRESH");
+
+    const getIsFavorite = async () => {
+      const { data } = await supabase
+        .from("terms")
+        .select("favorite")
+        .eq("id", id)
+        .single();
+
+      setIsFavorite(data.favorite);
+    };
+
+    getIsFavorite();
+  }, [id]);
 
   const updateFavorite = async (id) => {
     try {
@@ -59,20 +74,13 @@ export const Question = (
         throw updateError;
       }
 
-      const updatedWord = {
-        ...currentTerm,
-        id,
-        czword,
-        enword,
-        category,
-        favorite: !currentTerm.favorite,
-      };
+      const { data } = await supabase
+        .from("terms")
+        .select("favorite")
+        .eq("id", id)
+        .single();
 
-      const updatedRandomWords = randomWords.map(word =>
-        word.id === id ? updatedWord : word
-      );
-
-      setRandomWords(updatedRandomWords);
+      setIsFavorite(data.favorite);
 
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);
@@ -211,7 +219,7 @@ export const Question = (
       </div>
       <div className="question__body">
         <FaStar
-          className={`icon-star ${favorite ? "icon-star--favorite" : ""}`}
+          className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
           onClick={() => updateFavorite(id)}
           title="Favorite icon"
         />

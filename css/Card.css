@@ -17,6 +17,9 @@
     width: 860px;
   }
 }
+.card__hidden {
+  display: none;
+}
 .card__head {
   margin-bottom: 40px;
 }

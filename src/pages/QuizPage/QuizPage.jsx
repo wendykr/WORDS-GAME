@@ -1,4 +1,5 @@
 import React, { useEffect } from'react';
+import { supabase } from '../../supabaseClient';
 import './QuizPage.scss';
 import { Question } from '../../components/Question/Question';
 import { useWordsSetup } from '../../context/WordsSetupContext';
@@ -10,7 +11,7 @@ generateRandomNumber();
 
 export const QuizPage = () => {
 
-  const { setupCountWord, isCzech, isAudio } = useSettings();
+  const { setupCountWord, isCzech, isAudio, categoryValue } = useSettings();
   const {
     allWords,
     randomWords, setRandomWords,
@@ -37,7 +38,7 @@ export const QuizPage = () => {
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
-  }, [setupCountWord]);
+  }, [setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
@@ -61,8 +62,19 @@ export const QuizPage = () => {
   };
 
   const generateCurrentNewWord = (wordsArray) => {
-    const newObject = Object.assign({}, wordsArray[generateRandomNumber(wordsArray.length)]);
+    const newObject = Object.assign(
+      {},
+      wordsArray[generateRandomNumber(wordsArray.length)]
+    );
     setCurrentWord(newObject);
+  };
+
+  const getIsFavorite = async () => {
+    console.log(
+      supabase.from("terms").select("favorite").eq("id", currentWord?.id),
+      currentWord?.id
+    );
+    return await supabase.from("terms").select("favorite");
   };
 
   console.log("Aktuální slovo v QuizPage:", currentWord);
@@ -75,7 +87,7 @@ export const QuizPage = () => {
           czword={currentWord?.czword}
           enword={currentWord?.enword}
           category={currentWord?.category}
-          favorite={currentWord?.favorite}
+          favorite={getIsFavorite}
           removeRandomWord={removeRandomWord}
           randomWords={randomWords}
           setRandomWords={setRandomWords}
