@@ -60,13 +60,13 @@ export const Card = (
   }, [repeat]);
 
   useEffect(() => {
-    console.log("NEW REFRESH");
+    // console.log("NEW REFRESH");
 
     const getIsFavorite = async () => {
       const { data } = await supabase
-        .from("terms")
-        .select("favorite")
-        .eq("id", id)
+        .from('terms')
+        .select('favorite')
+        .eq('id', id)
         .single();
 
       setIsFavorite(data.favorite);
@@ -104,9 +104,9 @@ export const Card = (
       }
 
       const { data } = await supabase
-      .from("terms")
-      .select("favorite")
-      .eq("id", id)
+      .from('terms')
+      .select('favorite')
+      .eq('id', id)
       .single();
 
       setIsFavorite(data.favorite);
@@ -195,7 +195,7 @@ export const Card = (
           <div className="card__body--front">
             <div className="container--icons">
               <span className="icons--right">
-                <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} />
+                <MdHelpCenter className="hint-icon" title={`${isDisplay ? 'Hidden first letter' : 'Show first letter'}`} onClick={showFirstLetter} />
                   <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>
                     {`${isCzech ? firstLetterEng : firstLetterCze}_`}
                   </span>
@@ -203,12 +203,12 @@ export const Card = (
               <span className="icons--left">
                 { !isCzech && (
                   isAudio ? 
-                  <FaVolumeUp className="icon-volume" onClick={handleSpeakWord} title="Sound icon" />
+                  <FaVolumeUp className="icon-volume" onClick={handleSpeakWord} title="Repeat speak" />
                   :
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
@@ -218,7 +218,7 @@ export const Card = (
           <div className="card__body--back">
             <div className="container--icons">
               <span className="icons--right">
-                <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} />
+                <MdHelpCenter className="hint-icon" title={`${isDisplay ? 'Hidden first letter' : 'Show first letter'}`} onClick={showFirstLetter} />
                   <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>
                     {`${isCzech ? firstLetterCze : firstLetterEng}_`}
                   </span>
@@ -226,12 +226,12 @@ export const Card = (
               <span className="icons--left">
                 { isCzech && (
                   isAudio ? 
-                  <FaVolumeUp className="icon-volume" onClick={speakWord} title="Sound icon" />
+                  <FaVolumeUp className="icon-volume" onClick={speakWord} title="Repeat speak" />
                   :
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >

@@ -74,7 +74,6 @@ export const Setting = () => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
 
-    ///!!!!!!!!!! -------------
     if (typeof isTemporaryCount === 'undefined' || isTemporaryCount <= 0) {
       alert('Number of words must be greater than 0.');
       setIsShow(true);
@@ -84,9 +83,7 @@ export const Setting = () => {
 
       // je vybrána kategorie
       if (isTemporaryCategory) {
-        // setCategoryValue(isTemporaryCategory);
-
-        console.log('isTemporaryCategory', isTemporaryCategory);
+        // console.log('isTemporaryCategory', isTemporaryCategory);
 
         // je vybrána hvězdička
         if (isTemporaryFavorite) {
@@ -116,41 +113,6 @@ export const Setting = () => {
       setSetupCountWord(isTemporaryCount);
 
     }
-///!!!!!!!!!! -------------
-
-    // if (isTemporaryCount <= 0 || typeof isTemporaryCount === 'undefined') {
-    //   alert('Number of words must be greater than 0.');
-    //   setIsShow(true);
-    //   return;
-    // } else {
-
-    //   if (isTemporaryCategory) {
-    //     setCategoryValue(isTemporaryCategory);
-
-    //     let filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
-    //     console.log('%c filterCategory ', 'background: red; color: white;');
-    //     console.log(...filterCategory);
-
-    //     console.log('isTemporaryCount', isTemporaryCount);
-
-    //     if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
-    //       alert(`The maximum number of words from the selected category ${isTemporaryCategory} is ${filterCategory.length}.`);
-    //       setIsShow(true);
-    //       console.log('alert');
-    //       return;
-    //     } else {
-    //       console.log('filter');
-    //       setSetupCountWord(Number(isTemporaryCount));
-    //       setAllWords(filterCategory);
-    //     }
-    //   } else {
-    //     console.log('all');
-    //     setSetupCountWord(Number(isTemporaryCount));
-    //     setAllWords(allWords);
-    //   }
-    // }
-
-    console.log('456');
 
     setIsCzech(isTemporaryCzech);
     setIsFavorite(isTemporaryFavorite);
@@ -185,12 +147,12 @@ export const Setting = () => {
   return (
     <div className="setting">
       <div className="setting__head">
-        <IoSettingsSharp className="icon-setting" onClick={showSetup} title="Setting icon" />
+        <IoSettingsSharp className="icon-setting" onClick={showSetup} title="Open setting" />
       </div>
       <div className={`setting__body ${isShow ? 'show' : ''}`}>
         <div className="setting__body--container">
             <h3 className="setting__body--title">Setting options</h3>
-            <RxCross2 className="icon-close" onClick={showSetup} title="Close icon" />
+            <RxCross2 className="icon-close" onClick={showSetup} title="Close setting" />
         </div>
           <form className="form" key={isShow}>
             <div className="form__row">
@@ -213,7 +175,7 @@ export const Setting = () => {
               </div>
             </div>
             <div className="form__row">
-              <div className="form__row--label">Number of words</div>
+              <div className="form__row--label">Count of words</div>
               <div className="form__row--option">
                   <InputField
                     setTemporaryFunction={setIsTemporaryCount}

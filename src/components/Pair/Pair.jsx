@@ -26,12 +26,11 @@ export const Pair = ({
     id,
     czword,
     enword,
-    favorite,
+    currentWord,
     uniqueWords,
     removeRandomWord,
     randomWords,
     generateCurrentNewWord,
-    currentWord
   }) => {
 
   const {
@@ -44,11 +43,12 @@ export const Pair = ({
     isShow, setIsShow,
     isCzech, isAudio } = useSettings();
   const { speakWord } = useVoiceSpeak();
-  const [isFavorite, setIsFavorite] = useState(favorite);
+  const [isFavorite, setIsFavorite] = useState();
   const [isDisplay, setIsDisplay] = useState(false);
+
   const [isMarkedWord, setIsMarkedWord] = useState(false);
   const [isSearchWord, setIsSearchWord] = useState();
-  const [selectedResponseId, setSelectedResponseId] = useState(0);
+  const [selectedMarkedId, setSelectedMarkedId] = useState(0);
   const [recentWords, setRecentWords] = useState([]);
   const [isCorrectWord, setIsCorrectWord] = useState(false);
   const [selectedCurrentId, setSelectedCurrentId] = useState(0);
@@ -60,21 +60,34 @@ export const Pair = ({
 
   // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
   // console.log(uniqueWords);
-  
+
   useEffect(() => {
     if (currentWord && uniqueWords) {
       setRecentWords(prevWords => {
         const newWords = [...prevWords, currentWord, ...uniqueWords].slice(-3);
         const shuffledWords = shuffleArray(newWords);
-        console.log('recentWords', shuffledWords);
+        // console.log('recentWords', shuffledWords);
         return shuffledWords;
       });
     }
   }, [currentWord, uniqueWords]);
 
   useEffect(() => {
-    setIsFavorite(favorite);
-  }, [favorite]);
+    // console.log("NEW REFRESH");
+
+    const getIsFavorite = async () => {
+      const { data } = await supabase
+        .from('terms')
+        .select('favorite')
+        .eq('id', id)
+        .single();
+
+      setIsFavorite(data.favorite);
+      console.log(data.favorite);
+    };
+
+    getIsFavorite();
+  }, [id]);
 
   const updateFavorite = async (id) => {
     try {
@@ -99,9 +112,13 @@ export const Pair = ({
         throw updateError;
       }
 
-      // překreslit
-      console.log('favorite', favorite);
-      setIsFavorite(!currentTerm.favorite);
+      const { data } = await supabase
+        .from('terms')
+        .select('favorite')
+        .eq("id", id)
+        .single();
+
+      setIsFavorite(data.favorite);
 
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);
@@ -114,28 +131,29 @@ export const Pair = ({
 
   // kliknu na dont-know
   const answerReveal = () => {
-    setResultState("dont-know");
-    setIsMarkedWord(true);
     isCzech && isAudio && speakWord(enword);
-    console.log('id', id);
+    setResultState("dont-know");
+    setIsMarkedWord(false);
+    setSelectedMarkedId(0);
     setIsCorrectWord(true);
     setSelectedCurrentId(id);
     setIsDisplay(false);
   };
 
   // kliknu na slovo
-  const handleCheckWord = (id, markWord) => {
-    setSelectedResponseId(id);
-    isCzech && isAudio && speakWord(markWord);
-    setIsSearchWord(markWord);
+  const handleCheckWord = (id, markedWord) => {
+    isCzech && isAudio && speakWord(markedWord);
+    setSelectedMarkedId(id);
+    setIsSearchWord(markedWord);
     setIsMarkedWord(true);
     setIsDisplay(false);
   }
 
   // kliknu na check
   const handleCheckResult = () => {
-    const wordId = selectedResponseId;
-    setSelectedResponseId(0);
+    setIsMarkedWord(false);
+    const wordId = selectedMarkedId;
+    setSelectedMarkedId(0);
 
     if (resultState === "") {
       isCzech && isAudio && speakWord(enword);
@@ -162,7 +180,7 @@ export const Pair = ({
     }
   };
 
-  const handleClick = () => {
+  const handleClickNext = () => {
     if (resultState === "correct") {
       removeRandomWord();
     } else if (resultState === "dont-know" || resultState === "incorrect") {
@@ -170,10 +188,10 @@ export const Pair = ({
     }
 
     setResultState("");
-    console.log('resultState', resultState);
-    setIsMarkedWord(false);
     setIsCorrectWord(false);
     setIsIncorrectWord(false);
+    setSelectedCurrentId(0);
+    setSelectedFalseId(0);
   };
 
   const handleSpeakWord = () => {
@@ -205,21 +223,21 @@ export const Pair = ({
       <div className="pair__main">
         <div className="container--icons">
           <span className="icons--right">
-            <MdHelpCenter className="hint-icon" title="Hint icon" onClick={showFirstLetter} />
+            <MdHelpCenter className={`hint-icon ${resultState !== "" ? "hidden" : ""}`} title={`${isDisplay ? 'Hidden first letter' : 'Show first letter'}`} onClick={showFirstLetter} />
               <span className={`hint-firts-word ${isDisplay ? 'show' : ''}`}>
                     {`${isCzech ? firstLetterEng : firstLetterCze}_`}
               </span>
           </span>
           <span className="icons--left">
-            <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title="Favorite icon" />
+            <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
           </span>
         </div>
 
         {isCzech ?
           <h2 className="h2">{czword}</h2>
           :
-          <h2 className="h2" onClick={handleSpeakWord}>{enword}&nbsp; 
-            { isAudio ? <FaVolumeUp className="icon-volume" title="Sound icon" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
+          <h2 className="h2" onClick={handleSpeakWord}>{enword}{" "}
+            { isAudio ? <FaVolumeUp className="icon-volume" title="Repeat speak" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
           </h2>
         }
 
@@ -232,7 +250,7 @@ export const Pair = ({
               enword={word.enword}
               handleCheckWord={handleCheckWord}
               isCzech={isCzech}
-              isMarkedWord={word.id === selectedResponseId}
+              isMarkedWord={word.id === selectedMarkedId}
               isCorrectWord={word.id === selectedCurrentId}
               isIncorrectWord={word.id === selectedFalseId}
             />
@@ -247,11 +265,13 @@ export const Pair = ({
           <Button
             onClick={(event) => {
               resultState !== ""
-                ? handleClick(event)
+                ? handleClickNext(event)
                 : handleCheckResult(event);
             }}
             text={buttonText}
             isMarkedWord={isMarkedWord}
+            isCorrectWord={isCorrectWord}
+            isIncorrectWord={isIncorrectWord}
             length='0'
             inputValue=""
           />

@@ -4,12 +4,13 @@
   background-color: #ffffff;
   border: 2px solid #d2d6dc;
   border-radius: 4px;
+  color: #1a1a1a;
   font-size: 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: 0.3s ease;
+  transition: border 0.3s ease;
 
   @media screen and (min-width: 640px) {
     padding: 10px;
@@ -17,15 +18,28 @@
   }
 
   &:hover {
-    background-color: #d7e1ee;
-    border: 2px solid #13529e;
-    color: #13529e;
+    border: 2px solid #99a2af;
     cursor: pointer;
   }
-}
 
-.marked {
-  background-color: #d7e1ee;
-  color: #13529e;
-  border: 2px solid #13529e;
+  &.correct {
+    background-color: #ccffcc;
+    color: #008000;
+    border: 2px solid #008000;
+    cursor: auto;
+  }
+  
+  &.incorrect {
+    background-color: #ffcccc;
+    color: #ff0000;
+    border: 2px solid #ff0000;
+    cursor: auto;
+  }
+
+  &.marked {
+    background-color: #d7e1ee;
+    color: #13529e;
+    border: 2px solid #13529e;
+    cursor: auto;
+  }
 }

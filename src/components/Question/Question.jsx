@@ -40,9 +40,9 @@ export const Question = (
 
     const getIsFavorite = async () => {
       const { data } = await supabase
-        .from("terms")
-        .select("favorite")
-        .eq("id", id)
+        .from('terms')
+        .select('favorite')
+        .eq('id', id)
         .single();
 
       setIsFavorite(data.favorite);
@@ -75,9 +75,9 @@ export const Question = (
       }
 
       const { data } = await supabase
-        .from("terms")
-        .select("favorite")
-        .eq("id", id)
+        .from('terms')
+        .select('favorite')
+        .eq('id', id)
         .single();
 
       setIsFavorite(data.favorite);
@@ -221,22 +221,23 @@ export const Question = (
         <FaStar
           className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
           onClick={() => updateFavorite(id)}
-          title="Favorite icon"
+          title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`}
         />
 
         {isCzech ?
           <h2 className="guess-word">{czword}</h2>
           :
-          <h2 className="guess-word" onClick={handleSpeakWord}>{enword}&nbsp; 
-            { isAudio ? <FaVolumeUp className="icon-volume" title="Sound icon" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
+          <h2 className="guess-word" onClick={handleSpeakWord}>{enword}{" "}
+            { isAudio ? <FaVolumeUp className="icon-volume" title="Repeat speak" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
           </h2>
         }
 
         <p
           className={`hint ${resultState !== "" ? "hidden" : ""}`}
+          title="Show first letter"
           onClick={showFirstLetter}
         >
-          Hint <MdHelpCenter className="icon-hint" title="Hint icon" />
+          Hint <MdHelpCenter className="icon-hint" title="Show first letter" />
         </p>
 
         <input

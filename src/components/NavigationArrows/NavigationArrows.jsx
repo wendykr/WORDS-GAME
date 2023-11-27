@@ -8,8 +8,8 @@ export const NavigationArrows = ({ handleClickPrev, handleClickNext, currentWord
 
   return (
     <>
-      <BsFillArrowLeftSquareFill className={`icon-prev ${(currentWordIndex === 0) ? 'disabled' : ''}`} title="Arrow prev icon" onClick={handleClickPrev} />
-      <BsFillArrowRightSquareFill className={`icon-next ${(currentWordIndex === (setupCountWord - 1)) ? 'disabled' : ''}`} title="Arrow next icon" onClick={handleClickNext} />
+      <BsFillArrowLeftSquareFill className={`icon-prev ${(currentWordIndex === 0) ? 'disabled' : ''}`} title="Prev word" onClick={handleClickPrev} />
+      <BsFillArrowRightSquareFill className={`icon-next ${(currentWordIndex === (setupCountWord - 1)) ? 'disabled' : ''}`} title="Next word" onClick={handleClickNext} />
     </>
   );
 }

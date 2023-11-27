@@ -11,7 +11,7 @@ generateRandomNumber();
 
 export const MatchPage = () => {
 
-  const { setupCountWord, isCzech, isAudio } = useSettings();
+  const { setupCountWord, isCzech, isAudio, categoryValue } = useSettings();
   const {
     allWords,
     randomWords, setRandomWords,
@@ -26,23 +26,32 @@ export const MatchPage = () => {
   const [uniqueWords, setUniqueWords] = useState([]);
 
   useEffect(() => {
-    let randomIndx = [];
+    console.log('Effect');
 
-    while (randomIndx.length < 2) {
-      const currentRandomNumber = generateRandomNumber(allWords.length);
+    if (currentWord) {
+      console.log('currentWord?.id', currentWord?.id);
 
-      if (!randomIndx.includes(allWords[currentRandomNumber]) || !randomIndx.includes(allWords[currentWord?.id])) {
-        console.log('allWords[currentWord?.id]', allWords[currentWord?.id]);
-        randomIndx.push(allWords[currentRandomNumber]);
+      let randomIndx = [];
+
+      while (randomIndx.length < 2) {
+        const currentRandomNumber = generateRandomNumber(allWords.length);
+        console.log('currentRandomNumber', currentRandomNumber);
+
+        if (
+          !randomIndx.includes(allWords[currentRandomNumber]) &&
+          currentWord.id !== allWords[currentRandomNumber].id
+        ) {
+          randomIndx.push(allWords[currentRandomNumber]);
+        }
       }
-    }
 
-    setUniqueWords(randomIndx);
+      setUniqueWords(randomIndx);
+    }
   
   }, [currentWord?.id]);
 
-  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  // console.log(uniqueWords);
+  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  console.log(uniqueWords);
 
   useEffect(() => {
     let randomIndx = [];
@@ -59,7 +68,7 @@ export const MatchPage = () => {
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
-  }, [setupCountWord]);
+  }, [setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
