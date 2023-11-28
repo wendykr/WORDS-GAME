@@ -27,6 +27,7 @@
     color: #008000;
     border: 2px solid #008000;
     cursor: auto;
+    transition: none;
   }
   
   &.incorrect {
@@ -34,6 +35,7 @@
     color: #ff0000;
     border: 2px solid #ff0000;
     cursor: auto;
+    transition: none;
   }
 
   &.marked {
@@ -41,5 +43,6 @@
     color: #13529e;
     border: 2px solid #13529e;
     cursor: auto;
+    transition: none;
   }
 }

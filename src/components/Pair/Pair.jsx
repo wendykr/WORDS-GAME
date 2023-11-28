@@ -83,7 +83,7 @@ export const Pair = ({
         .single();
 
       setIsFavorite(data.favorite);
-      console.log(data.favorite);
+      // console.log(data.favorite);
     };
 
     getIsFavorite();
