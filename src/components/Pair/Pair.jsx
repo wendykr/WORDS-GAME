@@ -72,6 +72,8 @@ export const Pair = ({
     }
   }, [currentWord, uniqueWords]);
 
+  console.log('recentWords', recentWords);
+
   useEffect(() => {
     // console.log("NEW REFRESH");
 

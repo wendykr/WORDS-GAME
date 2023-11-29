@@ -29,15 +29,15 @@ main {
 }
 
 .correct {
-  background-color: #ccffcc !important;
-  color: #008000 !important;
-  border: 2px solid #008000 !important;
+  background-color: #ccffcc;
+  color: #008000;
+  border: 2px solid #008000;
 }
 
 .incorrect {
-  background-color: #ffcccc !important;
-  color: #ff0000 !important;
-  border: 2px solid #ff0000 !important;
+  background-color: #ffcccc;
+  color: #ff0000;
+  border: 2px solid #ff0000;
 }
 
 .icon-star {

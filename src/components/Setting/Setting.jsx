@@ -74,8 +74,8 @@ export const Setting = () => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
 
-    if (typeof isTemporaryCount === 'undefined' || isTemporaryCount <= 0) {
-      alert('Number of words must be greater than 0.');
+    if (typeof isTemporaryCount === 'undefined' || isTemporaryCount <= 2) {
+      alert('Count of words must be greater than 3.');
       setIsShow(true);
       return;
     } else {
@@ -97,7 +97,7 @@ export const Setting = () => {
         console.log(...filterCategory);
 
         if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
-          alert(`The maximum number of words is ${filterCategory.length}.`);
+          alert(`The maximum count of words is ${filterCategory.length}.`);
           setIsShow(true);
           return;
         } else {

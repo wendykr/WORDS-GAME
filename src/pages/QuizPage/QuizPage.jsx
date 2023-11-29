@@ -24,6 +24,11 @@ export const QuizPage = () => {
   console.log(randomWords);
 
   useEffect(() => {
+    if (!allWords || allWords.length === 0) {
+      console.log('Data se načítají nebo jsou prázdná.');
+      return;
+    }
+
     let randomIndx = [];
 
     while (randomIndx.length < setupCountWord) {
@@ -38,7 +43,7 @@ export const QuizPage = () => {
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
-  }, [setupCountWord, isCzech, isAudio, categoryValue]);
+  }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);

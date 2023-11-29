@@ -121,7 +121,9 @@
   transition: color 0.3s ease, transform 0.3s ease;
   transform-origin: center;
   cursor: pointer;
+  transform: scale(1);
 }
 .icon-close:hover {
   color: #fd7e14;
+  transform: scale(1.2);
 }/*# sourceMappingURL=Setting.css.map */

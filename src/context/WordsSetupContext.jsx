@@ -27,23 +27,26 @@ export const WordsSetupProvider = ({children}) => {
   }, []);
 
   const getTerms = async () => {
+
     try {
 
       let { data: terms, error } = await supabase
         .from('terms')
         .select('*')
         .order('id');
-  
+
       if (error) {
         console.error('Chyba při načítání dat:', error);
         return;
       }
-  
+
       setAllWords(terms);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }
   }
+
+  // console.log('setAllWords', allWords);
 
   const updateProgressbar = (deg, up) => {
     setProgressbar((prevValue) => {

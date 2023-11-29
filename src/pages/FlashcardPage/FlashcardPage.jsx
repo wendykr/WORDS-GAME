@@ -8,8 +8,6 @@ import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
 
-console.log('123');
-
 export const FlashcardPage = () => {
   const { setupCountWord, isCzech, isAudio, categoryValue } = useSettings();
   const {
@@ -19,18 +17,22 @@ export const FlashcardPage = () => {
     currentWord, setCurrentWord
   } = useWordsSetup();
 
-  console.log('456');
-
   const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords FLASH ', 'background: gray; color: white;');
   console.log(randomWords);
 
   console.log('setupCountWord', setupCountWord);
+  console.log('currentWord', currentWord);
+  console.log('allWords.length', allWords.length);
 
   useEffect(() => {
+    if (!allWords || allWords.length === 0) {
+      console.log('Data se načítají nebo jsou prázdná.');
+      return;
+    }
+
     let randomIndx = [];
-    console.log('101112');
 
     while (randomIndx.length < setupCountWord) {
       const currentRandomNumber = generateRandomNumber(allWords.length);
@@ -41,26 +43,23 @@ export const FlashcardPage = () => {
     }
 
     setRandomWords(randomIndx);
+    console.log('randomIndx', randomIndx)
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
-  }, [setupCountWord, isCzech, isAudio, categoryValue]);
+
+  }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
-    console.log('161718');
     generateCurrentNewWord(randomWords, currentWordIndex);
     console.log("generate new words");
   }, [currentWordIndex, randomWords]);
 
   useEffect(() => {
-    console.log('192021');
     isCzech ? '' : isAudio && speakWord(currentWord?.enword);
   }, [currentWord?.enword]);
 
-  console.log('789');
-
   const generateCurrentNewWord = (wordsArray, index) => {
-    console.log('131415');
     setCurrentWord(wordsArray[index]);
   };
 
