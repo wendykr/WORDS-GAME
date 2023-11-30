@@ -1,104 +1,104 @@
 .navigation {
-    color: #1a1a1a;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: center;
 
-    &__list {
-        display: none;
-        width: 100%;
+  &__list {
+    display: none;
+    width: 100%;
 
-        @media screen and (min-width: 640px) {
-            display: flex;
-            gap: 40px;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-            position: static;
-        }
-
-        @media screen and (min-width: 860px) {
-            gap: 80px;
-        }
-
-        &--link + &--link {
-            border-top: 1px solid #fff6ef;
-        }
+    @media screen and (min-width: 640px) {
+      display: flex;
+      gap: 2.5rem;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+      position: static;
     }
+
+    @media screen and (min-width: 860px) {
+      gap: 5rem;
+    }
+
+    &--link + &--link {
+      border-top: 1px solid #fff6ef;
+    }
+  }
 }
 
 .show-navigation {
-    display: block;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    z-index: 1;
+  display: block;
+  position: absolute;
+  top: 4.375rem;
+  right: 0;
+  z-index: 1;
 
-    @media screen and (min-width: 640px) {
-        display: flex;
-        position: relative;
-        top: 0;
-    }
+  @media screen and (min-width: 640px) {
+    display: flex;
+    position: relative;
+    top: 0;
+  }
 }
 
 .activeLink {
-    background-color: #fff6ef;
-    padding: 20px 0;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #fd7e14;
-    display: block;
+  background-color: #fff6ef;
+  padding: 1.25rem 0;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fd7e14;
+  display: block;
 
-    @media screen and (min-width: 640px) {
-        padding: 0;
-        background-color: transparent;
-    }
+  @media screen and (min-width: 640px) {
+    padding: 0;
+    background-color: transparent;
+  }
 }
 
 .nonActiveLink {
-    background-color: #ffffff;
-    padding: 20px 0;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #1a1a1a;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    display: block;
+  background-color: #ffffff;
+  padding: 1.25rem 0;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #1a1a1a;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  display: block;
+
+  @media screen and (min-width: 640px) {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  &:hover {
+    color: #fd7e14;
+    background-color: #fff6ef;
 
     @media screen and (min-width: 640px) {
-        padding: 0;
-        background-color: transparent;
+      padding: 0;
+      background-color: transparent;
     }
-
-    &:hover {
-        color: #fd7e14;
-        background-color: #fff6ef;
-
-        @media screen and (min-width: 640px) {
-            padding: 0;
-            background-color: transparent;
-        }
-    }
+  }
 }
 
 .icon-menu {
-    font-size: 30px;
-    color: #1a1a1a;
-    transition: color 0.3s ease, transform 0.3s ease;
-    transform-origin: center;
-    cursor: pointer;
+  font-size: 1.875rem;
+  color: #1a1a1a;
+  transition: color 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+  cursor: pointer;
 
-    @media screen and (min-width: 640px) {
-        display: none;
-    }
+  @media screen and (min-width: 640px) {
+    display: none;
+  }
 
-    &:hover {
-        color: #fd7e14;
-    }
+  &:hover {
+    color: #fd7e14;
+  }
 }

@@ -45,6 +45,7 @@ export const Pair = ({
   const { speakWord } = useVoiceSpeak();
   const [isFavorite, setIsFavorite] = useState();
   const [isDisplay, setIsDisplay] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const [isMarkedWord, setIsMarkedWord] = useState(false);
   const [isSearchWord, setIsSearchWord] = useState();
@@ -58,8 +59,8 @@ export const Pair = ({
   const firstLetterCze = czword && czword[0];
   const firstLetterEng = enword && enword[0];
 
-  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  // console.log(uniqueWords);
+  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  console.log(uniqueWords);
 
   useEffect(() => {
     if (currentWord && uniqueWords) {
@@ -140,6 +141,7 @@ export const Pair = ({
     setIsCorrectWord(true);
     setSelectedCurrentId(id);
     setIsDisplay(false);
+    setIsDisabled(true);
   };
 
   // kliknu na slovo
@@ -154,11 +156,12 @@ export const Pair = ({
   // kliknu na check
   const handleCheckResult = () => {
     setIsMarkedWord(false);
+    setIsDisabled(true);
     const wordId = selectedMarkedId;
     setSelectedMarkedId(0);
 
     if (resultState === "") {
-      isCzech && isAudio && speakWord(enword);
+      // isCzech && isAudio && speakWord(enword);
 
       // TRUE
       if (isSearchWord === (isCzech ? enword : czword)) {
@@ -171,6 +174,7 @@ export const Pair = ({
 
       // FALSE
       if (isSearchWord !== (isCzech ? enword : czword)) {
+        isCzech && isAudio && speakWord(enword);
         setSelectedFalseId(wordId);
 
         setIsIncorrectWord(true);
@@ -194,6 +198,7 @@ export const Pair = ({
     setIsIncorrectWord(false);
     setSelectedCurrentId(0);
     setSelectedFalseId(0);
+    setIsDisabled(false);
   };
 
   const handleSpeakWord = () => {
@@ -255,6 +260,7 @@ export const Pair = ({
               isMarkedWord={word.id === selectedMarkedId}
               isCorrectWord={word.id === selectedCurrentId}
               isIncorrectWord={word.id === selectedFalseId}
+              isDisabled={isDisabled}
             />
           ))
         }

@@ -19,4 +19,4 @@ export const InputField = ({ setTemporaryFunction, setupCountWord }) => {
       value={inputValue}
     />
   );
-};
+}

@@ -1,10 +1,10 @@
 .button {
     display: block;
     width: 100%;
-    padding: 14px 16px;
+    padding: 0.875rem 1rem;
     background-color: #fd7e14;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
     text-transform: uppercase;
     border: none;
@@ -13,8 +13,8 @@
     cursor: pointer;
 
     @media screen and (min-width: 640px) {
-      font-size: 20px;
-      padding: 14px 24px;
+      font-size: 1.25rem;
+      padding: 0.875rem 1.5rem;
     }
 
   &:hover {

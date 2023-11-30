@@ -42,7 +42,6 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
   <VoiceSpeakProvider>
     <SettingsProvider>
       <WordsSetupProvider>
@@ -50,5 +49,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </WordsSetupProvider>
     </SettingsProvider>
   </VoiceSpeakProvider>
-  // </React.StrictMode>,
 );

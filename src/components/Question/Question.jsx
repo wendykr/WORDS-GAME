@@ -300,4 +300,4 @@ export const Question = (
       </div>
     </div>
   );
-};
+}

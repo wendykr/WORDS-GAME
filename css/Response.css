@@ -22,6 +22,9 @@
   border: 2px solid #99a2af;
   cursor: pointer;
 }
+.response:not(.correct):not(.incorrect):not(.marked) {
+  transition: border 0.3s ease;
+}
 .response.correct {
   background-color: #ccffcc;
   color: #008000;

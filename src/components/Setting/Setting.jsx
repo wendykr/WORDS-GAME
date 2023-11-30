@@ -69,7 +69,7 @@ export const Setting = () => {
   };
 
   const handleSubmit = (event) => {
-    console.log("submit");
+    // console.log("submit");
 
     event.preventDefault();
     setIsShow(prevState => !prevState);
@@ -90,18 +90,18 @@ export const Setting = () => {
           filterCategory = allWords.filter(word => word.category === isTemporaryCategory && word.favorite === isTemporaryFavorite);
         } else {
           filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
-          console.log('filterCategory', filterCategory)
+          // console.log('filterCategory', filterCategory)
         }
 
-        console.log('%c filterCategory ', 'background: red; color: white;');
-        console.log(...filterCategory);
+        // console.log('%c filterCategory ', 'background: red; color: white;');
+        // console.log(...filterCategory);
 
         if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
           alert(`The maximum count of words is ${filterCategory.length}.`);
           setIsShow(true);
           return;
         } else {
-          console.log("filterCategory", filterCategory)
+          // console.log("filterCategory", filterCategory)
 
           setAllWords(filterCategory);
         }
@@ -135,13 +135,13 @@ export const Setting = () => {
 
     setIsTurned(false);
 
-    console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
+    // console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
-    console.log('Category: ' + isTemporaryCategory);
-    console.log('Count: ' + isTemporaryCount);
-    console.log('isCzech: ' + isTemporaryCzech);
-    console.log('isFavorite: ' + isTemporaryFavorite);
-    console.log('isAudio: ' + isTemporaryAudio);
+    // console.log('Category: ' + isTemporaryCategory);
+    // console.log('Count: ' + isTemporaryCount);
+    // console.log('isCzech: ' + isTemporaryCzech);
+    // console.log('isFavorite: ' + isTemporaryFavorite);
+    // console.log('isAudio: ' + isTemporaryAudio);
   }
 
   return (

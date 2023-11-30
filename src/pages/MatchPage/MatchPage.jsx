@@ -54,8 +54,8 @@ export const MatchPage = () => {
 
   }, [allWords.length, currentWord]);
 
-  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  console.log(uniqueWords);
+  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  // console.log(uniqueWords);
 
   useEffect(() => {
     if (!allWords || allWords.length === 0) {
@@ -123,5 +123,5 @@ export const MatchPage = () => {
         />
       </div>
     </main>
-  )
+  );
 }

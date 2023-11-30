@@ -1,18 +1,18 @@
 .card {
   margin: 0 auto;
-  padding: 40px;
-  min-width: 270px;
-  max-width: 640px;
+  padding: 2.5rem;
+  min-width: 16.875rem;
+  max-width: 40rem;
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
 
   @media screen and (min-width: 640px) {
-    width: 640px;
+    width: 40rem;
   }
 
   @media screen and (min-width: 860px) {
-    width: 860px;
+    width: 53.75rem;
   }
 
   &__hidden {
@@ -20,26 +20,26 @@
   }
 
   &__head {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
 
     @media screen and (min-width: 640px) {
-      margin-bottom: 40px;
+      margin-bottom: 2.5rem;
     }
   }
 
   &__body {
 
     &--container {
-      margin: 20px 0;
+      margin: 1.25rem 0;
       width: auto;
-      height: 400px;
+      height: 25rem;
       transition: transform 1s;
       transform-style: preserve-3d;
       cursor: pointer;
       position: relative;
 
       @media screen and (min-width: 640px) {
-        margin: 20px 40px;
+        margin: 1.25rem 2.5rem;
       }
 
       &.is-turned {
@@ -48,7 +48,7 @@
     }
 
     &--front, &--back {
-      padding: 20px;
+      padding: 1.25rem;
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -71,11 +71,11 @@
   }
 
   &__foot {
-    margin-top: 4px;
+    margin-top: 0.25rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 100px;
+    gap: 6.25rem;
   }
 }
 

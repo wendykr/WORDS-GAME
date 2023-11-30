@@ -4,7 +4,8 @@ import './Response.scss';
 export const Response = ({
     id, czword, enword,
     handleCheckWord, isCzech,
-    isMarkedWord, isCorrectWord, isIncorrectWord
+    isMarkedWord, isCorrectWord, isIncorrectWord,
+    isDisabled
   }) => {
 
   const handleClick = () => {
@@ -16,10 +17,11 @@ export const Response = ({
         ${isMarkedWord && 'marked'}
         ${isCorrectWord && 'correct'}
         ${isIncorrectWord && 'incorrect'}
+        ${isDisabled && 'disabled'}
       `}
       onClick={(handleClick)}
     >
       <h3 className="response__word">{isCzech ? enword : czword}</h3>
     </div>
-  )
+  );
 }

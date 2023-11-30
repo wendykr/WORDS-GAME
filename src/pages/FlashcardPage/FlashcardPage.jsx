@@ -26,7 +26,14 @@ export const FlashcardPage = () => {
   console.log('currentWord', currentWord);
   console.log('allWords.length', allWords.length);
 
+  console.log("allWords", allWords);
+  console.log("setupCountWord", setupCountWord);
+  console.log("isCzech", isCzech);
+  console.log("isAudio", isAudio);
+  console.log("categoryValue", categoryValue);
+
   useEffect(() => {
+    console.log("USE EFFECT 1");
     if (!allWords || allWords.length === 0) {
       console.log('Data se načítají nebo jsou prázdná.');
       return;
@@ -43,7 +50,7 @@ export const FlashcardPage = () => {
     }
 
     setRandomWords(randomIndx);
-    console.log('randomIndx', randomIndx)
+    console.log('randomIndx', randomIndx);
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
@@ -51,11 +58,13 @@ export const FlashcardPage = () => {
   }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
+    console.log("USE EFFECT 2");
     generateCurrentNewWord(randomWords, currentWordIndex);
     console.log("generate new words");
   }, [currentWordIndex, randomWords]);
 
   useEffect(() => {
+    console.log("USE EFFECT 3");
     isCzech ? '' : isAudio && speakWord(currentWord?.enword);
   }, [currentWord?.enword]);
 
