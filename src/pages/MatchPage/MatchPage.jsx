@@ -26,38 +26,7 @@ export const MatchPage = () => {
   const [uniqueWords, setUniqueWords] = useState([]);
 
   useEffect(() => {
-    // console.log('Effect');
-    if (!allWords || allWords.length === 0) {
-      console.log('Data se načítají nebo jsou prázdná.');
-      return;
-    }
-
-    if (currentWord) {
-      console.log('currentWord?.id', currentWord?.id);
-
-      let randomIndx = [];
-
-      while (randomIndx.length < 2) {
-        const currentRandomNumber = generateRandomNumber(allWords.length);
-        console.log('currentRandomNumber', currentRandomNumber);
-
-        if (
-          !randomIndx.includes(allWords[currentRandomNumber]) &&
-          currentWord.id !== allWords[currentRandomNumber].id
-        ) {
-          randomIndx.push(allWords[currentRandomNumber]);
-        }
-      }
-
-      setUniqueWords(randomIndx);
-    }
-
-  }, [allWords.length, currentWord]);
-
-  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  // console.log(uniqueWords);
-
-  useEffect(() => {
+    // console.log("USE EFFECT 1");
     if (!allWords || allWords.length === 0) {
       console.log('Data se načítají nebo jsou prázdná.');
       return;
@@ -78,6 +47,38 @@ export const MatchPage = () => {
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
+
+  useEffect(() => {
+    // console.log("USE EFFECT 2");
+    if (!allWords || allWords.length === 0) {
+      console.log('Data se načítají nebo jsou prázdná.');
+      return;
+    }
+
+    if (currentWord) {
+      // console.log('currentWord?.id', currentWord?.id);
+
+      let randomIndx = [];
+
+      while (randomIndx.length < 2) {
+        const currentRandomNumber = generateRandomNumber(allWords.length);
+        // console.log('currentRandomNumber', currentRandomNumber);
+
+        if (
+          !randomIndx.includes(allWords[currentRandomNumber]) &&
+          currentWord.id !== allWords[currentRandomNumber].id
+        ) {
+          randomIndx.push(allWords[currentRandomNumber]);
+        }
+      }
+
+      setUniqueWords(randomIndx);
+    }
+
+  }, [allWords.length, currentWord]);
+
+  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  console.log(uniqueWords);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);

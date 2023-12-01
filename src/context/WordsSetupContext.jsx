@@ -19,6 +19,7 @@ export const WordsSetupProvider = ({children}) => {
   const [resultState, setResultState] = useState("");
 
   const [isTurned, setIsTurned] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const [progressbar, setProgressbar] = useState(0); // progressBar line
 
@@ -68,6 +69,7 @@ export const WordsSetupProvider = ({children}) => {
       inputValue, setInputValue,
       resultState, setResultState,
       isTurned, setIsTurned,
+      isDisabled, setIsDisabled,
     }}>
       {children}
     </WordsSetupContext.Provider>

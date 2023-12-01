@@ -31,7 +31,7 @@ export const SelectList = ({
       }
 
       const uniqueCategories = [...new Set(categoryData.map(item => item.category))];
-  
+
       // console.log("uniqueCategories", uniqueCategories);
 
       setCategories(uniqueCategories);

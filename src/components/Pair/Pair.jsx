@@ -36,7 +36,8 @@ export const Pair = ({
   const {
     updateProgressbar,
     progressbar,
-    resultState, setResultState, 
+    resultState, setResultState,
+    isDisabled, setIsDisabled
   } = useWordsSetup();
 
   const {
@@ -45,7 +46,6 @@ export const Pair = ({
   const { speakWord } = useVoiceSpeak();
   const [isFavorite, setIsFavorite] = useState();
   const [isDisplay, setIsDisplay] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const [isMarkedWord, setIsMarkedWord] = useState(false);
   const [isSearchWord, setIsSearchWord] = useState();
@@ -59,8 +59,10 @@ export const Pair = ({
   const firstLetterCze = czword && czword[0];
   const firstLetterEng = enword && enword[0];
 
-  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  console.log(uniqueWords);
+  // console.log('%c refresh PAIR', 'background: red; color: white;');
+
+  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  // console.log(uniqueWords);
 
   useEffect(() => {
     if (currentWord && uniqueWords) {
@@ -73,7 +75,8 @@ export const Pair = ({
     }
   }, [currentWord, uniqueWords]);
 
-  console.log('recentWords', recentWords);
+  // console.log('%c recentWords PAIR', 'background: orange; color: white;');
+  // console.log(recentWords);
 
   useEffect(() => {
     // console.log("NEW REFRESH");
@@ -249,9 +252,9 @@ export const Pair = ({
         }
 
         {
-          recentWords.map((word) => (
+          recentWords.map((word, index) => (
             <Response
-              key={word.id}
+              key={index}
               id={word.id}
               czword={word.czword}
               enword={word.enword}
@@ -295,5 +298,5 @@ export const Pair = ({
         </div>
       </div>
     </div>
-  )
+  );
 }

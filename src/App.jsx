@@ -19,7 +19,7 @@ function App() {
 
   const {
     setAllWords,
-    setCurrentWord, setCurrentWordIndex, setProgressbar, setInputValue, setResultState, setIsTurned
+    setCurrentWord, setCurrentWordIndex, setProgressbar, setInputValue, setResultState, setIsTurned, setIsDisabled
   } = useWordsSetup();
 
   const location = useLocation();
@@ -34,12 +34,12 @@ function App() {
           .from('terms')
           .select('*')
           .order('id');
-    
+
         if (error) {
           console.error('Chyba při načítání dat:', error);
           return;
         }
-    
+
         setAllWords(terms);
       } catch (error) {
         console.error('Neočekávaná chyba při načítání dat:', error);
@@ -62,6 +62,7 @@ function App() {
     setInputValue("");
     setResultState("");
     setIsTurned(false);
+    setIsDisabled(false);
   }, [path]);
 
   return (

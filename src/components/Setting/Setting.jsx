@@ -28,6 +28,7 @@ export const Setting = () => {
     setResultState,
     setCurrentWordIndex,
     setIsTurned,
+    setIsDisabled,
     setRandomWords,
     setCurrentWord
   } = useWordsSetup();
@@ -134,6 +135,7 @@ export const Setting = () => {
     setIsTemporaryAudio(isTemporaryAudio);
 
     setIsTurned(false);
+    setIsDisabled(false);
 
     // console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
