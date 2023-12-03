@@ -21,6 +21,7 @@ export const QuizPage = () => {
   const { speakWord } = useVoiceSpeak();
 
   console.log('categoryValue', categoryValue);
+  console.log('setupCountWord', setupCountWord);
 
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -30,6 +31,8 @@ export const QuizPage = () => {
       // console.log('Data se načítají nebo jsou prázdná.');
       return;
     }
+
+    console.log('allWords', allWords);
 
     let randomIndx = [];
 

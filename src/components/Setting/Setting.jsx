@@ -84,8 +84,7 @@ export const Setting = () => {
 
       // je vybrána kategorie
       if (isTemporaryCategory) {
-        setCategoryValue(isTemporaryCategory);
-        // console.log('isTemporaryCategory', isTemporaryCategory);
+        console.log('isTemporaryCategory', isTemporaryCategory);
 
         // je vybrána hvězdička
         if (isTemporaryFavorite) {
@@ -104,15 +103,18 @@ export const Setting = () => {
           return;
         } else {
           // console.log("filterCategory", filterCategory)
-
           setAllWords(filterCategory);
         }
+        // setCategoryValue(isTemporaryCategory);
+        // console.log('categoryValue', categoryValue);
       } else {
         setAllWords(allWords);
         // setCategoryValue();
+        // console.log('categoryValue', categoryValue);
       }
 
-      // setCategoryValue(isTemporaryCategory);
+      setCategoryValue(isTemporaryCategory);
+      console.log('categoryValue', categoryValue);
       setSetupCountWord(isTemporaryCount);
 
     }

@@ -14,11 +14,11 @@ function App() {
     setIsCzech,
     setIsFavorite,
     setIsAudio,
-    setCategoryValue, categoryValue
+    setCategoryValue
   } = useSettings();
 
   const {
-    setAllWords,
+    setAllWords, allWords,
     setCurrentWord, setCurrentWordIndex, setProgressbar, setInputValue, setResultState, setIsTurned, setIsDisabled
   } = useWordsSetup();
 
@@ -48,7 +48,9 @@ function App() {
     };
 
     getTerms();
-  }, [setAllWords]);
+  }, [path]);
+
+  console.log('allWords', allWords);
 
   useEffect(() => {
     console.log("USE EFFECT 2");
@@ -65,10 +67,7 @@ function App() {
     setResultState("");
     setIsTurned(false);
     setIsDisabled(false);
-    console.log('categoryValue', categoryValue);
   }, [path]);
-
-  // console.log('categoryValue', categoryValue);
 
   return (
     <>
