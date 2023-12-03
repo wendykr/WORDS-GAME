@@ -2,7 +2,7 @@
   color: #1a1a1a;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 1.25rem;
   justify-content: center;
   align-items: center;
 }
@@ -13,7 +13,7 @@
 @media screen and (min-width: 640px) {
   .navigation__list {
     display: flex;
-    gap: 40px;
+    gap: 2.5rem;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -23,7 +23,7 @@
 }
 @media screen and (min-width: 860px) {
   .navigation__list {
-    gap: 80px;
+    gap: 5rem;
   }
 }
 .navigation__list--link + .navigation__list--link {
@@ -33,7 +33,7 @@
 .show-navigation {
   display: block;
   position: absolute;
-  top: 70px;
+  top: 4.375rem;
   right: 0;
   z-index: 1;
 }
@@ -47,13 +47,14 @@
 
 .activeLink {
   background-color: #fff6ef;
-  padding: 20px 0;
+  padding: 1.25rem 0;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
   text-decoration: none;
   color: #fd7e14;
   display: block;
+  pointer-events: none;
 }
 @media screen and (min-width: 640px) {
   .activeLink {
@@ -64,9 +65,9 @@
 
 .nonActiveLink {
   background-color: #ffffff;
-  padding: 20px 0;
+  padding: 1.25rem 0;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
   text-decoration: none;
   color: #1a1a1a;
@@ -91,7 +92,7 @@
 }
 
 .icon-menu {
-  font-size: 30px;
+  font-size: 1.875rem;
   color: #1a1a1a;
   transition: color 0.3s ease, transform 0.3s ease;
   transform-origin: center;

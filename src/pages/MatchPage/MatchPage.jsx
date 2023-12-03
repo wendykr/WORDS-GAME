@@ -20,15 +20,17 @@ export const MatchPage = () => {
 
   const { speakWord } = useVoiceSpeak();
 
-  // console.log('%c randomWords QUIZ', 'background: gray; color: white;');
-  // console.log(randomWords);
+  console.log('categoryValue', categoryValue);
+
+  console.log('%c randomWords QUIZ', 'background: gray; color: white;');
+  console.log(randomWords);
 
   const [uniqueWords, setUniqueWords] = useState([]);
 
   useEffect(() => {
     // console.log("USE EFFECT 1");
     if (!allWords || allWords.length === 0) {
-      console.log('Data se načítají nebo jsou prázdná.');
+      // console.log('Data se načítají nebo jsou prázdná.');
       return;
     }
 
@@ -77,8 +79,8 @@ export const MatchPage = () => {
 
   }, [allWords.length, currentWord]);
 
-  console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  console.log(uniqueWords);
+  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
+  // console.log(uniqueWords);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
@@ -105,7 +107,7 @@ export const MatchPage = () => {
     setCurrentWord(newObject);
   };
 
-  console.log("Aktuální slovo v MatchPage:", currentWord);
+  // console.log("Aktuální slovo v MatchPage:", currentWord);
 
   return (
     <main className="match">

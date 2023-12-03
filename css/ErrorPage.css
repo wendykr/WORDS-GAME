@@ -1,5 +1,5 @@
 .error {
-  padding: 0 40px;
+  padding: 0 2.5rem;
   text-align: center;
   line-height: 2;
 }
@@ -9,28 +9,28 @@
   }
 }
 .error__head {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 @media screen and (min-width: 450px) {
   .error__head {
-    font-size: 26px;
+    font-size: 1.625rem;
   }
 }
 .error__text {
-  font-size: 16px;
+  font-size: 1rem;
 }
 @media screen and (min-width: 450px) {
   .error__text {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 }
 .error__link {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #1a1a1a;
 }
 @media screen and (min-width: 450px) {
   .error__link {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 .error__link:hover {

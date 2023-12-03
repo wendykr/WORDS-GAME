@@ -36,16 +36,16 @@ export const Question = (
   const [isFavorite, setIsFavorite] = useState();
 
   useEffect(() => {
-    console.log("NEW REFRESH");
+    // console.log("NEW REFRESH");
 
     const getIsFavorite = async () => {
       const { data } = await supabase
         .from('terms')
         .select('favorite')
-        .eq('id', id)
+        .eq('id', id && id)
         .single();
 
-      setIsFavorite(data.favorite);
+      setIsFavorite(data?.favorite);
     };
 
     getIsFavorite();
@@ -80,7 +80,7 @@ export const Question = (
         .eq('id', id)
         .single();
 
-      setIsFavorite(data.favorite);
+      setIsFavorite(data?.favorite);
 
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);

@@ -1,8 +1,8 @@
 .question {
   margin: 0 auto;
-  padding: 40px;
-  min-width: 270px;
-  max-width: 640px;
+  padding: 2.5rem;
+  min-width: 16.875rem;
+  max-width: 40rem;
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
@@ -10,23 +10,23 @@
 }
 @media screen and (min-width: 640px) {
   .question {
-    width: 640px;
+    width: 40rem;
   }
 }
 @media screen and (min-width: 860px) {
   .question {
-    width: 860px;
+    width: 53.75rem;
   }
 }
 .question__hidden {
   display: none;
 }
 .question__head {
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 @media screen and (min-width: 640px) {
   .question__head {
-    margin-bottom: 80px;
+    margin-bottom: 5rem;
   }
 }
 .question__body {
@@ -34,12 +34,12 @@
   flex-direction: column;
 }
 .question__foot {
-  margin-top: 10px;
+  margin-top: 0.625rem;
   display: flex;
   flex-direction: column;
 }
 .question__foot--link {
-  margin-top: 16px;
+  margin-top: 1rem;
   margin-left: auto;
   color: #1a1a1a;
   font-weight: bold;
@@ -54,28 +54,28 @@
 }
 
 .guess-word {
-  padding: 30px 0;
+  padding: 1.875rem 0;
   display: inline-block;
   font-family: "Mukta", sans-serif;
-  font-size: 42px;
+  font-size: 2.625rem;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
 }
 @media screen and (min-width: 640px) {
   .guess-word {
-    padding: 56px 0;
-    font-size: 50px;
+    padding: 3.5rem 0;
+    font-size: 3.125rem;
   }
 }
 
 .your-answer {
-  margin-top: 8px;
-  padding: 10px 8px;
+  margin-top: 0.5rem;
+  padding: 0.625rem 0.5rem;
   width: 100%;
-  height: 50px;
+  height: 3.125rem;
   background-color: #ffffff;
-  font-size: 18px;
+  font-size: 1.125rem;
   border: 2px solid #c0c0c0;
   border-radius: 4px;
   outline: none;
@@ -85,8 +85,8 @@
 }
 @media screen and (min-width: 640px) {
   .your-answer {
-    height: 50px;
-    font-size: 24px;
+    height: 3.125rem;
+    font-size: 1.5rem;
   }
 }
 .your-answer:focus {
@@ -98,31 +98,31 @@
 }
 
 .answer {
-  margin-top: 10px;
+  margin-top: 0.625rem;
   width: 100%;
-  height: 74px;
+  height: 4.625rem;
 }
 @media screen and (min-width: 640px) {
   .answer {
-    margin-top: 12px;
-    height: 76px;
+    margin-top: 0.75rem;
+    height: 4.75rem;
   }
 }
 .answer__label {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
 }
 @media screen and (min-width: 640px) {
   .answer__label {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 }
 .answer__content {
-  margin-top: 4px;
-  padding: 10px 8px;
+  margin-top: 0.25rem;
+  padding: 0.625rem 0.5rem;
   width: 100%;
-  height: 50px;
-  font-size: 18px;
+  height: 3.125rem;
+  font-size: 1.125rem;
   background-color: #ffffff;
   border: 2px solid #c0c0c0;
   border-radius: 4px;
@@ -131,17 +131,27 @@
 }
 @media screen and (min-width: 640px) {
   .answer__content {
-    height: 50px;
-    font-size: 24px;
+    height: 3.125rem;
+    font-size: 1.5rem;
   }
+}
+.answer .correct {
+  background-color: #ccffcc;
+  color: #008000;
+  border: 2px solid #008000;
+}
+.answer .incorrect {
+  background-color: #ffcccc;
+  color: #ff0000;
+  border: 2px solid #ff0000;
 }
 
 .hint {
-  margin-top: 16px;
+  margin-top: 1rem;
   margin-bottom: 0;
   margin-left: 0;
   margin-right: auto;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: #1a1a1a;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -155,12 +165,12 @@
 }
 @media screen and (min-width: 640px) {
   .hint {
-    margin-top: 24px;
-    font-size: 20px;
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
   }
 }
 
 .icon-hint {
-  font-size: 24px;
+  font-size: 1.5rem;
   vertical-align: bottom;
 }/*# sourceMappingURL=Question.css.map */

@@ -1,8 +1,8 @@
 .mode__item {
-  margin: 40px auto;
-  padding: 20px;
-  width: 270px;
-  height: 250px;
+  margin: 2.5rem auto;
+  padding: 1.25rem;
+  width: 16.875rem;
+  height: 15.625rem;
   background-color: #ffffff;
   border: 1px solid #dcdcdc;
   box-shadow: 2px 2px 7px #dcdcdc;
@@ -18,9 +18,9 @@
 }
 @media screen and (min-width: 640px) {
   .mode__item {
-    margin: 40px;
-    width: 400px;
-    height: 350px;
+    margin: 2.5rem;
+    width: 25rem;
+    height: 21.875rem;
   }
 }
 .mode__item:hover {

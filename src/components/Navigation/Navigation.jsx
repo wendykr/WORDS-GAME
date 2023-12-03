@@ -10,8 +10,10 @@ import { supabase } from '../../supabaseClient';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { setRandomWords, setCurrentWord,
-    setAllWords, allWords
+  const {
+    setAllWords, allWords,
+    setRandomWords, setCurrentWord
+    // categoryValue
   } = useWordsSetup();
 
   useEffect(() => {
@@ -40,9 +42,19 @@ export const Navigation = () => {
 
   const handleCloseMenu = () => {
     setIsOpen(!isOpen);
-    setRandomWords([]);
-    setCurrentWord();
     setAllWords(allWords);
+    setCurrentWord();
+    setRandomWords([]);
+    // categoryValue();
+  }
+
+  const handleNavLinkClick = () => {
+    handleCloseMenu();
+
+    // if (!confirm('Do you really want to leave and lose the current game?')) {
+    //   event.preventDefault();
+    //   return;
+    // }
   }
 
   return (
@@ -55,10 +67,10 @@ export const Navigation = () => {
         )}
       </div>
       <div className={`navigation__list ${isOpen ? 'show-navigation' : ''}`}>
-        <NavLink to="/" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Home </NavLink>
-        <NavLink to="/flashcards" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Flashcards </NavLink>
-        <NavLink to="/quiz" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Quiz </NavLink>
-        <NavLink to="/match" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Match </NavLink>
+        <NavLink to="/" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Home </NavLink>
+        <NavLink to="/flashcards" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Flashcards </NavLink>
+        <NavLink to="/quiz" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Quiz </NavLink>
+        <NavLink to="/match" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Match </NavLink>
       </div>
     </nav>
   );

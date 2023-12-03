@@ -19,18 +19,20 @@ export const FlashcardPage = () => {
 
   const { speakWord } = useVoiceSpeak();
 
+  console.log('categoryValue', categoryValue);
+
   console.log('%c randomWords FLASH ', 'background: gray; color: white;');
   console.log(randomWords);
 
-  console.log('setupCountWord', setupCountWord);
-  console.log('currentWord', currentWord);
-  console.log('allWords.length', allWords.length);
+  // console.log('setupCountWord', setupCountWord);
+  // console.log('currentWord', currentWord);
+  // console.log('allWords.length', allWords.length);
 
-  console.log("allWords", allWords);
-  console.log("setupCountWord", setupCountWord);
-  console.log("isCzech", isCzech);
-  console.log("isAudio", isAudio);
-  console.log("categoryValue", categoryValue);
+  // console.log("allWords", allWords);
+  // console.log("setupCountWord", setupCountWord);
+  // console.log("isCzech", isCzech);
+  // console.log("isAudio", isAudio);
+  // console.log("categoryValue", categoryValue);
 
   useEffect(() => {
     console.log("USE EFFECT 1");

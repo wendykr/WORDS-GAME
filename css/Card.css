@@ -1,37 +1,37 @@
 .card {
   margin: 0 auto;
-  padding: 40px;
-  min-width: 270px;
-  max-width: 640px;
+  padding: 2.5rem;
+  min-width: 16.875rem;
+  max-width: 40rem;
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
 }
 @media screen and (min-width: 640px) {
   .card {
-    width: 640px;
+    width: 40rem;
   }
 }
 @media screen and (min-width: 860px) {
   .card {
-    width: 860px;
+    width: 53.75rem;
   }
 }
 .card__hidden {
   display: none;
 }
 .card__head {
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 @media screen and (min-width: 640px) {
   .card__head {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
   }
 }
 .card__body--container {
-  margin: 20px 0;
+  margin: 1.25rem 0;
   width: auto;
-  height: 400px;
+  height: 25rem;
   transition: transform 1s;
   transform-style: preserve-3d;
   cursor: pointer;
@@ -39,14 +39,14 @@
 }
 @media screen and (min-width: 640px) {
   .card__body--container {
-    margin: 20px 40px;
+    margin: 1.25rem 2.5rem;
   }
 }
 .card__body--container.is-turned {
   transform: rotateX(180deg);
 }
 .card__body--front, .card__body--back {
-  padding: 20px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -65,11 +65,11 @@
   transform: rotateX(180deg);
 }
 .card__foot {
-  margin-top: 4px;
+  margin-top: 0.25rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 100px;
+  gap: 6.25rem;
 }
 
 .icons--right, .icons--left {

@@ -1,5 +1,5 @@
 .setting__body {
-  padding: 40px;
+  padding: 2.5rem;
   display: none;
   width: 100%;
   height: 100vh;
@@ -26,7 +26,7 @@
   align-items: center;
 }
 .setting__body--title {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 .setting__body.show {
   display: block;
@@ -51,7 +51,7 @@
   margin-top: 20px;
 }
 .form__row {
-  margin-top: 40px;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -66,7 +66,7 @@
   font-weight: bold;
 }
 .form__row--option {
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 @media screen and (min-width: 450px) {
   .form__row--option {
@@ -78,15 +78,15 @@
   justify-content: flex-end;
 }
 .form__row:not(:last-child) + .form__row:not(:last-child) {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 .form__button {
   display: block;
   width: 100%;
-  padding: 10px 16px;
+  padding: 0.625rem 1rem;
   background-color: #fd7e14;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
   text-transform: uppercase;
   border: none;
@@ -96,8 +96,8 @@
 }
 @media screen and (min-width: 640px) {
   .form__button {
-    font-size: 18px;
-    padding: 12px 20px;
+    font-size: 1.125rem;
+    padding: 0.75rem 1.25rem;
   }
 }
 .form__button:hover {
@@ -105,7 +105,7 @@
 }
 
 .icon-setting {
-  font-size: 30px;
+  font-size: 1.875rem;
   fill: #1a1a1a;
   transition: fill 0.3s ease, transform 0.3s ease;
   cursor: pointer;
@@ -116,7 +116,7 @@
 }
 
 .icon-close {
-  font-size: 30px;
+  font-size: 1.875rem;
   color: #1a1a1a;
   transition: color 0.3s ease, transform 0.3s ease;
   transform-origin: center;

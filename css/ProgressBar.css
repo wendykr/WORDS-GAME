@@ -1,11 +1,11 @@
 .progress__container {
   width: 100%;
-  height: 16px;
+  height: 1rem;
   background-color: #ffc392;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 .progress__line {
-  height: 16px;
+  height: 1rem;
   background-color: #ffffff;
   border-radius: 8px;
   position: relative;

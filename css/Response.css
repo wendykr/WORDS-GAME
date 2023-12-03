@@ -1,21 +1,20 @@
 .response {
-  padding: 12px;
+  padding: 0.75rem;
   width: 100%;
   background-color: #ffffff;
   border: 2px solid #d2d6dc;
   border-radius: 4px;
   color: #1a1a1a;
-  font-size: 16px;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: border 0.3s ease;
 }
 @media screen and (min-width: 640px) {
   .response {
-    padding: 10px;
-    font-size: 24px;
+    padding: 0.625rem;
+    font-size: 1.5rem;
   }
 }
 .response:hover {
@@ -29,20 +28,21 @@
   background-color: #ccffcc;
   color: #008000;
   border: 2px solid #008000;
-  cursor: auto;
   transition: none;
 }
 .response.incorrect {
   background-color: #ffcccc;
   color: #ff0000;
   border: 2px solid #ff0000;
-  cursor: auto;
   transition: none;
 }
 .response.marked {
   background-color: #d7e1ee;
   color: #13529e;
   border: 2px solid #13529e;
-  cursor: auto;
+  pointer-events: none;
   transition: none;
+}
+.response.disabled {
+  pointer-events: none;
 }/*# sourceMappingURL=Response.css.map */

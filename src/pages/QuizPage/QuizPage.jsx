@@ -20,12 +20,14 @@ export const QuizPage = () => {
 
   const { speakWord } = useVoiceSpeak();
 
+  console.log('categoryValue', categoryValue);
+
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
 
   useEffect(() => {
     if (!allWords || allWords.length === 0) {
-      console.log('Data se načítají nebo jsou prázdná.');
+      // console.log('Data se načítají nebo jsou prázdná.');
       return;
     }
 
@@ -47,7 +49,7 @@ export const QuizPage = () => {
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
-    console.log('new generation');
+    // console.log('new generation');
   }, [randomWords]);
 
   useEffect(() => {
@@ -75,14 +77,14 @@ export const QuizPage = () => {
   };
 
   const getIsFavorite = async () => {
-    console.log(
-      supabase.from("terms").select("favorite").eq("id", currentWord?.id),
-      currentWord?.id
-    );
+    // console.log(
+    //   supabase.from("terms").select("favorite").eq("id", currentWord?.id),
+    //   currentWord?.id
+    // );
     return await supabase.from("terms").select("favorite");
   };
 
-  console.log("Aktuální slovo v QuizPage:", currentWord);
+  // console.log("Aktuální slovo v QuizPage:", currentWord);
 
   return (
     <main className="quiz">

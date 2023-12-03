@@ -14,7 +14,7 @@ function App() {
     setIsCzech,
     setIsFavorite,
     setIsAudio,
-    setCategoryValue
+    setCategoryValue, categoryValue
   } = useSettings();
 
   const {
@@ -28,6 +28,7 @@ function App() {
   const path = location.pathname;
 
   useEffect(() => {
+    console.log("USE EFFECT 1");
     const getTerms = async () => {
       try {
         let { data: terms, error } = await supabase
@@ -50,6 +51,7 @@ function App() {
   }, [setAllWords]);
 
   useEffect(() => {
+    console.log("USE EFFECT 2");
     setSetupCountWord(5);
     setIsShow(false);
     setIsCzech(false);
@@ -63,7 +65,10 @@ function App() {
     setResultState("");
     setIsTurned(false);
     setIsDisabled(false);
+    console.log('categoryValue', categoryValue);
   }, [path]);
+
+  // console.log('categoryValue', categoryValue);
 
   return (
     <>

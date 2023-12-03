@@ -85,10 +85,10 @@ export const Pair = ({
       const { data } = await supabase
         .from('terms')
         .select('favorite')
-        .eq('id', id)
+        .eq('id', id && id)
         .single();
 
-      setIsFavorite(data.favorite);
+      setIsFavorite(data?.favorite);
       // console.log(data.favorite);
     };
 
@@ -124,7 +124,7 @@ export const Pair = ({
         .eq("id", id)
         .single();
 
-      setIsFavorite(data.favorite);
+      setIsFavorite(data?.favorite);
 
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);

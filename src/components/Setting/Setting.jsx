@@ -34,7 +34,7 @@ export const Setting = () => {
   } = useWordsSetup();
   
   const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
-  const [isTemporaryCategory, setIsTemporaryCategory] = useState();
+  const [isTemporaryCategory, setIsTemporaryCategory] = useState(categoryValue);
   const [isTemporaryCount, setIsTemporaryCount] = useState();
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
@@ -84,6 +84,7 @@ export const Setting = () => {
 
       // je vybrána kategorie
       if (isTemporaryCategory) {
+        setCategoryValue(isTemporaryCategory);
         // console.log('isTemporaryCategory', isTemporaryCategory);
 
         // je vybrána hvězdička
@@ -108,9 +109,10 @@ export const Setting = () => {
         }
       } else {
         setAllWords(allWords);
+        // setCategoryValue();
       }
 
-      setCategoryValue(isTemporaryCategory);
+      // setCategoryValue(isTemporaryCategory);
       setSetupCountWord(isTemporaryCount);
 
     }
@@ -139,7 +141,7 @@ export const Setting = () => {
 
     // console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
-    // console.log('Category: ' + isTemporaryCategory);
+    console.log('Category: ' + isTemporaryCategory);
     // console.log('Count: ' + isTemporaryCount);
     // console.log('isCzech: ' + isTemporaryCzech);
     // console.log('isFavorite: ' + isTemporaryFavorite);

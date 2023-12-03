@@ -11,7 +11,7 @@ body {
   background-color: #f8f9fa;
   color: #1a1a1a;
   font-family: "Open-Sans", sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: normal;
 }
 
@@ -28,21 +28,9 @@ main {
   justify-content: center;
 }
 
-.correct {
-  background-color: #ccffcc;
-  color: #008000;
-  border: 2px solid #008000;
-}
-
-.incorrect {
-  background-color: #ffcccc;
-  color: #ff0000;
-  border: 2px solid #ff0000;
-}
-
 .icon-star {
   margin-left: auto;
-  font-size: 30px;
+  font-size: 1.875rem;
   fill: #aaaaaa;
   transition: fill 0.3s ease;
   cursor: pointer;
@@ -52,7 +40,7 @@ main {
 }
 
 .icon-volume {
-  font-size: 30px;
+  font-size: 1.875rem;
   fill: #5481b7;
 }
 .icon-volume:hover {

@@ -66,10 +66,10 @@ export const Card = (
       const { data } = await supabase
         .from('terms')
         .select('favorite')
-        .eq('id', id)
+        .eq('id', id && id)
         .single();
 
-      setIsFavorite(data.favorite);
+      setIsFavorite(data?.favorite);
     };
 
     getIsFavorite();
@@ -109,7 +109,7 @@ export const Card = (
       .eq('id', id)
       .single();
 
-      setIsFavorite(data.favorite);
+      setIsFavorite(data?.favorite);
 
     } catch (error) {
       alert('Unexpected error during update: ' + error.message);
