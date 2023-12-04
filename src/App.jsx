@@ -28,7 +28,7 @@ function App() {
   const path = location.pathname;
 
   useEffect(() => {
-    console.log("USE EFFECT 1");
+    // console.log("USE EFFECT 1");
     const getTerms = async () => {
       try {
         let { data: terms, error } = await supabase
@@ -50,10 +50,10 @@ function App() {
     getTerms();
   }, [path]);
 
-  console.log('allWords', allWords);
+  // console.log('allWords', allWords);
 
   useEffect(() => {
-    console.log("USE EFFECT 2");
+    // console.log("USE EFFECT 2");
     setSetupCountWord(5);
     setIsShow(false);
     setIsCzech(false);

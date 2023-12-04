@@ -19,10 +19,10 @@ export const FlashcardPage = () => {
 
   const { speakWord } = useVoiceSpeak();
 
-  console.log('categoryValue', categoryValue);
+  // console.log('categoryValue', categoryValue);
 
-  console.log('%c randomWords FLASH ', 'background: gray; color: white;');
-  console.log(randomWords);
+  // console.log('%c randomWords FLASH ', 'background: gray; color: white;');
+  // console.log(randomWords);
 
   // console.log('setupCountWord', setupCountWord);
   // console.log('currentWord', currentWord);
@@ -35,9 +35,9 @@ export const FlashcardPage = () => {
   // console.log("categoryValue", categoryValue);
 
   useEffect(() => {
-    console.log("USE EFFECT 1");
+    // console.log("USE EFFECT 1");
     if (!allWords || allWords.length === 0) {
-      console.log('Data se načítají nebo jsou prázdná.');
+      // console.log('Data se načítají nebo jsou prázdná.');
       return;
     }
 
@@ -52,7 +52,7 @@ export const FlashcardPage = () => {
     }
 
     setRandomWords(randomIndx);
-    console.log('randomIndx', randomIndx);
+    // console.log('randomIndx', randomIndx);
 
     // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
@@ -60,13 +60,13 @@ export const FlashcardPage = () => {
   }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
-    console.log("USE EFFECT 2");
+    // console.log("USE EFFECT 2");
     generateCurrentNewWord(randomWords, currentWordIndex);
-    console.log("generate new words");
+    // console.log("generate new words");
   }, [currentWordIndex, randomWords]);
 
   useEffect(() => {
-    console.log("USE EFFECT 3");
+    // console.log("USE EFFECT 3");
     isCzech ? '' : isAudio && speakWord(currentWord?.enword);
   }, [currentWord?.enword]);
 
@@ -74,7 +74,7 @@ export const FlashcardPage = () => {
     setCurrentWord(wordsArray[index]);
   };
 
-  console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
+  // console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 
   return (
     <main className="flashcards">

@@ -30,10 +30,10 @@ export const Question = (
   } = useWordsSetup();
   const { isShow, setIsShow, isCzech, isAudio } = useSettings();
   const { speakWord } = useVoiceSpeak();
-  // const [isHiddenInput, setIsHiddenInput] = useState(false);
   const refInput = useRef(null);
 
   const [isFavorite, setIsFavorite] = useState();
+  const [isSecondEnter, setIsSecondEnter] = useState(false);
 
   useEffect(() => {
     // console.log("NEW REFRESH");
@@ -52,6 +52,33 @@ export const Question = (
 
     getIsFavorite();
   }, [id]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+
+      if (event.key === "Enter" && inputValue.length !== 0) {
+        handleCheckResult();
+
+        if (isSecondEnter) {
+          if (randomWords.length > 1) {
+            handleClick();
+            setIsSecondEnter(false);
+          } else {
+            showSetting();
+          }
+        } else {
+          setIsSecondEnter(true);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+
+  }, [inputValue, isSecondEnter]);
 
   const updateFavorite = async (id) => {
     try {
@@ -106,80 +133,29 @@ export const Question = (
     setInputValue(myWord);
   };
 
-  // const handleCheckKeyDown = (event) => {
-  //   // console.log('%c handleCheckKeyDown ', 'background:orange;color:white;');
-
-  //   if (resultState === "") {
-
-  //     if (event.key === "Enter" && inputValue.length !== 0) {
-  //       // console.log("Enter");
-  //       isCzech && isAudio && speakWord(enword);
-
-  //       if (inputValue.toLowerCase() !== (isCzech ? enword.toLowerCase() : czword.toLowerCase())) {
-  //         setResultState("incorrect");
-  //         // console.log("incorrect");
-  //       } else {
-  //         setInputValue(inputValue);
-  //         setResultState("correct");
-  //         // console.log("correct");
-  //       }
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const handleKeyDown = (event) => {
-  //     console.log('%c handleKeyDown ', 'background:silver;color:white;');
-
-  //     if (event.key === "Enter") {
-  //       if (resultState === "correct") {
-  //         console.log('- removeRandomWord -');
-  //         removeRandomWord();
-  //         generateCurrentNewWord(randomWords);
-  //       } else if (resultState === "dont-know" || resultState === "incorrect") {
-  //         console.log('- generateCurrentNewWord -');
-  //         generateCurrentNewWord(randomWords);
-  //       }
-
-  //       setInputValue("");
-  //       console.log("inputValue", inputValue);
-  //       setResultState("");
-  //       console.log("resultState", resultState);
-  //     }
-  //   };
-
-  //   window.addEventListener('keydown', handleKeyDown);
-  //   console.log('%c Já jsem useEffect keydownNext ', 'background:red;color:white;');
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleKeyDown);
-  //   };
-
-  // }, [isHiddenInput]);
-
   const handleCheckResult = () => {
     // console.log('%c handleCheckResult ', 'background:orange;color:white;');
+    setIsSecondEnter(true);
 
     if (resultState === "") {
-      // setIsHiddenInput(true);
       isCzech && isAudio && speakWord(enword);
 
       if (inputValue.toLowerCase() !== (isCzech ? enword.toLowerCase() : czword.toLowerCase())) {
         setResultState("incorrect");
-        // console.log('%c incorrect ', 'background:red;color:white;');
+        console.log('%c incorrect ', 'background:red;color:white;');
       } else {
         // console.log('%c updateProgressbar ', 'background:white;color:green;font-weight:bold;');
         updateProgressbar(true, true);
         setInputValue(inputValue);
         setResultState("correct");
-        // console.log('%c correct ', 'background:green;color:white;');
+        console.log('%c correct ', 'background:green;color:white;');
       }
     }
   };
 
   const handleClick = () => {
     // console.log('%c handleClick ', 'background:purple;color:white;');
-    // console.log("resultState", resultState);
+    console.log('resultState', resultState);
 
     if (resultState === "correct") {
       removeRandomWord();
@@ -191,6 +167,7 @@ export const Question = (
     setInputValue("");
     // console.log("inputValue", inputValue);
     setResultState("");
+    setIsSecondEnter(false);
     // console.log("resultState", resultState);
   };
 
@@ -245,7 +222,6 @@ export const Question = (
         <input
           className={`your-answer ${resultState !== "" ? "hidden" : ""}`}
           onChange={changeWord}
-          // onKeyDown={handleCheckKeyDown}
           value={inputValue}
           type="text"
           ref={refInput}

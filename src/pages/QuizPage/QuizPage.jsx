@@ -20,8 +20,8 @@ export const QuizPage = () => {
 
   const { speakWord } = useVoiceSpeak();
 
-  console.log('categoryValue', categoryValue);
-  console.log('setupCountWord', setupCountWord);
+  // console.log('categoryValue', categoryValue);
+  // console.log('setupCountWord', setupCountWord);
 
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -32,7 +32,7 @@ export const QuizPage = () => {
       return;
     }
 
-    console.log('allWords', allWords);
+    // console.log('allWords', allWords);
 
     let randomIndx = [];
 
@@ -87,7 +87,7 @@ export const QuizPage = () => {
     return await supabase.from("terms").select("favorite");
   };
 
-  // console.log("Aktuální slovo v QuizPage:", currentWord);
+  console.log("Aktuální slovo v QuizPage:", currentWord);
 
   return (
     <main className="quiz">

@@ -77,6 +77,29 @@ export const Card = (
     getIsFavorite();
   }, [id]);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // console.log(event.key);
+
+      if (event.key === 'ArrowRight') {
+        // console.log('NEXT');
+        handleClickNext();
+      }
+
+      if (event.key === 'ArrowLeft') {
+        // console.log('PREV');
+        handleClickPrev();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    // console.log('%c Já jsem useEffect keydown', 'background:red;color:white;');
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentWordIndex]);
+
   const showFirstLetter = () => {
     setIsDisplay(prevState => !prevState);
   };
@@ -118,43 +141,53 @@ export const Card = (
   };
 
   const handleClick = () => {
+    // console.log('isTurned BEFORE CLICK', isTurned);
     isTurned && setRepeat(true);
     setIsTurned(prevState => !prevState);
     setIsDisplay(false);
+    // console.log('isTurned AFTER CLICK', isTurned);
   };
 
   const handleClickPrev = () => {
     // console.log('%c click PREV ', 'background:white;color:red;font-weight:bold;');
     if (currentWordIndex > 0) {
-      if (isTurned) {
-        setIsTurned(false);
-        setTimeout(() => {
+      // console.log('isTurned PREV', isTurned);
+      setIsTurned(prevValue => {
+        if (prevValue) {
+          setTimeout(() => {
+            setCurrentWordIndex(prevValue => prevValue - 1);
+            setIsDisplay(false);
+          }, 300);
+        } else {
           setCurrentWordIndex(prevValue => prevValue - 1);
           setIsDisplay(false);
-        }, 300);
-      } else {
-        setCurrentWordIndex(prevValue => prevValue - 1);
-        setIsDisplay(false);
-      }
-      updateProgressbar(false, false);
+        }
+        updateProgressbar(false, false);
+        return false;
+      });
     }
+    // console.log('currentWordIndex', currentWordIndex);
   }
 
   const handleClickNext = () => {
     // console.log('%c click NEXT ', 'background:white;color:green;font-weight:bold;');
     if (currentWordIndex < (setupCountWord - 1)) {
-      if (isTurned) {
-        setIsTurned(false); // Otočí slovo zpět
-        setTimeout(() => {
+      // console.log('isTurned NEXT', isTurned);
+      setIsTurned(prevValue => {
+        if (prevValue) {
+          setTimeout(() => {
+            setCurrentWordIndex(prevValue => prevValue + 1);
+            setIsDisplay(false);
+          }, 300);
+        } else {
           setCurrentWordIndex(prevValue => prevValue + 1);
           setIsDisplay(false);
-        }, 300);
-      } else {
-        setCurrentWordIndex(prevValue => prevValue + 1);
-        setIsDisplay(false);
-      }
-      updateProgressbar(false, true);
+        }
+        updateProgressbar(false, true);
+        return false;
+      });
     }
+    // console.log('currentWordIndex', currentWordIndex);
   }
 
   const handleSpeakWord = () => {
@@ -163,24 +196,6 @@ export const Card = (
 
   // console.log('%c favoriteWords ', 'background: green; color: white;');
   // console.log(favoriteWords);
-
-  // useEffect(() => {
-  //   const handleKeyDown = (event) => {
-  //     console.log(event.key);
-
-  //     if (event.key === 'ArrowRight') {
-  //       console.log('NEXT');
-  //       handleClickNext();
-  //     }
-
-  //     if (event.key === 'ArrowLeft') {
-  //       console.log('PREV');
-  //       handleClickPrev();
-  //     }
-  //   };
-
-  //   document.addEventListener('keydown', handleKeyDown);
-  // }, []);
 
   return (
     <div className="card">
