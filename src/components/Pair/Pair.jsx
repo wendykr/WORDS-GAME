@@ -81,6 +81,8 @@ export const Pair = ({
   useEffect(() => {
     // console.log("NEW REFRESH");
 
+    if (!id) return;
+
     const getIsFavorite = async () => {
       const { data } = await supabase
         .from('terms')

@@ -62,6 +62,8 @@ export const Card = (
   useEffect(() => {
     // console.log("NEW REFRESH");
 
+    if (!id) return;
+
     const getIsFavorite = async () => {
       const { data } = await supabase
         .from('terms')
@@ -95,8 +97,7 @@ export const Card = (
       const { updateError } = await supabase
         .from('terms')
         .update({ favorite: !currentTerm.favorite })
-        .eq('id', id)
-
+        .eq('id', id);
 
       if (updateError) {
         console.error('Error updating term:', updateError);
