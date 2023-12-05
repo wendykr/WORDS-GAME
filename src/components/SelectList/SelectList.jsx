@@ -4,12 +4,12 @@ import './SelectList.scss';
 import { supabase } from '../../supabaseClient';
 
 export const SelectList = ({
-    setTemporaryFunction,
-    categoryValue
-  }) => {
-
+  setTemporaryFunction,
+  categoryValue
+}) => {
   const [selectedCategory, setSelectedCategory] = useState(categoryValue);
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getCategories();
@@ -17,14 +17,13 @@ export const SelectList = ({
 
   const getCategories = async () => {
     try {
-
-      setCategories(['Loading data...']);
+      setIsLoading(true);
 
       let { data: categoryData, error } = await supabase
         .from('terms')
         .select('category')
         .order('category');
-  
+
       if (error) {
         console.error('Chyba při načítání dat:', error);
         return;
@@ -35,6 +34,7 @@ export const SelectList = ({
       // console.log("uniqueCategories", uniqueCategories);
 
       setCategories(uniqueCategories);
+      setIsLoading(false);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }
@@ -56,7 +56,7 @@ export const SelectList = ({
 
   return (
     <select id="selectList" className="selectList" name="category" onChange={selectValue} value={selectedCategory} >
-      <option value="">- All -</option>
+      {isLoading ? <option value="">Loading data...</option> : <option value="">- All -</option>}
       {options}
     </select>
   );

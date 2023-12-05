@@ -21,8 +21,8 @@ export const FlashcardPage = () => {
 
   // console.log('categoryValue', categoryValue);
 
-  // console.log('%c randomWords FLASH ', 'background: gray; color: white;');
-  // console.log(randomWords);
+  console.log('%c randomWords FLASH ', 'background: gray; color: white;');
+  console.log(randomWords);
 
   // console.log('setupCountWord', setupCountWord);
   // console.log('currentWord', currentWord);
@@ -74,7 +74,7 @@ export const FlashcardPage = () => {
     setCurrentWord(wordsArray[index]);
   };
 
-  // console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
+  console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 
   return (
     <main className="flashcards">

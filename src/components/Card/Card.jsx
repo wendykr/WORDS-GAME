@@ -77,29 +77,6 @@ export const Card = (
     getIsFavorite();
   }, [id]);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      // console.log(event.key);
-
-      if (event.key === 'ArrowRight') {
-        // console.log('NEXT');
-        handleClickNext();
-      }
-
-      if (event.key === 'ArrowLeft') {
-        // console.log('PREV');
-        handleClickPrev();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    // console.log('%c Já jsem useEffect keydown', 'background:red;color:white;');
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [currentWordIndex]);
-
   const showFirstLetter = () => {
     setIsDisplay(prevState => !prevState);
   };
@@ -196,6 +173,29 @@ export const Card = (
 
   // console.log('%c favoriteWords ', 'background: green; color: white;');
   // console.log(favoriteWords);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // console.log(event.key);
+
+      if (event.key === 'ArrowRight') {
+        // console.log('NEXT');
+        handleClickNext();
+      }
+
+      if (event.key === 'ArrowLeft') {
+        // console.log('PREV');
+        handleClickPrev();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    // console.log('%c Já jsem useEffect keydown', 'background:red;color:white;');
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentWordIndex]);
 
   return (
     <div className="card">
