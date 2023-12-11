@@ -18,7 +18,7 @@ function App() {
   } = useSettings();
 
   const {
-    setAllWords, allWords,
+    setAllWords,
     setCurrentWord, setCurrentWordIndex, setProgressbar, setInputValue, setResultState, setIsTurned, setIsDisabled
   } = useWordsSetup();
 
@@ -28,7 +28,6 @@ function App() {
   const path = location.pathname;
 
   useEffect(() => {
-    // console.log("USE EFFECT 1");
     const getTerms = async () => {
       try {
         let { data: terms, error } = await supabase
@@ -50,13 +49,10 @@ function App() {
     getTerms();
   }, [path]);
 
-  // console.log('allWords', allWords);
-
   useEffect(() => {
-    // console.log("USE EFFECT 2");
     setSetupCountWord(5);
     setIsShow(false);
-    setIsCzech(false);
+    setIsCzech(true);
     setIsFavorite(false);
     setIsAudio(true);
     setCategoryValue();

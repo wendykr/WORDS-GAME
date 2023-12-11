@@ -21,7 +21,7 @@ export const WordsSetupProvider = ({children}) => {
   const [isTurned, setIsTurned] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const [progressbar, setProgressbar] = useState(0); // progressBar line
+  const [progressbar, setProgressbar] = useState(0);
 
   useEffect(() => {
     getTerms();
@@ -46,8 +46,6 @@ export const WordsSetupProvider = ({children}) => {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }
   }
-
-  // console.log('setAllWords', allWords);
 
   const updateProgressbar = (deg, up) => {
     setProgressbar((prevValue) => {

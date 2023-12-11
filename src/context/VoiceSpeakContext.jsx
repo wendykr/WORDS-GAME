@@ -4,7 +4,7 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 export const VoiceSpeakContext = createContext();
 
 export const VoiceSpeakProvider = ({ children }) => {
-  const [currentVoice, setCurrentVoice] = useState(); // všechna slova
+  const [currentVoice, setCurrentVoice] = useState();
 
   const { voices, speak } = useSpeechSynthesis();
 
@@ -16,8 +16,6 @@ export const VoiceSpeakProvider = ({ children }) => {
         voices.find((voice) => voice.name === "Google US English")
       );
     }
-
-    // console.log("currentVoice", currentVoice);
   }, [currentVoice, voices]);
 
   const speakWord = (word) => {

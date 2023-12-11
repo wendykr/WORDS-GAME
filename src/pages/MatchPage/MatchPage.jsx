@@ -4,7 +4,7 @@ import { Pair } from '../../components/Pair/Pair';
 // import { wordData } from '../../constants/words';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -18,9 +18,7 @@ export const MatchPage = () => {
     currentWord, setCurrentWord,
   } = useWordsSetup();
 
-  const { speakWord } = useVoiceSpeak();
-
-  console.log('categoryValue', categoryValue);
+  // const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -28,9 +26,7 @@ export const MatchPage = () => {
   const [uniqueWords, setUniqueWords] = useState([]);
 
   useEffect(() => {
-    // console.log("USE EFFECT 1");
     if (!allWords || allWords.length === 0) {
-      // console.log('Data se načítají nebo jsou prázdná.');
       return;
     }
 
@@ -46,25 +42,20 @@ export const MatchPage = () => {
 
     setRandomWords(randomIndx);
 
-    // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
   }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
-    // console.log("USE EFFECT 2");
     if (!allWords || allWords.length === 0) {
-      console.log('Data se načítají nebo jsou prázdná.');
       return;
     }
 
     if (currentWord) {
-      // console.log('currentWord?.id', currentWord?.id);
 
       let randomIndx = [];
 
       while (randomIndx.length < 2) {
         const currentRandomNumber = generateRandomNumber(allWords.length);
-        // console.log('currentRandomNumber', currentRandomNumber);
 
         if (
           !randomIndx.includes(allWords[currentRandomNumber]) &&
@@ -79,25 +70,19 @@ export const MatchPage = () => {
 
   }, [allWords.length, currentWord]);
 
-  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  // console.log(uniqueWords);
-
   useEffect(() => {
     generateCurrentNewWord(randomWords);
   }, [randomWords]);
 
-  useEffect(() => {
-    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  }, [currentWord]);
+  // useEffect(() => {
+  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  // }, [currentWord]);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
       const filteredWords = prevRandomWords.filter((word) => {
-        // console.log(word.word, currentWord.word);
         return word.id !== currentWord.id;
       });
-      // console.log('%c filteredWords ', 'background: blue; color: white;');
-      // console.log(filteredWords);
       return filteredWords;
     });
   };
@@ -107,7 +92,7 @@ export const MatchPage = () => {
     setCurrentWord(newObject);
   };
 
-  // console.log("Aktuální slovo v MatchPage:", currentWord);
+  console.log("Aktuální slovo v MatchPage:", currentWord);
 
   return (
     <main className="match">

@@ -4,15 +4,12 @@ export const SettingsContext = createContext();
 
 export const SettingsProvider = ({children}) => {
 
-  const [setupCountWord, setSetupCountWord] = useState(5); // počet slov
+  const [setupCountWord, setSetupCountWord] = useState(5);
   const [categoryValue, setCategoryValue] = useState();
   const [isShow, setIsShow] = useState(false);
-  // const [isCzech, setIsCzech] = useState(true);
-  // const [isFavorite, setIsFavorite] = useState(true);
   const [isAudio, setIsAudio] = useState(true);
-  const [isCzech, setIsCzech] = useState(false);
+  const [isCzech, setIsCzech] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
-  // const [isAudio, setIsAudio] = useState(false);
 
   return (
     <SettingsContext.Provider value={{

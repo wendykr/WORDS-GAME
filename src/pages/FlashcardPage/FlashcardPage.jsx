@@ -3,7 +3,7 @@ import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -17,27 +17,13 @@ export const FlashcardPage = () => {
     currentWord, setCurrentWord
   } = useWordsSetup();
 
-  const { speakWord } = useVoiceSpeak();
-
-  // console.log('categoryValue', categoryValue);
+  // const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords FLASH ', 'background: gray; color: white;');
   console.log(randomWords);
 
-  // console.log('setupCountWord', setupCountWord);
-  // console.log('currentWord', currentWord);
-  // console.log('allWords.length', allWords.length);
-
-  // console.log("allWords", allWords);
-  // console.log("setupCountWord", setupCountWord);
-  // console.log("isCzech", isCzech);
-  // console.log("isAudio", isAudio);
-  // console.log("categoryValue", categoryValue);
-
   useEffect(() => {
-    // console.log("USE EFFECT 1");
     if (!allWords || allWords.length === 0) {
-      // console.log('Data se načítají nebo jsou prázdná.');
       return;
     }
 
@@ -52,23 +38,17 @@ export const FlashcardPage = () => {
     }
 
     setRandomWords(randomIndx);
-    // console.log('randomIndx', randomIndx);
-
-    // console.log("random index", generateRandomNumber(randomIndx.length));
     generateCurrentNewWord(randomIndx);
 
   }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
 
   useEffect(() => {
-    // console.log("USE EFFECT 2");
     generateCurrentNewWord(randomWords, currentWordIndex);
-    // console.log("generate new words");
   }, [currentWordIndex, randomWords]);
 
-  useEffect(() => {
-    // console.log("USE EFFECT 3");
-    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  }, [currentWord?.enword]);
+  // useEffect(() => {
+  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  // }, [currentWord?.enword]);
 
   const generateCurrentNewWord = (wordsArray, index) => {
     setCurrentWord(wordsArray[index]);
