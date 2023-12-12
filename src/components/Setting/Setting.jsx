@@ -38,10 +38,11 @@ export const Setting = () => {
   const [isTemporaryCount, setIsTemporaryCount] = useState();
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
+  const [isTemporaryAllWords, setIsTemporaryAllWords] = useState();
 
   useEffect(() => {
     getTerms();
-  }, []);
+  }, [isTemporaryCategory]);
 
   const getTerms = async () => {
     try {
@@ -56,7 +57,7 @@ export const Setting = () => {
         return;
       }
 
-      setAllWords(terms);
+      setIsTemporaryAllWords(terms);
       // console.log("terms", terms);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
@@ -64,6 +65,7 @@ export const Setting = () => {
   }
 
   // console.log('allWords', allWords);
+  // console.log('isTemporaryAllWords', isTemporaryAllWords);
 
   const showSetup = () => {
     setIsShow(prevState => !prevState);
@@ -88,9 +90,9 @@ export const Setting = () => {
 
         // je vybrána hvězdička
         if (isTemporaryFavorite) {
-          filterCategory = allWords.filter(word => word.category === isTemporaryCategory && word.favorite === isTemporaryFavorite);
+          filterCategory = isTemporaryAllWords.filter(word => word.category === isTemporaryCategory && word.favorite === isTemporaryFavorite);
         } else {
-          filterCategory = allWords.filter(word => word.category === isTemporaryCategory);
+          filterCategory = isTemporaryAllWords.filter(word => word.category === isTemporaryCategory);
           // console.log('filterCategory', filterCategory)
         }
 
@@ -108,7 +110,7 @@ export const Setting = () => {
         // setCategoryValue(isTemporaryCategory);
         // console.log('categoryValue', categoryValue);
       } else {
-        setAllWords(allWords);
+        setAllWords(isTemporaryAllWords);
         // setCategoryValue();
         // console.log('categoryValue', categoryValue);
       }
@@ -134,6 +136,7 @@ export const Setting = () => {
 
     setIsTemporaryCategory(isTemporaryCategory);
     setIsTemporaryCount("");
+    setIsTemporaryAllWords([]);
     setIsTemporaryCzech(isTemporaryCzech);
     setIsTemporaryFavorite(isTemporaryFavorite);
     setIsTemporaryAudio(isTemporaryAudio);
