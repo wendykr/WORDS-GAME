@@ -1,51 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 import { LuAlignJustify } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
-import { useWordsSetup } from '../../context/WordsSetupContext';
-// import { wordData } from '../../constants/words';
-import { supabase } from '../../supabaseClient';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    setAllWords, allWords,
-    setRandomWords, setCurrentWord
-    // categoryValue
-  } = useWordsSetup();
-
-  useEffect(() => {
-    getTerms();
-  }, []);
-
-  const getTerms = async () => {
-    try {
-
-      let { data: terms, error } = await supabase
-        .from('terms')
-        .select('*')
-        .order('id');
-  
-      if (error) {
-        console.error('Chyba při načítání dat:', error);
-        return;
-      }
-  
-      setAllWords(terms);
-      // console.log("terms", terms);
-    } catch (error) {
-      console.error('Neočekávaná chyba při načítání dat:', error);
-    }
-  }
 
   const handleCloseMenu = () => {
     setIsOpen(!isOpen);
-    setAllWords(allWords);
-    setCurrentWord();
-    setRandomWords([]);
-    // categoryValue();
   }
 
   const handleNavLinkClick = () => {

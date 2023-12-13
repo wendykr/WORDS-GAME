@@ -22,7 +22,7 @@ export const Setting = () => {
   } = useSettings();
 
   const {
-    setAllWords, allWords, 
+    setAllWords,
     setProgressbar,
     setInputValue,
     setResultState,
@@ -34,15 +34,15 @@ export const Setting = () => {
   } = useWordsSetup();
   
   const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
-  const [isTemporaryCategory, setIsTemporaryCategory] = useState(categoryValue);
-  const [isTemporaryCount, setIsTemporaryCount] = useState();
+  const [temporaryCategory, setTemporaryCategory] = useState(categoryValue);
+  const [temporaryCount, setTemporaryCount] = useState();
   const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
   const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
-  const [isTemporaryAllWords, setIsTemporaryAllWords] = useState();
+  const [temporaryAllWords, setTemporaryAllWords] = useState([]);
 
   useEffect(() => {
     getTerms();
-  }, [isTemporaryCategory]);
+  }, [temporaryCategory]);
 
   const getTerms = async () => {
     try {
@@ -57,15 +57,11 @@ export const Setting = () => {
         return;
       }
 
-      setIsTemporaryAllWords(terms);
-      // console.log("terms", terms);
+      setTemporaryAllWords(terms);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }
   }
-
-  // console.log('allWords', allWords);
-  // console.log('isTemporaryAllWords', isTemporaryAllWords);
 
   const showSetup = () => {
     setIsShow(prevState => !prevState);
@@ -77,47 +73,39 @@ export const Setting = () => {
     event.preventDefault();
     setIsShow(prevState => !prevState);
 
-    if (typeof isTemporaryCount === 'undefined' || isTemporaryCount <= 2) {
+    if (typeof temporaryCount === 'undefined' || temporaryCount <= 2) {
       alert('Count of words must be greater than 3.');
       setIsShow(true);
       return;
     } else {
       let filterCategory;
 
-      // je vybrána kategorie
-      if (isTemporaryCategory) {
-        console.log('isTemporaryCategory', isTemporaryCategory);
+      if (temporaryCategory) {
+        console.log('isTemporaryCategory', temporaryCategory);
 
-        // je vybrána hvězdička
         if (isTemporaryFavorite) {
-          filterCategory = isTemporaryAllWords.filter(word => word.category === isTemporaryCategory && word.favorite === isTemporaryFavorite);
+          filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
         } else {
-          filterCategory = isTemporaryAllWords.filter(word => word.category === isTemporaryCategory);
-          // console.log('filterCategory', filterCategory)
+          filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory);
         }
 
         // console.log('%c filterCategory ', 'background: red; color: white;');
         // console.log(...filterCategory);
 
-        if (filterCategory.length > 0 && filterCategory.length < isTemporaryCount) {
+        if (filterCategory.length > 0 && filterCategory.length < temporaryCount) {
           alert(`The maximum count of words is ${filterCategory.length}.`);
           setIsShow(true);
           return;
         } else {
-          // console.log("filterCategory", filterCategory)
           setAllWords(filterCategory);
         }
-        // setCategoryValue(isTemporaryCategory);
-        // console.log('categoryValue', categoryValue);
       } else {
-        setAllWords(isTemporaryAllWords);
-        // setCategoryValue();
-        // console.log('categoryValue', categoryValue);
+        setAllWords(temporaryAllWords);
       }
 
-      setCategoryValue(isTemporaryCategory);
+      setCategoryValue(temporaryCategory);
       console.log('categoryValue', categoryValue);
-      setSetupCountWord(isTemporaryCount);
+      setSetupCountWord(temporaryCount);
 
     }
 
@@ -134,9 +122,9 @@ export const Setting = () => {
 
     setIsShow(false);
 
-    setIsTemporaryCategory(isTemporaryCategory);
-    setIsTemporaryCount("");
-    setIsTemporaryAllWords([]);
+    setTemporaryCategory(temporaryCategory);
+    setTemporaryCount("");
+    setTemporaryAllWords([]);
     setIsTemporaryCzech(isTemporaryCzech);
     setIsTemporaryFavorite(isTemporaryFavorite);
     setIsTemporaryAudio(isTemporaryAudio);
@@ -146,7 +134,7 @@ export const Setting = () => {
 
     // console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
 
-    console.log('Category: ' + isTemporaryCategory);
+    // console.log('Category: ' + temporaryCategory);
     // console.log('Count: ' + isTemporaryCount);
     // console.log('isCzech: ' + isTemporaryCzech);
     // console.log('isFavorite: ' + isTemporaryFavorite);
@@ -178,7 +166,7 @@ export const Setting = () => {
               <div className="form__row--label">Words from the category</div>
               <div className="form__row--option">
                 <SelectList
-                  setTemporaryFunction={setIsTemporaryCategory}
+                  setTemporaryFunction={setTemporaryCategory}
                   categoryValue={categoryValue}
                 />
               </div>
@@ -187,8 +175,8 @@ export const Setting = () => {
               <div className="form__row--label">Count of words</div>
               <div className="form__row--option">
                   <InputField
-                    setTemporaryFunction={setIsTemporaryCount}
-                    setupCountWord={isTemporaryCount}
+                    setTemporaryFunction={setTemporaryCount}
+                    setupCountWord={temporaryCount}
                   />
               </div>
             </div>
