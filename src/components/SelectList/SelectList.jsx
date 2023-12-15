@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './SelectList.scss';
-// import { wordData } from '../../constants/words';
 import { supabase } from '../../supabaseClient';
 
 export const SelectList = ({
@@ -31,16 +30,12 @@ export const SelectList = ({
 
       const uniqueCategories = [...new Set(categoryData.map(item => item.category))];
 
-      // console.log("uniqueCategories", uniqueCategories);
-
       setCategories(uniqueCategories);
       setIsLoading(false);
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
     }
   }
-
-  // const uniqueCategories = [...new Set(wordData.map(oneOption => oneOption.category))].sort();
 
   const selectValue = (event) => {
     const selectedCategory = event.target.value;

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from'react';
 import './MatchPage.scss';
 import { Pair } from '../../components/Pair/Pair';
-// import { wordData } from '../../constants/words';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -18,7 +17,7 @@ export const MatchPage = () => {
     currentWord, setCurrentWord,
   } = useWordsSetup();
 
-  // const { speakWord } = useVoiceSpeak();
+  const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -74,9 +73,9 @@ export const MatchPage = () => {
     generateCurrentNewWord(randomWords);
   }, [randomWords]);
 
-  // useEffect(() => {
-  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  // }, [currentWord]);
+  useEffect(() => {
+    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  }, [currentWord]);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {

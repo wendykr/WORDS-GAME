@@ -36,7 +36,6 @@ export const Question = (
   const [isSecondEnter, setIsSecondEnter] = useState(false);
 
   useEffect(() => {
-    // console.log("NEW REFRESH");
 
     if (!id) return;
 
@@ -134,7 +133,6 @@ export const Question = (
   };
 
   const handleCheckResult = () => {
-    // console.log('%c handleCheckResult ', 'background:orange;color:white;');
     setIsSecondEnter(true);
 
     if (resultState === "") {
@@ -142,33 +140,25 @@ export const Question = (
 
       if (inputValue.toLowerCase() !== (isCzech ? enword.toLowerCase() : czword.toLowerCase())) {
         setResultState("incorrect");
-        console.log('%c incorrect ', 'background:red;color:white;');
       } else {
-        // console.log('%c updateProgressbar ', 'background:white;color:green;font-weight:bold;');
         updateProgressbar(true, true);
         setInputValue(inputValue);
         setResultState("correct");
-        console.log('%c correct ', 'background:green;color:white;');
       }
     }
   };
 
   const handleClick = () => {
-    // console.log('%c handleClick ', 'background:purple;color:white;');
-    console.log('resultState', resultState);
 
     if (resultState === "correct") {
       removeRandomWord();
     } else if (resultState === "dont-know" || resultState === "incorrect") {
-      // console.log(randomWords);
       generateCurrentNewWord(randomWords);
     }
 
     setInputValue("");
-    // console.log("inputValue", inputValue);
     setResultState("");
     setIsSecondEnter(false);
-    // console.log("resultState", resultState);
   };
 
   const handleSpeakWord = () => {

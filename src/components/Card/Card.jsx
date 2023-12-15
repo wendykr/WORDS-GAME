@@ -22,19 +22,12 @@ export const Card = (
     currentWordIndex,
   }) => {
 
-    // console.log('favorite', favorite);
-
-  // console.log('%c INIT currentWordIndex ', 'background:black;color:white;font-weight:bold;');
-  // console.log('currentWordIndex', currentWordIndex);
-
   const { isShow, setupCountWord, isCzech, isAudio } = useSettings();
   const { updateProgressbar, progressbar, isTurned, setIsTurned,
   } = useWordsSetup();
   const { speakWord } = useVoiceSpeak();
 
   const [isFavorite, setIsFavorite] = useState();
-
-  // console.log('Card setupCountWord', setupCountWord);
 
   const [isDisplay, setIsDisplay] = useState(false);
   const [repeat, setRepeat] = useState(false);
@@ -60,7 +53,6 @@ export const Card = (
   }, [repeat]);
 
   useEffect(() => {
-    // console.log("NEW REFRESH");
 
     if (!id) return;
 
@@ -118,17 +110,13 @@ export const Card = (
   };
 
   const handleClick = () => {
-    // console.log('isTurned BEFORE CLICK', isTurned);
     isTurned && setRepeat(true);
     setIsTurned(prevState => !prevState);
     setIsDisplay(false);
-    // console.log('isTurned AFTER CLICK', isTurned);
   };
 
   const handleClickPrev = () => {
-    // console.log('%c click PREV ', 'background:white;color:red;font-weight:bold;');
     if (currentWordIndex > 0) {
-      // console.log('isTurned PREV', isTurned);
       setIsTurned(prevValue => {
         if (prevValue) {
           setTimeout(() => {
@@ -143,13 +131,10 @@ export const Card = (
         return false;
       });
     }
-    // console.log('currentWordIndex', currentWordIndex);
   }
 
   const handleClickNext = () => {
-    // console.log('%c click NEXT ', 'background:white;color:green;font-weight:bold;');
     if (currentWordIndex < (setupCountWord - 1)) {
-      // console.log('isTurned NEXT', isTurned);
       setIsTurned(prevValue => {
         if (prevValue) {
           setTimeout(() => {
@@ -164,33 +149,25 @@ export const Card = (
         return false;
       });
     }
-    // console.log('currentWordIndex', currentWordIndex);
   }
 
   const handleSpeakWord = () => {
     isCzech ? '' : isAudio && speakWord(enword);
   }
 
-  // console.log('%c favoriteWords ', 'background: green; color: white;');
-  // console.log(favoriteWords);
-
   useEffect(() => {
     const handleKeyDown = (event) => {
-      // console.log(event.key);
 
       if (event.key === 'ArrowRight') {
-        // console.log('NEXT');
         handleClickNext();
       }
 
       if (event.key === 'ArrowLeft') {
-        // console.log('PREV');
         handleClickPrev();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    // console.log('%c Já jsem useEffect keydown', 'background:red;color:white;');
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);

@@ -1,36 +1,35 @@
-import React, {useState, useContext, createContext, useEffect} from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-// import { wordData } from '../constants/words';
 import { useSettings } from './SettingsContext';
 
 export const WordsSetupContext = createContext();
 
-export const WordsSetupProvider = ({children}) => {
-
+export const WordsSetupProvider = ({ children }) => {
   const { setupCountWord } = useSettings();
 
-  const [allWords, setAllWords] = useState([]); // všechna slova
-  const [randomWords, setRandomWords] = useState([]); // náhodná slova
-  const [currentWord, setCurrentWord] = useState(); // aktuální slovo
+  const [initialAllWords, setInitialAllWords] = useState([]);
+  const [allWords, setAllWords] = useState([]);
+  const [randomWords, setRandomWords] = useState([]);
+  const [currentWord, setCurrentWord] = useState();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [favoriteWords, setFavoriteWords] = useState([]);
-
   const [inputValue, setInputValue] = useState("");
   const [resultState, setResultState] = useState("");
-
   const [isTurned, setIsTurned] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-
   const [progressbar, setProgressbar] = useState(0);
 
   useEffect(() => {
-    getTerms();
-  }, []);
+    if (!initialAllWords.length) {
+      getTerms().then((terms) => {
+        setInitialAllWords(terms);
+        setAllWords(terms);
+      });
+    }
+  }, [initialAllWords]);
 
   const getTerms = async () => {
-
     try {
-
       let { data: terms, error } = await supabase
         .from('terms')
         .select('*')
@@ -38,14 +37,15 @@ export const WordsSetupProvider = ({children}) => {
 
       if (error) {
         console.error('Chyba při načítání dat:', error);
-        return;
+        return [];
       }
 
-      setAllWords(terms);
+      return terms;
     } catch (error) {
       console.error('Neočekávaná chyba při načítání dat:', error);
+      return [];
     }
-  }
+  };
 
   const updateProgressbar = (deg, up) => {
     setProgressbar((prevValue) => {
@@ -56,22 +56,36 @@ export const WordsSetupProvider = ({children}) => {
   };
 
   return (
-    <WordsSetupContext.Provider value={{
-      updateProgressbar,
-      progressbar, setProgressbar,
-      allWords, setAllWords,
-      randomWords, setRandomWords,
-      currentWord, setCurrentWord,
-      currentWordIndex, setCurrentWordIndex,
-      favoriteWords, setFavoriteWords,
-      inputValue, setInputValue,
-      resultState, setResultState,
-      isTurned, setIsTurned,
-      isDisabled, setIsDisabled,
-    }}>
+    <WordsSetupContext.Provider
+      value={{
+        updateProgressbar,
+        progressbar,
+        setProgressbar,
+        initialAllWords,
+        setInitialAllWords,
+        allWords,
+        setAllWords,
+        randomWords,
+        setRandomWords,
+        currentWord,
+        setCurrentWord,
+        currentWordIndex,
+        setCurrentWordIndex,
+        favoriteWords,
+        setFavoriteWords,
+        inputValue,
+        setInputValue,
+        resultState,
+        setResultState,
+        isTurned,
+        setIsTurned,
+        isDisabled,
+        setIsDisabled,
+      }}
+    >
       {children}
     </WordsSetupContext.Provider>
   );
-}
+};
 
 export const useWordsSetup = () => useContext(WordsSetupContext);

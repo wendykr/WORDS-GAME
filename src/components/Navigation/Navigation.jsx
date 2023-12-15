@@ -1,60 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 import { LuAlignJustify } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-// import { wordData } from '../../constants/words';
-import { supabase } from '../../supabaseClient';
+import { useSettings } from '../../context/SettingsContext';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    setAllWords, allWords,
-    setRandomWords, setCurrentWord
-    // categoryValue
+  const { setRandomWords, setCurrentWord,
+    initialAllWords, setAllWords 
   } = useWordsSetup();
 
-  useEffect(() => {
-    getTerms();
-  }, []);
-
-  const getTerms = async () => {
-    try {
-
-      let { data: terms, error } = await supabase
-        .from('terms')
-        .select('*')
-        .order('id');
-  
-      if (error) {
-        console.error('Chyba při načítání dat:', error);
-        return;
-      }
-  
-      setAllWords(terms);
-      // console.log("terms", terms);
-    } catch (error) {
-      console.error('Neočekávaná chyba při načítání dat:', error);
-    }
-  }
+  const { setCategoryValue,
+    setSetupCountWord,
+  } = useSettings();
 
   const handleCloseMenu = () => {
     setIsOpen(!isOpen);
-    setAllWords(allWords);
-    setCurrentWord();
     setRandomWords([]);
-    // categoryValue();
-  }
-
-  const handleNavLinkClick = () => {
-    handleCloseMenu();
-
-    // if (!confirm('Do you really want to leave and lose the current game?')) {
-    //   event.preventDefault();
-    //   return;
-    // }
+    setCurrentWord();
+    setAllWords(initialAllWords);
+    setCategoryValue();
+    setSetupCountWord(5);
   }
 
   return (
@@ -67,10 +36,10 @@ export const Navigation = () => {
         )}
       </div>
       <div className={`navigation__list ${isOpen ? 'show-navigation' : ''}`}>
-        <NavLink to="/" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Home </NavLink>
-        <NavLink to="/flashcards" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Flashcards </NavLink>
-        <NavLink to="/quiz" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Quiz </NavLink>
-        <NavLink to="/match" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleNavLinkClick} > Match </NavLink>
+        <NavLink to="/" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Home </NavLink>
+        <NavLink to="/flashcards" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Flashcards </NavLink>
+        <NavLink to="/quiz" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Quiz </NavLink>
+        <NavLink to="/match" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Match </NavLink>
       </div>
     </nav>
   );

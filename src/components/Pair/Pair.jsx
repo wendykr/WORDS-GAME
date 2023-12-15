@@ -59,27 +59,17 @@ export const Pair = ({
   const firstLetterCze = czword && czword[0];
   const firstLetterEng = enword && enword[0];
 
-  // console.log('%c refresh PAIR', 'background: red; color: white;');
-
-  // console.log('%c uniqueWords PAIR', 'background: purple; color: white;');
-  // console.log(uniqueWords);
-
   useEffect(() => {
     if (currentWord && uniqueWords) {
       setRecentWords(prevWords => {
         const newWords = [...prevWords, currentWord, ...uniqueWords].slice(-3);
         const shuffledWords = shuffleArray(newWords);
-        // console.log('recentWords', shuffledWords);
         return shuffledWords;
       });
     }
   }, [currentWord, uniqueWords]);
 
-  // console.log('%c recentWords PAIR', 'background: orange; color: white;');
-  // console.log(recentWords);
-
   useEffect(() => {
-    // console.log("NEW REFRESH");
 
     if (!id) return;
 
@@ -91,7 +81,6 @@ export const Pair = ({
         .single();
 
       setIsFavorite(data?.favorite);
-      // console.log(data.favorite);
     };
 
     getIsFavorite();
@@ -137,7 +126,6 @@ export const Pair = ({
     setIsDisplay(prevState => !prevState);
   };
 
-  // kliknu na dont-know
   const answerReveal = () => {
     isCzech && isAudio && speakWord(enword);
     setResultState("dont-know");
@@ -149,7 +137,6 @@ export const Pair = ({
     setIsDisabled(true);
   };
 
-  // kliknu na slovo
   const handleCheckWord = (id, markedWord) => {
     isCzech && isAudio && speakWord(markedWord);
     setSelectedMarkedId(id);
@@ -158,7 +145,6 @@ export const Pair = ({
     setIsDisplay(false);
   }
 
-  // kliknu na check
   const handleCheckResult = () => {
     setIsMarkedWord(false);
     setIsDisabled(true);
@@ -166,9 +152,7 @@ export const Pair = ({
     setSelectedMarkedId(0);
 
     if (resultState === "") {
-      // isCzech && isAudio && speakWord(enword);
 
-      // TRUE
       if (isSearchWord === (isCzech ? enword : czword)) {
         setResultState("correct");
         updateProgressbar(true, true);
@@ -177,7 +161,6 @@ export const Pair = ({
         setSelectedCurrentId(id);
       }
 
-      // FALSE
       if (isSearchWord !== (isCzech ? enword : czword)) {
         isCzech && isAudio && speakWord(enword);
         setSelectedFalseId(wordId);

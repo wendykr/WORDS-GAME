@@ -28,3 +28,6 @@ dist-ssr
 
 # Exclude .dio
 *.dio
+
+# Exclude constant
+.src/constants/*

@@ -3,7 +3,7 @@ import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -17,7 +17,7 @@ export const FlashcardPage = () => {
     currentWord, setCurrentWord
   } = useWordsSetup();
 
-  // const { speakWord } = useVoiceSpeak();
+  const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords FLASH ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -46,9 +46,9 @@ export const FlashcardPage = () => {
     generateCurrentNewWord(randomWords, currentWordIndex);
   }, [currentWordIndex, randomWords]);
 
-  // useEffect(() => {
-  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  // }, [currentWord?.enword]);
+  useEffect(() => {
+    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  }, [currentWord?.enword]);
 
   const generateCurrentNewWord = (wordsArray, index) => {
     setCurrentWord(wordsArray[index]);

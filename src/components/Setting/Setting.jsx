@@ -5,7 +5,6 @@ import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
 import { useSettings } from '../../context/SettingsContext';
 import { useWordsSetup } from '../../context/WordsSetupContext';
-import { supabase } from '../../supabaseClient';
 
 import { IoSettingsSharp } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
@@ -23,6 +22,7 @@ export const Setting = () => {
 
   const {
     setAllWords,
+    initialAllWords,
     setProgressbar,
     setInputValue,
     setResultState,
@@ -32,7 +32,7 @@ export const Setting = () => {
     setRandomWords,
     setCurrentWord
   } = useWordsSetup();
-  
+
   const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
   const [temporaryCategory, setTemporaryCategory] = useState(categoryValue);
   const [temporaryCount, setTemporaryCount] = useState();
@@ -41,34 +41,14 @@ export const Setting = () => {
   const [temporaryAllWords, setTemporaryAllWords] = useState([]);
 
   useEffect(() => {
-    getTerms();
-  }, [temporaryCategory]);
-
-  const getTerms = async () => {
-    try {
-
-      let { data: terms, error } = await supabase
-        .from('terms')
-        .select('*')
-        .order('id');
-
-      if (error) {
-        console.error('Chyba při načítání dat:', error);
-        return;
-      }
-
-      setTemporaryAllWords(terms);
-    } catch (error) {
-      console.error('Neočekávaná chyba při načítání dat:', error);
-    }
-  }
+    setTemporaryAllWords(initialAllWords);
+  }, [categoryValue]);
 
   const showSetup = () => {
     setIsShow(prevState => !prevState);
   };
 
   const handleSubmit = (event) => {
-    // console.log("submit");
 
     event.preventDefault();
     setIsShow(prevState => !prevState);
@@ -81,17 +61,12 @@ export const Setting = () => {
       let filterCategory;
 
       if (temporaryCategory) {
-        console.log('isTemporaryCategory', temporaryCategory);
-
         if (isTemporaryFavorite) {
           filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
         } else {
           filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory);
         }
-
-        // console.log('%c filterCategory ', 'background: red; color: white;');
-        // console.log(...filterCategory);
-
+  
         if (filterCategory.length > 0 && filterCategory.length < temporaryCount) {
           alert(`The maximum count of words is ${filterCategory.length}.`);
           setIsShow(true);
@@ -100,13 +75,11 @@ export const Setting = () => {
           setAllWords(filterCategory);
         }
       } else {
-        setAllWords(temporaryAllWords);
+        setAllWords(initialAllWords);
       }
 
       setCategoryValue(temporaryCategory);
-      console.log('categoryValue', categoryValue);
       setSetupCountWord(temporaryCount);
-
     }
 
     setIsCzech(isTemporaryCzech);
@@ -131,14 +104,6 @@ export const Setting = () => {
 
     setIsTurned(false);
     setIsDisabled(false);
-
-    // console.log('%c !!! SAVE !!! ', 'background: green; color: white;');
-
-    // console.log('Category: ' + temporaryCategory);
-    // console.log('Count: ' + isTemporaryCount);
-    // console.log('isCzech: ' + isTemporaryCzech);
-    // console.log('isFavorite: ' + isTemporaryFavorite);
-    // console.log('isAudio: ' + isTemporaryAudio);
   }
 
   return (
