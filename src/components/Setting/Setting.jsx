@@ -66,7 +66,7 @@ export const Setting = () => {
         } else {
           filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory);
         }
-  
+
         if (filterCategory.length > 0 && filterCategory.length < temporaryCount) {
           alert(`The maximum count of words is ${filterCategory.length}.`);
           setIsShow(true);
@@ -75,7 +75,12 @@ export const Setting = () => {
           setAllWords(filterCategory);
         }
       } else {
-        setAllWords(initialAllWords);
+        if (isTemporaryFavorite) {
+          const favoriteWords = initialAllWords.filter(word => word.favorite === isTemporaryFavorite);
+          setAllWords(favoriteWords);
+        } else {
+          setAllWords(initialAllWords);
+        }
       }
 
       setCategoryValue(temporaryCategory);
