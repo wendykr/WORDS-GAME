@@ -100,7 +100,7 @@ export const Setting = () => {
 
     setIsShow(false);
 
-    setTemporaryCategory(temporaryCategory);
+    setTemporaryCategory("");
     setTemporaryCount("");
     setTemporaryAllWords([]);
     setIsTemporaryCzech(isTemporaryCzech);

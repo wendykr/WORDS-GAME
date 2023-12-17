@@ -4,7 +4,7 @@ import './QuizPage.scss';
 import { Question } from '../../components/Question/Question';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -18,7 +18,7 @@ export const QuizPage = () => {
     currentWord, setCurrentWord,
   } = useWordsSetup();
 
-  const { speakWord } = useVoiceSpeak();
+  // const { speakWord } = useVoiceSpeak();
 
   console.log('%c randomWords QUIZ', 'background: gray; color: white;');
   console.log(randomWords);
@@ -46,9 +46,9 @@ export const QuizPage = () => {
     generateCurrentNewWord(randomWords);
   }, [randomWords]);
 
-  useEffect(() => {
-    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  }, [currentWord?.enword]);
+  // useEffect(() => {
+  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  // }, [currentWord?.enword]);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
