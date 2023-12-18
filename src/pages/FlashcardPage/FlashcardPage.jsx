@@ -9,7 +9,7 @@ import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 generateRandomNumber();
 
 export const FlashcardPage = () => {
-  const { setupCountWord, isCzech, isAudio, categoryValue } = useSettings();
+  const { setupCountWord, isCzech, isAudio, isFavorite } = useSettings();
   const {
     allWords,
     randomWords, setRandomWords,
@@ -40,7 +40,7 @@ export const FlashcardPage = () => {
     setRandomWords(randomIndx);
     generateCurrentNewWord(randomIndx);
 
-  }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
+  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords, currentWordIndex);

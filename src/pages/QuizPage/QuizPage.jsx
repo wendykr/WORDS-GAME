@@ -11,7 +11,7 @@ generateRandomNumber();
 
 export const QuizPage = () => {
 
-  const { setupCountWord, isCzech, isAudio, categoryValue } = useSettings();
+  const { setupCountWord, isCzech, isAudio, isFavorite } = useSettings();
   const {
     allWords,
     randomWords, setRandomWords,
@@ -40,7 +40,7 @@ export const QuizPage = () => {
 
     setRandomWords(randomIndx);
     generateCurrentNewWord(randomIndx);
-  }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
+  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);

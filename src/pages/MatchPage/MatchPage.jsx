@@ -10,7 +10,7 @@ generateRandomNumber();
 
 export const MatchPage = () => {
 
-  const { setupCountWord, isCzech, isAudio, categoryValue } = useSettings();
+  const { setupCountWord, isCzech, isAudio, isFavorite } = useSettings();
   const {
     allWords,
     randomWords, setRandomWords,
@@ -42,7 +42,7 @@ export const MatchPage = () => {
     setRandomWords(randomIndx);
 
     generateCurrentNewWord(randomIndx);
-  }, [allWords.length, setupCountWord, isCzech, isAudio, categoryValue]);
+  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite]);
 
   useEffect(() => {
     if (!allWords || allWords.length === 0) {
@@ -67,7 +67,7 @@ export const MatchPage = () => {
       setUniqueWords(randomIndx);
     }
 
-  }, [allWords.length, currentWord]);
+  }, [currentWord]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);
