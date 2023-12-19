@@ -22,16 +22,17 @@ export const Setting = () => {
   } = useSettings();
 
   const {
+    setProgressbar,
     setAllWords,
     initialAllWords,
-    setProgressbar,
+    setRandomWords,
+    setCurrentWord,
+    setCurrentWordIndex,
     setInputValue,
     setResultState,
-    setCurrentWordIndex,
     setIsTurned,
     setIsDisabled,
-    setRandomWords,
-    setCurrentWord
+    setIsReplay
   } = useWordsSetup();
 
   const location = useLocation();
@@ -66,83 +67,102 @@ export const Setting = () => {
 
   const showSetup = () => {
     setIsShow(prevState => !prevState);
+    setIsReplay(false);
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     // console.log('temporaryCount', temporaryCount);
     console.log('handleSubmit START');
 
     // console.log('categoryValue', categoryValue);
     // console.log('temporaryCategory', temporaryCategory);
 
-    event.preventDefault();
-    setIsShow(prevState => !prevState);
+    const valuesChanged = (
+      isTemporaryCzech !== isCzech ||
+      temporaryCategory !== categoryValue ||
+      temporaryCount !== setupCountWord ||
+      isTemporaryFavorite !== isFavorite ||
+      isTemporaryAudio !== isAudio
+    );
 
-    if (typeof temporaryCount === 'undefined' || temporaryCount <= 2) {
-      alert('Count of words must be greater than 3.');
-      setIsShow(true);
-      return;
-    } else {
-      let filterCategory;
-      console.log('temporaryCount');
-
-      if (temporaryCategory) {
-        console.log('isTemporaryCategory');
-        if (isTemporaryFavorite) {
-          console.log('isTemporaryFavorite');
-          filterCategory = initialAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
-        } else {
-          filterCategory = initialAllWords.filter(word => word.category === temporaryCategory);
-        }
-
-        if (filterCategory.length > 0 && filterCategory.length < temporaryCount) {
-          alert(`The maximum count of words is ${filterCategory.length}.`);
-          setIsShow(true);
-          return;
-        } else {
-          setAllWords(filterCategory);
-        }
-      } else {
-        console.log('notTemporaryCategory');
-        if (categoryValue === temporaryCategory) {
-          console.log('categoryValue === temporaryCategory');
-          if (isTemporaryFavorite) {
-            console.log('isTemporaryFavorite');
-            const favoriteWords = initialAllWords.filter(word => word.favorite === isTemporaryFavorite);
-            setAllWords(favoriteWords);
-          } else {
-            console.log(initialAllWords);
-            setAllWords(initialAllWords);
-          }
-
-        } else if (temporaryCategory !== '') {
-          console.log('temporaryCategory !== ""');
-          // console.log('temporaryCategory', temporaryCategory);
-          if (isTemporaryFavorite) {
-            filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
-          } else {
-            filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory);
-          }
-
-        } else {
-          if (isTemporaryFavorite) {
-            filterCategory = temporaryAllWords.filter(word => word.favorite === isTemporaryFavorite);
-          } else {
-            filterCategory = temporaryAllWords;
-          }
-          setAllWords(filterCategory);
-        }
-      }
-
+    if (!valuesChanged) {
+      setIsReplay(true);
+      console.log('No changes values.');
       setCategoryValue(temporaryCategory);
       setSetupCountWord(temporaryCount);
+      setIsCzech(isTemporaryCzech);
+      setIsFavorite(isTemporaryFavorite);
+      setIsAudio(isTemporaryAudio);
+    } else {
+      // setIsShow(prevState => !prevState);
+
+      if (typeof temporaryCount === 'undefined' || temporaryCount <= 2) {
+        alert('Count of words must be greater than 3.');
+        setIsShow(true);
+        return;
+      } else {
+        let filterCategory;
+        console.log('temporaryCount');
+
+        if (temporaryCategory) {
+          console.log('isTemporaryCategory');
+          if (isTemporaryFavorite) {
+            console.log('isTemporaryFavorite');
+            filterCategory = initialAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
+          } else {
+            filterCategory = initialAllWords.filter(word => word.category === temporaryCategory);
+          }
+
+          if (filterCategory.length > 0 && filterCategory.length < temporaryCount) {
+            alert(`The maximum count of words is ${filterCategory.length}.`);
+            setIsShow(true);
+            return;
+          } else {
+            setAllWords(filterCategory);
+          }
+        } else {
+          console.log('notTemporaryCategory');
+          if (categoryValue === temporaryCategory) {
+            console.log('categoryValue === temporaryCategory');
+            if (isTemporaryFavorite) {
+              console.log('isTemporaryFavorite');
+              const favoriteWords = initialAllWords.filter(word => word.favorite === isTemporaryFavorite);
+              setAllWords(favoriteWords);
+            } else {
+              console.log(initialAllWords);
+              setAllWords(initialAllWords);
+            }
+
+          } else if (temporaryCategory !== '') {
+            console.log('temporaryCategory !== ""');
+            // console.log('temporaryCategory', temporaryCategory);
+            if (isTemporaryFavorite) {
+              filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
+            } else {
+              filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory);
+            }
+
+          } else {
+            if (isTemporaryFavorite) {
+              filterCategory = temporaryAllWords.filter(word => word.favorite === isTemporaryFavorite);
+            } else {
+              filterCategory = temporaryAllWords;
+            }
+            setAllWords(filterCategory);
+          }
+        }
+
+        setCategoryValue(temporaryCategory);
+        setSetupCountWord(temporaryCount);
+      }
+
+      console.log('handleSubmit END');
+
+      setIsCzech(isTemporaryCzech);
+      setIsFavorite(isTemporaryFavorite);
+      setIsAudio(isTemporaryAudio);
     }
-
-    console.log('handleSubmit END');
-
-    setIsCzech(isTemporaryCzech);
-    setIsFavorite(isTemporaryFavorite);
-    setIsAudio(isTemporaryAudio);
     setProgressbar(0);
 
     setInputValue("");

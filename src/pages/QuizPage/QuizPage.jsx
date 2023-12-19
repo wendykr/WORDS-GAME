@@ -16,6 +16,7 @@ export const QuizPage = () => {
     allWords,
     randomWords, setRandomWords,
     currentWord, setCurrentWord,
+    isReplay
   } = useWordsSetup();
 
   // const { speakWord } = useVoiceSpeak();
@@ -40,7 +41,7 @@ export const QuizPage = () => {
 
     setRandomWords(randomIndx);
     generateCurrentNewWord(randomIndx);
-  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite]);
+  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite, isReplay]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords);

@@ -15,6 +15,7 @@ export const MatchPage = () => {
     allWords,
     randomWords, setRandomWords,
     currentWord, setCurrentWord,
+    isReplay
   } = useWordsSetup();
 
   // const { speakWord } = useVoiceSpeak();
@@ -42,7 +43,7 @@ export const MatchPage = () => {
     setRandomWords(randomIndx);
 
     generateCurrentNewWord(randomIndx);
-  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite]);
+  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite, isReplay]);
 
   useEffect(() => {
     if (!allWords || allWords.length === 0) {

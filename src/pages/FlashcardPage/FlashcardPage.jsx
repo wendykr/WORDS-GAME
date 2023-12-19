@@ -14,7 +14,8 @@ export const FlashcardPage = () => {
     allWords,
     randomWords, setRandomWords,
     currentWordIndex, setCurrentWordIndex,
-    currentWord, setCurrentWord
+    currentWord, setCurrentWord,
+    isReplay
   } = useWordsSetup();
 
   // const { speakWord } = useVoiceSpeak();
@@ -40,7 +41,7 @@ export const FlashcardPage = () => {
     setRandomWords(randomIndx);
     generateCurrentNewWord(randomIndx);
 
-  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite]);
+  }, [allWords.length, setupCountWord, isCzech, isAudio, isFavorite, isReplay]);
 
   useEffect(() => {
     generateCurrentNewWord(randomWords, currentWordIndex);

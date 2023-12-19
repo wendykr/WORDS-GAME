@@ -25,8 +25,7 @@ export const VoiceSpeakProvider = ({ children }) => {
   return (
     <VoiceSpeakContext.Provider
       value={{
-        currentVoice,
-        setCurrentVoice,
+        currentVoice, setCurrentVoice,
         speakWord,
       }}
     >

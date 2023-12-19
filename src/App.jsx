@@ -17,8 +17,9 @@ function App() {
   } = useSettings();
 
   const {
-    initialAllWords, setAllWords, 
-    setCurrentWord, setCurrentWordIndex, setProgressbar, setInputValue, setResultState, setIsTurned, setIsDisabled
+    initialAllWords, setAllWords,
+    setCurrentWord, setCurrentWordIndex,
+    setProgressbar, setInputValue, setResultState, setIsTurned, setIsDisabled, setIsReplay
   } = useWordsSetup();
 
   const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
     setResultState("");
     setIsTurned(false);
     setIsDisabled(false);
+    setIsReplay(false);
   }, [path]);
 
   return (

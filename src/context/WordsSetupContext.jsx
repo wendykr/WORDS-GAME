@@ -18,6 +18,7 @@ export const WordsSetupProvider = ({ children }) => {
   const [isTurned, setIsTurned] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [progressbar, setProgressbar] = useState(0);
+  const [isReplay, setIsReplay] = useState(false);
 
   useEffect(() => {
     if (!initialAllWords.length) {
@@ -59,28 +60,18 @@ export const WordsSetupProvider = ({ children }) => {
     <WordsSetupContext.Provider
       value={{
         updateProgressbar,
-        progressbar,
-        setProgressbar,
-        initialAllWords,
-        setInitialAllWords,
-        allWords,
-        setAllWords,
-        randomWords,
-        setRandomWords,
-        currentWord,
-        setCurrentWord,
-        currentWordIndex,
-        setCurrentWordIndex,
-        favoriteWords,
-        setFavoriteWords,
-        inputValue,
-        setInputValue,
-        resultState,
-        setResultState,
-        isTurned,
-        setIsTurned,
-        isDisabled,
-        setIsDisabled,
+        progressbar, setProgressbar,
+        initialAllWords, setInitialAllWords,
+        allWords, setAllWords,
+        randomWords, setRandomWords,
+        currentWord, setCurrentWord,
+        currentWordIndex, setCurrentWordIndex,
+        favoriteWords, setFavoriteWords,
+        inputValue, setInputValue,
+        resultState, setResultState,
+        isTurned, setIsTurned,
+        isDisabled, setIsDisabled,
+        isReplay, setIsReplay
       }}
     >
       {children}
