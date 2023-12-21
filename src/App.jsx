@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useWordsSetup } from './context/WordsSetupContext';
+import { useTemporary } from './context/TemporaryContext';
 import { useSettings } from './context/SettingsContext';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
@@ -21,6 +22,15 @@ function App() {
     setCurrentWord, setCurrentWordIndex,
     setProgressbar, setInputValue, setResultState, setIsTurned, setIsDisabled, setIsReplay
   } = useWordsSetup();
+
+  const {
+    setIsTemporaryCzech,
+    setTemporaryCategory,
+    setTemporaryCount,
+    setIsTemporaryFavorite,
+    setIsTemporaryAudio,
+    setTemporaryAllWords
+  } = useTemporary();
 
   const location = useLocation();
 
@@ -43,6 +53,12 @@ function App() {
     setIsTurned(false);
     setIsDisabled(false);
     setIsReplay(false);
+    setIsTemporaryCzech();
+    setTemporaryCategory();
+    setTemporaryCount();
+    setIsTemporaryFavorite();
+    setIsTemporaryAudio();
+    setTemporaryAllWords();
   }, [path]);
 
   return (

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Setting.scss';
-import { useLocation } from 'react-router-dom';
 import { RadioButton } from '../RadioButton/RadioButton';
 import { SelectList } from '../SelectList/SelectList';
 import { InputField } from '../InputField/InputField';
 import { useSettings } from '../../context/SettingsContext';
+import { useTemporary } from '../../context/TemporaryContext';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 
 import { IoSettingsSharp } from 'react-icons/io5';
@@ -22,6 +22,15 @@ export const Setting = () => {
   } = useSettings();
 
   const {
+    isTemporaryCzech, setIsTemporaryCzech,
+    temporaryCategory, setTemporaryCategory,
+    temporaryCount, setTemporaryCount,
+    isTemporaryFavorite, setIsTemporaryFavorite,
+    isTemporaryAudio, setIsTemporaryAudio,
+    temporaryAllWords, setTemporaryAllWords
+  } = useTemporary();
+
+  const {
     setProgressbar,
     setAllWords,
     initialAllWords,
@@ -35,35 +44,18 @@ export const Setting = () => {
     setIsReplay
   } = useWordsSetup();
 
-  const location = useLocation();
-  const path = location.pathname;
-
-  const [isTemporaryCzech, setIsTemporaryCzech] = useState(isCzech);
-  const [temporaryCategory, setTemporaryCategory] = useState(categoryValue);
-  const [temporaryCount, setTemporaryCount] = useState(setupCountWord);
-  const [isTemporaryFavorite, setIsTemporaryFavorite] = useState(isFavorite);
-  const [isTemporaryAudio, setIsTemporaryAudio] = useState(isAudio);
-  const [temporaryAllWords, setTemporaryAllWords] = useState([]);
-
-  // console.log('START temporaryCategory', temporaryCategory);
-  // console.log('START categoryValue', categoryValue);
-
-  // console.log('isTemporaryCzech', isTemporaryCzech);
-  // console.log('isCzech', isCzech);
-
   useEffect(() => {
     setTemporaryAllWords(initialAllWords);
   }, [categoryValue, isCzech, isAudio, isFavorite, setupCountWord]);
 
   useEffect(() => {
-    // console.log('useEffect path');
-    setIsTemporaryCzech(true);
+    setIsTemporaryCzech(isCzech);
     setTemporaryCategory(categoryValue);
-    setTemporaryCount(5);
-    setIsTemporaryFavorite(false);
-    setIsTemporaryAudio(true);
+    setTemporaryCount(setupCountWord);
+    setIsTemporaryFavorite(isFavorite);
+    setIsTemporaryAudio(isAudio);
     setTemporaryAllWords([]);
-  }, [path]);
+  }, []);
 
   const showSetup = () => {
     setIsShow(prevState => !prevState);
@@ -72,11 +64,6 @@ export const Setting = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log('temporaryCount', temporaryCount);
-    console.log('handleSubmit START');
-
-    // console.log('categoryValue', categoryValue);
-    // console.log('temporaryCategory', temporaryCategory);
 
     const valuesChanged = (
       isTemporaryCzech !== isCzech ||
@@ -88,27 +75,21 @@ export const Setting = () => {
 
     if (!valuesChanged) {
       setIsReplay(true);
-      console.log('No changes values.');
       setCategoryValue(temporaryCategory);
       setSetupCountWord(temporaryCount);
       setIsCzech(isTemporaryCzech);
       setIsFavorite(isTemporaryFavorite);
       setIsAudio(isTemporaryAudio);
     } else {
-      // setIsShow(prevState => !prevState);
-
       if (typeof temporaryCount === 'undefined' || temporaryCount <= 2) {
         alert('Count of words must be greater than 3.');
         setIsShow(true);
         return;
       } else {
         let filterCategory;
-        console.log('temporaryCount');
 
         if (temporaryCategory) {
-          console.log('isTemporaryCategory');
           if (isTemporaryFavorite) {
-            console.log('isTemporaryFavorite');
             filterCategory = initialAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
           } else {
             filterCategory = initialAllWords.filter(word => word.category === temporaryCategory);
@@ -122,21 +103,15 @@ export const Setting = () => {
             setAllWords(filterCategory);
           }
         } else {
-          console.log('notTemporaryCategory');
           if (categoryValue === temporaryCategory) {
-            console.log('categoryValue === temporaryCategory');
             if (isTemporaryFavorite) {
-              console.log('isTemporaryFavorite');
               const favoriteWords = initialAllWords.filter(word => word.favorite === isTemporaryFavorite);
               setAllWords(favoriteWords);
             } else {
-              console.log(initialAllWords);
               setAllWords(initialAllWords);
             }
 
           } else if (temporaryCategory !== '') {
-            console.log('temporaryCategory !== ""');
-            // console.log('temporaryCategory', temporaryCategory);
             if (isTemporaryFavorite) {
               filterCategory = temporaryAllWords.filter(word => word.category === temporaryCategory && word.favorite === isTemporaryFavorite);
             } else {
@@ -156,8 +131,6 @@ export const Setting = () => {
         setCategoryValue(temporaryCategory);
         setSetupCountWord(temporaryCount);
       }
-
-      console.log('handleSubmit END');
 
       setIsCzech(isTemporaryCzech);
       setIsFavorite(isTemporaryFavorite);

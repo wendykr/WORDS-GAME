@@ -10,6 +10,7 @@ import { MatchPage } from './pages/MatchPage/MatchPage';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 import { WordsSetupProvider } from './context/WordsSetupContext';
 import { SettingsProvider } from './context/SettingsContext';
+import { TemporaryProvider } from './context/TemporaryContext';
 import { VoiceSpeakProvider } from './context/VoiceSpeakContext.jsx';
 
 const router = createBrowserRouter([
@@ -43,10 +44,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <VoiceSpeakProvider>
-    <SettingsProvider>
-      <WordsSetupProvider>
-        <RouterProvider router={router} />
-      </WordsSetupProvider>
-    </SettingsProvider>
+    <TemporaryProvider>
+      <SettingsProvider>
+        <WordsSetupProvider>
+          <RouterProvider router={router} />
+        </WordsSetupProvider>
+      </SettingsProvider>
+    </TemporaryProvider>
   </VoiceSpeakProvider>
 );
