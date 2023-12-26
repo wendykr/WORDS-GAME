@@ -63,7 +63,12 @@ export const Question = (
             handleClick();
             setIsSecondEnter(false);
           } else {
-            showSetting();
+            if (resultState === "correct") {
+              showSetting();
+            } else {
+              handleClick();
+              setIsSecondEnter(false);
+            }
           }
         } else {
           setIsSecondEnter(true);
