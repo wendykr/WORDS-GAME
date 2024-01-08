@@ -181,6 +181,7 @@ export const Question = (
 
   const showSetting = () => {
     setIsShow(true);
+    setIsSecondEnter(prevState => !prevState);
   }
 
   return (

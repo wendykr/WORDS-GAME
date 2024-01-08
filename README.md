@@ -12,12 +12,12 @@ Vytvořit projekt, na kterém se chci naučit základy Reactu a současně mi bu
 
 
 ## Abstrakt  
-Hlavním tématem a cílem projektu bylo vytvořit aplikaci na procvičování anglické slovní zásoby s moduly:  
+Hlavním tématem a cílem projektu bylo vytvořit aplikaci na procvičování anglické slovní zásoby s módy:  
 - **Flashcard** - na kartičce zobrazit slovo, po kliknutí na kartičku ji otočit a zobrazit překlad slova.
 - **Quiz** - do vstupního pole (*input*) psát překlad zobrazeného slova. S možností nápovědy prvního písmena (*Hint*), nebo zobrazení správného překladu slova (*Don't know*).
 - **Match** - vybrat správný překlad zobrazeného slova kliknutím na jedno ze 3 náhodně vygenerovaných slov.
 
-Napříč moduly měnit výchozí nastavení aplikace v **Setting** - jazyk, počet slov, kategorizaci slov, oblíbená slova a zvuk.
+Napříč módy měnit výchozí nastavení aplikace v **Setting** - jazyk, počet slov, kategorizaci slov, oblíbená slova a zvuk.
 
 
 ## Rozsah a realizace

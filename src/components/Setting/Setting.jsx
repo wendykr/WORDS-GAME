@@ -74,7 +74,7 @@ export const Setting = () => {
     );
 
     if (!valuesChanged) {
-      setIsReplay(true);
+      setIsReplay(prevState => !prevState);
       setCategoryValue(temporaryCategory);
       setSetupCountWord(temporaryCount);
       setIsCzech(isTemporaryCzech);
