@@ -4,7 +4,7 @@ import './QuizPage.scss';
 import { Question } from '../../components/Question/Question';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -19,10 +19,7 @@ export const QuizPage = () => {
     isReplay
   } = useWordsSetup();
 
-  // const { speakWord } = useVoiceSpeak();
-
-  console.log('%c randomWords QUIZ', 'background: gray; color: white;');
-  console.log(randomWords);
+  const { speakWord } = useVoiceSpeak();
 
   useEffect(() => {
     if (!allWords || allWords.length === 0) {
@@ -47,9 +44,9 @@ export const QuizPage = () => {
     generateCurrentNewWord(randomWords);
   }, [randomWords]);
 
-  // useEffect(() => {
-  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  // }, [currentWord?.enword]);
+  useEffect(() => {
+    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  }, [currentWord?.enword]);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
@@ -71,8 +68,6 @@ export const QuizPage = () => {
   const getIsFavorite = async () => {
     return await supabase.from("terms").select("favorite");
   };
-
-  console.log("Aktuální slovo v QuizPage:", currentWord);
 
   return (
     <main className="quiz">

@@ -3,7 +3,7 @@ import './FlashcardPage.scss';
 import { Card } from '../../components/Card/Card';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -18,10 +18,7 @@ export const FlashcardPage = () => {
     isReplay
   } = useWordsSetup();
 
-  // const { speakWord } = useVoiceSpeak();
-
-  console.log('%c randomWords FLASH ', 'background: gray; color: white;');
-  console.log(randomWords);
+  const { speakWord } = useVoiceSpeak();
 
   useEffect(() => {
     if (!allWords || allWords.length === 0) {
@@ -47,15 +44,13 @@ export const FlashcardPage = () => {
     generateCurrentNewWord(randomWords, currentWordIndex);
   }, [currentWordIndex, randomWords]);
 
-  // useEffect(() => {
-  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  // }, [currentWord?.enword]);
+  useEffect(() => {
+    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  }, [currentWord?.enword]);
 
   const generateCurrentNewWord = (wordsArray, index) => {
     setCurrentWord(wordsArray[index]);
   };
-
-  console.log("Aktuální slovo ve FlashcardsPage:", currentWord);
 
   return (
     <main className="flashcards">

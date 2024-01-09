@@ -3,7 +3,7 @@ import './MatchPage.scss';
 import { Pair } from '../../components/Pair/Pair';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
-// import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
 import { generateRandomNumber } from '../../helpers/generateRandomNumber';
 
 generateRandomNumber();
@@ -18,10 +18,7 @@ export const MatchPage = () => {
     isReplay
   } = useWordsSetup();
 
-  // const { speakWord } = useVoiceSpeak();
-
-  console.log('%c randomWords QUIZ', 'background: gray; color: white;');
-  console.log(randomWords);
+  const { speakWord } = useVoiceSpeak();
 
   const [uniqueWords, setUniqueWords] = useState([]);
 
@@ -74,9 +71,9 @@ export const MatchPage = () => {
     generateCurrentNewWord(randomWords);
   }, [randomWords]);
 
-  // useEffect(() => {
-  //   isCzech ? '' : isAudio && speakWord(currentWord?.enword);
-  // }, [currentWord]);
+  useEffect(() => {
+    isCzech ? '' : isAudio && speakWord(currentWord?.enword);
+  }, [currentWord?.enword]);
 
   const removeRandomWord = () => {
     setRandomWords((prevRandomWords) => {
@@ -91,8 +88,6 @@ export const MatchPage = () => {
     const newObject = Object.assign({}, wordsArray[generateRandomNumber(wordsArray.length)]);
     setCurrentWord(newObject);
   };
-
-  console.log("Aktuální slovo v MatchPage:", currentWord);
 
   return (
     <main className="match">

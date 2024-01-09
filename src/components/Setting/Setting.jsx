@@ -54,7 +54,6 @@ export const Setting = () => {
     setTemporaryCount(setupCountWord);
     setIsTemporaryFavorite(isFavorite);
     setIsTemporaryAudio(isAudio);
-    setTemporaryAllWords([]);
   }, []);
 
   const showSetup = () => {
