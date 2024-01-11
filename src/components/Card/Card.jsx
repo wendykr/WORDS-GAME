@@ -152,7 +152,7 @@ export const Card = (
   }
 
   const handleSpeakWord = () => {
-    isCzech ? '' : isAudio && speakWord(enword);
+    speakWord(enword);
   }
 
   useEffect(() => {
@@ -219,7 +219,7 @@ export const Card = (
               <span className="icons--left">
                 { isCzech && (
                   isAudio ? 
-                  <FaVolumeUp className="icon-volume" onClick={speakWord} title="Repeat speak" />
+                  <FaVolumeUp className="icon-volume" onClick={handleSpeakWord} title="Repeat speak" />
                   :
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
