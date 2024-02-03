@@ -32,8 +32,8 @@ export const Card = (
   const [isDisplay, setIsDisplay] = useState(false);
   const [repeat, setRepeat] = useState(false);
 
-  const firstLetterCze = czword && czword[0];
-  const firstLetterEng = enword && enword[0];
+  const firstLetterCze = czword ? czword.toLowerCase()[0] : '';
+  const firstLetterEng = enword ? enword.toLowerCase()[0] : '';
 
   useEffect(() => {
     if (isTurned && isCzech && isAudio) {
@@ -205,7 +205,7 @@ export const Card = (
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
-              <h2 className="front-word">{isCzech ? czword : enword}</h2>
+              <h2 className="front-word">{isCzech ? (czword?.toLowerCase() || '') : (enword?.toLowerCase() || '')}</h2>
             </div>
           </div>
           <div className="card__body--back">
@@ -228,7 +228,7 @@ export const Card = (
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
-              <h2 className="front-word">{isCzech ? enword : czword}</h2>
+            <h2 className="front-word">{isCzech ? (enword?.toLowerCase() || '') : (czword?.toLowerCase() || '')}</h2>
             </div>
           </div>
         </div>

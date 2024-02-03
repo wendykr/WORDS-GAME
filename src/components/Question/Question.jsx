@@ -121,13 +121,13 @@ export const Question = (
   }
 
   const showFirstLetter = () => {
-    const currentValue = isCzech ? enword[0] : czword[0];
+    const currentValue = isCzech ? (enword && enword[0]?.toLowerCase()) : (czword && czword[0]?.toLowerCase());
     setInputValue(currentValue);
     refInput.current.focus();
   };
 
   const answerReveal = () => {
-    setInputValue(isCzech ? enword : czword);
+    setInputValue(isCzech ? (enword && enword.toLowerCase()) : (czword && czword.toLowerCase()));
     setResultState("dont-know");
     isCzech && isAudio && speakWord(enword);
   };
@@ -200,10 +200,19 @@ export const Question = (
         />
 
         {isCzech ?
-          <h2 className="guess-word">{czword}</h2>
+          <h2 className="guess-word">{czword && czword.toLowerCase()}</h2>
           :
-          <h2 className="guess-word" onClick={handleSpeakWord}>{enword}{" "}
-            { isAudio ? <FaVolumeUp className="icon-volume" title="Repeat speak" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
+          <h2 className="guess-word" onClick={handleSpeakWord}>
+            {enword && (
+              <>
+                {enword.toLowerCase()}{" "}
+                {isAudio ? (
+                  <FaVolumeUp className="icon-volume" title="Repeat speak" />
+                ) : (
+                  <IoVolumeMute className="icon-volume" title="Sound icon" />
+                )}
+              </>
+            )}
           </h2>
         }
 
@@ -242,7 +251,9 @@ export const Question = (
         {(resultState === "dont-know" || resultState === "incorrect") && (
           <div className="answer">
             <p className="answer__label">Correct answer</p>
-            <div className="answer__content correct">{isCzech ? enword : czword}</div>
+            <div className="answer__content correct">
+              {isCzech ? (enword && enword.toLowerCase()) : (czword && czword.toLowerCase())}
+            </div>
           </div>
         )}
       </div>

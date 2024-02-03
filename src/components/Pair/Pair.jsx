@@ -56,8 +56,8 @@ export const Pair = ({
   const [isIncorrectWord, setIsIncorrectWord] = useState(false);
   const [selectedFalseId, setSelectedFalseId] = useState(0);
 
-  const firstLetterCze = czword && czword[0];
-  const firstLetterEng = enword && enword[0];
+  const firstLetterCze = czword ? czword.toLowerCase()[0] : '';
+  const firstLetterEng = enword ? enword.toLowerCase()[0] : '';
 
   useEffect(() => {
     if (currentWord && uniqueWords) {
@@ -229,10 +229,19 @@ export const Pair = ({
         </div>
 
         {isCzech ?
-          <h2 className="h2">{czword}</h2>
+          <h2 className="h2">{czword && czword.toLowerCase()}</h2>
           :
-          <h2 className="h2" onClick={handleSpeakWord}>{enword}{" "}
-            { isAudio ? <FaVolumeUp className="icon-volume" title="Repeat speak" /> : <IoVolumeMute className="icon-volume" title="Sound icon" /> }
+          <h2 className="h2" onClick={handleSpeakWord}>
+          {enword && (
+            <>
+              {enword.toLowerCase()}{" "}
+              {isAudio ? (
+                <FaVolumeUp className="icon-volume" title="Repeat speak" />
+              ) : (
+                <IoVolumeMute className="icon-volume" title="Sound icon" />
+              )}
+            </>
+          )}
           </h2>
         }
 

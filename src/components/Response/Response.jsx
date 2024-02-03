@@ -21,7 +21,7 @@ export const Response = ({
       `}
       onClick={(handleClick)}
     >
-      <h3 className="response__word">{isCzech ? enword : czword}</h3>
+      <h3 className="response__word">{isCzech ? (enword && enword.toLowerCase()) : (czword && czword.toLowerCase())}</h3>
     </div>
   );
 }
