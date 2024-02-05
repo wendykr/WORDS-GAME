@@ -7,6 +7,7 @@ import { NavigationArrows } from '../NavigationArrows/NavigationArrows';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useAuthentication } from '../../context/AuthenticationContext';
 
 import { MdHelpCenter } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa';
@@ -26,6 +27,7 @@ export const Card = (
   const { updateProgressbar, progressbar, isTurned, setIsTurned,
   } = useWordsSetup();
   const { speakWord } = useVoiceSpeak();
+  const { isToken } = useAuthentication();
 
   const [isFavorite, setIsFavorite] = useState();
 
@@ -51,6 +53,25 @@ export const Card = (
       }, 1000);
     }
   }, [repeat]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+
+      if (event.key === 'ArrowRight') {
+        handleClickNext();
+      }
+
+      if (event.key === 'ArrowLeft') {
+        handleClickPrev();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentWordIndex]);
 
   useEffect(() => {
 
@@ -155,24 +176,14 @@ export const Card = (
     speakWord(enword);
   }
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
+  const handleFavorite = () => {
+    alert('You need to log in to change your favorite.');
+  }
 
-      if (event.key === 'ArrowRight') {
-        handleClickNext();
-      }
-
-      if (event.key === 'ArrowLeft') {
-        handleClickPrev();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [currentWordIndex]);
+  const favoriteIcon = isToken ? 
+  <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
+  :
+  <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={handleFavorite} title={`${isFavorite ? 'Favorite' : 'Unfavorite'}`} />
 
   return (
     <div className="card">
@@ -201,7 +212,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
+                {favoriteIcon}
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >
@@ -224,7 +235,7 @@ export const Card = (
                   <IoVolumeMute className="icon-volume" title="Sound icon" />
                   )
                 }
-                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
+                {favoriteIcon}
               </span>
             </div>
             <div className="container--words" onClick={handleClick} >

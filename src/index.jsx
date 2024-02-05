@@ -12,6 +12,7 @@ import { WordsSetupProvider } from './context/WordsSetupContext';
 import { SettingsProvider } from './context/SettingsContext';
 import { TemporaryProvider } from './context/TemporaryContext';
 import { VoiceSpeakProvider } from './context/VoiceSpeakContext.jsx';
+import { AuthenticationProvider } from './context/AuthenticationContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -45,11 +46,13 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <VoiceSpeakProvider>
     <TemporaryProvider>
-      <SettingsProvider>
-        <WordsSetupProvider>
-          <RouterProvider router={router} />
-        </WordsSetupProvider>
-      </SettingsProvider>
+      <AuthenticationProvider>
+        <SettingsProvider>
+          <WordsSetupProvider>
+            <RouterProvider router={router} />
+          </WordsSetupProvider>
+        </SettingsProvider>
+      </AuthenticationProvider>
     </TemporaryProvider>
   </VoiceSpeakProvider>
 );

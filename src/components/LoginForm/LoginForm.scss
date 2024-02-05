@@ -1,0 +1,33 @@
+.loginForm {
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
+
+  &__row {
+    margin: 0;
+  }
+}
+
+.icon-login, .icon-logout {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.icon-login {
+  fill: #ff0000;
+
+  &:hover {
+    fill: #f44f44;
+  }
+}
+
+.icon-logout {
+  fill: #008000;
+
+  &:hover {
+    fill: #00a200;
+  }
+}

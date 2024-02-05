@@ -7,6 +7,7 @@ import { Button } from '../Button/Button';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useAuthentication } from '../../context/AuthenticationContext';
 
 import { MdHelpCenter } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa';
@@ -30,6 +31,7 @@ export const Question = (
   } = useWordsSetup();
   const { isShow, setIsShow, isCzech, isAudio } = useSettings();
   const { speakWord } = useVoiceSpeak();
+  const { isToken } = useAuthentication();
   const refInput = useRef(null);
 
   const [isFavorite, setIsFavorite] = useState();
@@ -184,6 +186,10 @@ export const Question = (
     setIsSecondEnter(prevState => !prevState);
   }
 
+  const handleFavorite = () => {
+    alert('You need to log in to change your favorite.');
+  }
+
   return (
     <div className="question">
       <div className="question__hidden">
@@ -193,11 +199,20 @@ export const Question = (
         <ProgressBar line={progressbar} />
       </div>
       <div className="question__body">
-        <FaStar
-          className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
-          onClick={() => updateFavorite(id)}
-          title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`}
-        />
+        {
+          isToken ?
+            <FaStar
+              className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
+              onClick={() => updateFavorite(id)}
+              title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`}
+            />
+          :
+            <FaStar
+              className={`icon-star ${isFavorite ? "icon-star--favorite" : ""}`}
+              onClick={handleFavorite}
+              title={`${isFavorite ? 'Favorite' : 'Unfavorite'}`}
+            />
+        }
 
         {isCzech ?
           <h2 className="guess-word">{czword && czword.toLowerCase()}</h2>
