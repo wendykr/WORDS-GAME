@@ -1,13 +1,15 @@
-import Reac, { useState } from 'react';
+import React from 'react';
 import './LoginBar.scss';
 import { LoginForm } from '../LoginForm/LoginForm';
+import { useSettings } from '../../context/SettingsContext';
 import { useAuthentication } from '../../context/AuthenticationContext';
 
 import { FaUserTimes } from 'react-icons/fa';
 import { FaUserCheck } from 'react-icons/fa';
 
 export const LoginBar = () => {
-  const { isToken, setIsToken, isShowForm, setIsShowForm } = useAuthentication();
+  const { isShowForm, setIsShowForm } = useSettings();
+  const { isToken, setIsToken } = useAuthentication();
 
   const handleShowForm = () => {
     setIsShowForm(true);
@@ -20,13 +22,14 @@ export const LoginBar = () => {
   };
 
   return (
-    <div className={`loginBar ${isShowForm ? 'justify-center' : 'justify-end  absolute'}`}>
-      {isShowForm && <LoginForm />}
-      <div className="login__icon">
-      { isToken ? <FaUserCheck className="icon-logout" onClick={handleLogout} title="Logout" /> :
-        !isShowForm && <FaUserTimes className="icon-login" onClick={handleShowForm} title="Login" />
-      }
+    <div className="loginBar">
+      <div className={`loginBar__container ${isShowForm ? 'justify-center' : 'justify-end'}`}>
+        { isShowForm && <LoginForm /> }
+        <div className="login__icon">
+        { isToken ? <FaUserCheck className="icon-logout" onClick={handleLogout} title="Logout" /> :
+          !isShowForm && <FaUserTimes className="icon-login" onClick={handleShowForm} title="Login" /> }
+        </div>
       </div>
     </div>
-  )
+  );
 }

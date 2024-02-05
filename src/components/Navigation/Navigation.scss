@@ -33,7 +33,7 @@
 .show-navigation {
   display: block;
   position: absolute;
-  top: 4.375rem;
+  top: 16%;
   right: 0;
   z-index: 1;
 
@@ -42,6 +42,10 @@
     position: relative;
     top: 0;
   }
+}
+
+.top {
+  top: 30.8%;
 }
 
 .activeLink {

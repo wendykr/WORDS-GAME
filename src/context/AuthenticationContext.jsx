@@ -5,7 +5,6 @@ export const AuthenticationContext = createContext();
 export const AuthenticationProvider = ({children}) => {
 
   const [isToken, setIsToken] = useState(false);
-  const [isShowForm, setIsShowForm] = useState(false);
 
   isToken && sessionStorage.setItem('token',JSON.stringify(isToken));
 
@@ -19,8 +18,7 @@ export const AuthenticationProvider = ({children}) => {
 
   return (
     <AuthenticationContext.Provider value={{
-      isToken, setIsToken,
-      isShowForm, setIsShowForm
+      isToken, setIsToken
     }}>
       {children}
     </AuthenticationContext.Provider>

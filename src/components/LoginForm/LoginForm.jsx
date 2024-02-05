@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './LoginForm.scss';
 import { supabase } from '../../supabaseClient';
+import { useSettings } from '../../context/SettingsContext';
 import { useAuthentication } from '../../context/AuthenticationContext';
 
 export const LoginForm = () => {
-  const { setIsToken, setIsShowForm } = useAuthentication();
+  const { setIsShowForm } = useSettings();
+  const { setIsToken } = useAuthentication();
 
   const [formData, setFormData] = useState({
     email: '', password: ''
@@ -27,7 +29,10 @@ export const LoginForm = () => {
           password: formData.password,
         })
 
-      if (error) throw error
+      if (error) {
+        setFormData((prevFormData) => ({ ...prevFormData, password: '' }));
+        throw error;
+      }
       setIsToken(data);
       setFormData({ email: '', password: '' });
       setIsShowForm(false);
@@ -44,14 +49,14 @@ export const LoginForm = () => {
   return (
     <form className="loginForm">
       <div className="loginForm__row">
-        <input type="email" name="email" value={formData.email} placeholder="e-mail" onChange={handleChange} />
+        <input className="loginForm__input" type="email" name="email" value={formData.email} placeholder="e-mail" onChange={handleChange} />
       </div>
       <div className="loginForm__row">
-        <input type="password" name="password" value={formData.password} placeholder="password" onChange={handleChange} />
+        <input className="loginForm__input "type="password" name="password" value={formData.password} placeholder="password" onChange={handleChange} />
       </div>
       <div className="loginForm__row">
         <button className="loginForm__button" onClick={handleLogin}>Login</button> <button className="loginForm__button" onClick={handleCloseForm}>Close</button>
       </div>
     </form>
   );
-};
+}

@@ -1,6 +1,11 @@
 .loginBar {
-  margin: 0;
-  padding: 8px;
+  background-color: #e6e6e6;
+}
+.loginBar__container {
+  margin: 0 auto;
+  padding: 0.5rem;
+  max-width: 87.5rem;
+  min-height: 2.525rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,12 +16,5 @@
 }
 
 .justify-center {
-  background-color: #e6e6e6;
   justify-content: center;
-}
-
-.absolute {
-  position: absolute;
-  top: 0;
-  right: 0;
 }/*# sourceMappingURL=LoginBar.css.map */

@@ -15,6 +15,7 @@ export const Navigation = () => {
 
   const { setCategoryValue,
     setSetupCountWord,
+    isShowForm
   } = useSettings();
 
   const handleCloseMenu = () => {
@@ -35,7 +36,7 @@ export const Navigation = () => {
           <LuAlignJustify className="icon-menu" title="Menu icon" />
         )}
       </div>
-      <div className={`navigation__list ${isOpen ? 'show-navigation' : ''}`}>
+      <div className={`navigation__list ${isOpen ? isShowForm ? 'show-navigation top' : 'show-navigation' : ''}`}>
         <NavLink to="/" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Home </NavLink>
         <NavLink to="/flashcards" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Flashcards </NavLink>
         <NavLink to="/quiz" className={ ({isActive}) => `${isActive ? 'navigation__list--link activeLink' : 'navigation__list--link nonActiveLink'} ${isOpen && ''}` } onClick={handleCloseMenu} > Quiz </NavLink>
