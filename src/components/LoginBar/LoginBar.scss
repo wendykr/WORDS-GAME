@@ -1,0 +1,21 @@
+.loginBar {
+  background-color: #e6e6e6;
+
+  &__container {
+    margin: 0 auto;
+    padding: 0.5rem;
+    max-width: 87.5rem;
+    min-height: 2.525rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.justify-center {
+  justify-content: center;
+}

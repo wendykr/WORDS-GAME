@@ -8,6 +8,7 @@ import { Response } from '../../components/Response/Response';
 import { useWordsSetup } from '../../context/WordsSetupContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useVoiceSpeak } from '../../context/VoiceSpeakContext';
+import { useAuthentication } from '../../context/AuthenticationContext';
 
 import { MdHelpCenter } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa';
@@ -44,6 +45,7 @@ export const Pair = ({
     isShow, setIsShow,
     isCzech, isAudio } = useSettings();
   const { speakWord } = useVoiceSpeak();
+  const { isToken } = useAuthentication();
   const [isFavorite, setIsFavorite] = useState();
   const [isDisplay, setIsDisplay] = useState(false);
 
@@ -206,6 +208,10 @@ export const Pair = ({
     setIsShow(true);
   }
 
+  const handleFavorite = () => {
+    alert('You need to log in to change your favorite.');
+  }
+
   return (
     <div className="pair">
       <div className="pair__hidden">
@@ -224,7 +230,12 @@ export const Pair = ({
               </span>
           </span>
           <span className="icons--left">
-            <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
+            {
+              isToken ?
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={() => updateFavorite(id)} title={`${isFavorite ? 'Remove to favorite' : 'Add to favorite'}`} />
+              :
+                <FaStar className={`icon-star ${isFavorite ? 'icon-star--favorite' : ''}`} onClick={handleFavorite} title={`${isFavorite ? 'Favorite' : 'Unfavorite'}`} />
+            }
           </span>
         </div>
 

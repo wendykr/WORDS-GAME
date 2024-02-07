@@ -5,12 +5,14 @@ import { useTemporary } from './context/TemporaryContext';
 import { useSettings } from './context/SettingsContext';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
+import { LoginBar } from './components/LoginBar/LoginBar';
 
 function App() {
 
   const {
     setSetupCountWord,
     setIsShow,
+    setIsShowForm,
     setIsCzech,
     setIsFavorite,
     setIsAudio,
@@ -59,10 +61,12 @@ function App() {
     setIsTemporaryFavorite();
     setIsTemporaryAudio();
     setTemporaryAllWords();
+    setIsShowForm(false);
   }, [path]);
 
   return (
     <>
+      <LoginBar />
       {!isHeaderHidden && <Header />}
       <Outlet />
       <Footer />
